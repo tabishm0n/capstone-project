@@ -1,5 +1,6 @@
 package com.capstoneproject.servlet;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -8,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import com.capstoneproject.dao.UserDao;
 import com.capstoneproject.model.User;
@@ -33,38 +33,44 @@ public class UserLogin extends HttpServlet{
 		}
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
 		
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		String city = request.getParameter("city");
-		String street_address = request.getParameter("street_address");
-		String first_name = request.getParameter("first_name");
-		String last_name = request.getParameter("last_name");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		String user_type = request.getParameter("user_type"); 
-		String payment = request.getParameter("payment");
-		
 		User us = new User();
 		us.setLogin(login);
 		us.setPassword(password);
-		us.setCity(city);
-		us.setStreet_address(street_address);
-		us.setFirst_name(first_name);
-		us.setLast_name(last_name);
-		us.setEmail(email);
-		us.setPhone(phone);
-		us.setUser_type(user_type);
-		us.setPayment(payment);
-		
 		try {
-			usDao.registerUser(us);
+			if (usDao.verifyUser(us)) {
+				int type = usDao.verifyType(us);
+				if(type==1) {
+					request.setAttribute("login", login);
+					request.getRequestDispatcher("./jsp/UserHomepage.jsp").forward(request, response);
+			   
+				}else if(type==2) {
+					request.setAttribute("login", login);
+					request.getRequestDispatcher("./jsp/RestaurantHomepage.jsp").forward(request, response);
+			   
+				}else if(type==3) {
+					request.setAttribute("login", login);
+					request.getRequestDispatcher("./jsp/DeliveryHomepage.jsp").forward(request, response);
+			   
+				}
+				 } else {
+				request.setAttribute("err", "Invalid Username or Password");
+				request.getRequestDispatcher("./jsp/Login.jsp").forward(request, response);
 			}
-		catch(Exception e) {
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("UserInfo.jsp");
-		}
+}
 		
 }

@@ -61,7 +61,7 @@ public void init() {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("UserInfo.jsp");
+		response.sendRedirect("./jsp/UserInfo.jsp");
 		
 }
 }

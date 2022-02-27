@@ -1,7 +1,7 @@
 package com.capstoneproject.dao;
 
 
-import java.sql.Connection;
+import java.sql.*;
 import java.util.Date;
 
 import com.capstoneproject.model.User;
@@ -23,7 +23,7 @@ public class UserDao {
 		try  {
 			Date date = new Date();
 			java.sql.Date sqldate = new java.sql.Date(date.getTime());
-			PreparedStatement ps = con.prepareStatement(INSERT_USERS_SQL);
+			PreparedStatement ps = this.con.prepareStatement(INSERT_USERS_SQL);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getCity());
@@ -57,14 +57,16 @@ public class UserDao {
 			}
 		}
 	}
-	public boolean verifyUser(User user) {
+	public boolean verifyUser(User user) throws ClassNotFoundException{
 		boolean result = false;
-		String READ_USERS_SQL ="Select * FROM user_table WHERE login=? AND password=?";
+		String READ_USERS_SQL ="Select * FROM user_table WHERE login=? AND password=?;";
 		try  {
-			PreparedStatement ps = con.prepareStatement(READ_USERS_SQL);
+			PreparedStatement ps = this.con.prepareStatement(READ_USERS_SQL);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
 			System.out.println(ps);
+			ResultSet rs = ps.executeQuery();
+            result = rs.next();
 			
 		}catch (SQLException e) {
 			printSQLException(e);
@@ -77,7 +79,7 @@ public class UserDao {
 		String READ_TYPE_SQL ="Select user_type FROM user_table WHERE login=? AND password=?";
 		
 		try {
-			PreparedStatement ps1 = con.prepareStatement(READ_TYPE_SQL);
+			PreparedStatement ps1 = this.con.prepareStatement(READ_TYPE_SQL);
 			ps1.setString(1, user.getLogin());
 			ps1.setString(2, user.getPassword());
 			ResultSet rs1 = ps1.executeQuery();
