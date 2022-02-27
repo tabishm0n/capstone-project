@@ -7,7 +7,7 @@
 <title>Welcome Page</title>
 <style><%@include file="./jsp/css/homepage.css"%></style>
 <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
-
+<%-- --%>
 </head>
 <body>
   <header>

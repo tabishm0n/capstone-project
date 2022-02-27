@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%-- --%>
 <h1> User registered - All Good!  </h1>
 <a href="./jsp/Login.jsp">Go Login</a>
 

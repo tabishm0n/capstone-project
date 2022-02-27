@@ -10,7 +10,7 @@
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
-
+<%-- --%>
 <section id='home'>
   <div class='content'>Welcome back deliverer, <%= username%></div>
 

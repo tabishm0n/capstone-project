@@ -6,9 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Header</title>
-<link href="homepagecss.css" rel="stylesheet">
-
-
+<style><%@include file="../css/homepage.css"%></style>
+<%-- --%>
 </head>
  
 <body>

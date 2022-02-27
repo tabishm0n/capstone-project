@@ -9,7 +9,7 @@ public class DbCon {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException{
         if(connection == null){
             Class.forName("org.postgresql.Driver");
-            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/capstoneproject","tabishmon","123");
+            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/capstoneproject","postgres","123");
             System.out.print("connected");
         }
         return connection;

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%-- --%>
 <div align="center">
   <h1>Student Register Page</h1>
   <form action="<%= request.getContextPath() %>/Register"  method="post">
