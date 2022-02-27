@@ -64,7 +64,7 @@ public class UserLogin extends HttpServlet{
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("UserInfo.jsp");
 		}
 		
 }
