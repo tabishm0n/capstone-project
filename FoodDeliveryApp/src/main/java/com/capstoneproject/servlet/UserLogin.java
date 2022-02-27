@@ -25,10 +25,10 @@ public class UserLogin extends HttpServlet{
 		try {
 			usDao = new UserDao(DbCon.getConnection());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}
