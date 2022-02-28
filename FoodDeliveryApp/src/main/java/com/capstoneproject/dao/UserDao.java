@@ -15,7 +15,7 @@ public class UserDao {
 	public UserDao(Connection con) {
 		this.con = con;
 	}
-	public int registerUser(User user) {
+	public int registerUser(User user) throws ClassNotFoundException{
 		String INSERT_USERS_SQL = "INSERT INTO user_table " + "(login,password,city,"
 				+ "street_address,first_name,last_name,email,phone,user_type,payment,"
 				+"registeration_date) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -73,7 +73,7 @@ public class UserDao {
 		}
 		return result;
 	}
-	public int verifyType(User user) {
+	public int verifyType(User user) throws ClassNotFoundException{
 		
 		int result = 0;
 		String READ_TYPE_SQL ="Select user_type FROM user_table WHERE login=? AND password=?";

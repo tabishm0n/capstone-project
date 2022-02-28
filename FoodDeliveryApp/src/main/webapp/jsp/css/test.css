@@ -1,0 +1,153 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:500&display=swap);
+
+*{
+	margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+font-family: "Montserrat", sans-serif;
+}	
+#navArea {
+display: flex;
+justify-content: space-between;
+padding: 0px 10%;
+position: fixed;
+width: 100%;
+top: 0px;
+background: white;
+transition: background 0.5s;
+}
+
+#navArea.is-sticky {
+background: #000;
+}
+
+#navArea.is-sticky a {
+color:#fff;
+}
+
+#navArea .logo img {
+height: 84px;
+transition: height 0.5s;
+}
+#navArea.is-sticky .logo img {
+height:64px;
+}
+
+.container1{
+	display:flex;
+	flex-direction:row;
+  background-color: #313131;
+  padding: 10px;
+  margin: 0px;
+  justify-content: space-between;
+
+}img{
+  width: 120px;
+}
+.items-4{
+	color: #fff;
+  align-self: center;
+}
+.items-5 img{
+  width: 70px;
+}
+.search{
+  align-self: center;
+}
+.items-2{
+  margin-left: 5%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  align-self: flex-start;
+}
+.items-3,.items-5{display:flex;
+  color: #fff;
+  font-size: 35px;
+  padding: 20px;
+  margin: 10px;
+}
+.items-3{flex: 1;background-color: #1f1f1f;border-radius: 25px;
+}
+input{background-color: #181a1b;
+  width: 100%;
+  padding: 0;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+}
+input[type="text" i] {
+  padding: 1px 2px;
+}input:focus {
+  outline-width: 0;
+}
+
+.space {
+  width: 200px;
+}.space_16 {
+  width: 16px;
+}
+.container2{
+  display: flex; 
+  
+}.leftcol{
+  margin-left: 50px;
+  width: 350px;
+}.rightcol{
+  
+  display:flex;flex: 1;
+  justify-content: center;
+}
+.rightmenu{
+  display:flex;flex: 1;
+  justify-content: space-around;
+}
+.left{display:flex;flex: 1;
+  background-color: #008cff;
+  color: #fff;
+  font-size: 35px;
+  padding: 20px;
+  margin: 10px;
+
+}
+.right{ display: flex;
+  justify-content: center;
+  justify-content: center;
+  background-color: #00ff15;
+  color: #fff;
+  font-size: 35px;
+  padding: 20px;
+  margin: 10px;
+
+}
+
+.rbanner img{ display: block;
+  width: 25vw;
+  object-fit: cover;  height: 128px;
+
+}
+.right{
+  display: flex;
+  flex-direction: column;
+}
+.binfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.bname {display: flex;
+  align-self: flex-start;
+}
+.brating{
+  display: flex;
+  align-self: flex-end;
+}
+
+
