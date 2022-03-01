@@ -8,12 +8,12 @@ String error=(String)request.getAttribute("err");
 <head>
     <meta charset="ISO-8859-1">
     <title>Insert title here</title>
-    
-    <link href="styles.css" rel="stylesheet">
+    <style><%@include file="./css/styles.css"%></style>
+
 </head>
 
 <body>
-<%-- --%>
+
     
     <div class="login">
 	<h1>Login</h1>
