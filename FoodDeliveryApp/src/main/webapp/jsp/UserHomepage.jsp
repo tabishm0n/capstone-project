@@ -22,13 +22,13 @@
       <div id="rightcol">
       
       <div class="rightmenu">
-        <div class="right-1 right">
+        <div class="right-1 right"><a href="./jsp/IndianCurry.jsp">
           <div class="rbanner"><img src="./jsp/images/food1.png" alt=""></div>
           <div id="binfo">
             <div class="bname"><b>Restaurant Name</b></div>
             <div class="brating">4.6</div>
           </div>
-          
+          </a>
         </div>
         <div class="right-2 right">
           <div class="rbanner"><img src="./jsp/images/food2.png" alt=""></div>
