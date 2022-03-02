@@ -45,15 +45,15 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			if (usDao.verifyUser(us)) {
 				int type = usDao.verifyType(us);
 				if(type==1) {
-					request.setAttribute("login", login);
+					request.getSession().setAttribute("login", login);
 					request.getRequestDispatcher("./jsp/UserHomepage.jsp").forward(request, response);
 			   
 				}else if(type==2) {
-					request.setAttribute("login", login);
+					request.getSession().setAttribute("login", login);
 					request.getRequestDispatcher("./jsp/RestaurantHomepage.jsp").forward(request, response);
 			   
 				}else if(type==3) {
-					request.setAttribute("login", login);
+					request.getSession().setAttribute("login", login);
 					request.getRequestDispatcher("./jsp/DeliveryHomepage.jsp").forward(request, response);
 			   
 				}

@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     
+     <%@page import="com.capstoneproject.connection.DbCon"%>
+<%@page import="com.capstoneproject.dao.RestDao"%>
+<%@page import="com.capstoneproject.model.*"%>
+<%@page import="java.util.*"%>
+<%
+RestDao rs = new RestDao(DbCon.getConnection());
+List<Rest> rests = rs.getAllRests();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>User Homepage</title>
-
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
@@ -19,8 +26,8 @@
         <div class="left-4 left">4</div>
         <div class="left-5 left">5</div>
       </div>
-      <div id="rightcol">
       
+      <div id="rightcol">
       <div class="rightmenu">
         <div class="right-1 right"><a href="./jsp/IndianCurry.jsp">
           <div class="rbanner"><img src="./jsp/images/food1.png" alt=""></div>
