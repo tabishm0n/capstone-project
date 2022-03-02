@@ -11,7 +11,7 @@
 </head>
 <body>
   <header>
-      <a class="logo" href="/"><img src="./jsp/images/logo-badge.png" alt="logo" height="80px" width="100px"></a>
+      <a class="logo" href="/"><img src="<%=request.getContextPath()%>/resources/logo-badge.png" alt="logo" height="80px" width="100px"></a>
       <nav>
           <ul class="nav__links">
               <li><a href="#">Services</a></li>

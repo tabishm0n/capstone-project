@@ -195,6 +195,10 @@ input[type="text" i] {
   width: 200px;
 }.space_16 {
   width: 16px;
+}.space_8 {
+  width: 8px;
+}.space_12 {
+  width: 12px;
 }
 .container2{
   display: flex; 
@@ -220,7 +224,6 @@ input[type="text" i] {
 
 }
 .right{ display: flex;
-height:254px;
   justify-content: center;
   justify-content: center;
   background-color: #00ff15;
@@ -249,6 +252,11 @@ height:254px;
 }
 .height{
   height: 30px;
+}
+.height_16{
+  height: 16px;
+}.height_12{
+  height: 12px;
 }
 
 .rbanner img{ display: block;
@@ -380,6 +388,167 @@ li{list-style-type: none;
   height: 20px;flex: none;
   fill: rgb(255, 255, 255);
 }
+.cartcontainer {    align-items: stretch;
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+}
+.cartl{background-color: #144618;
+  flex: 2;
+  margin-top: 2%;
+  margin-left: 1%;
+  box-sizing: border-box;
+}
+.cartm{background-color: aqua;
+  flex: 1;
+  padding: 28rem 0px;
+  box-sizing: border-box;
+}
+.cartr{background-color: crimson;
+  padding: 80px 0px;
+  width: calc(33.3333% - 40px);
+  flex: 2;
+  box-sizing: border-box;
+}
+.ctitle{
+  flex-direction: row;
+  display: flex;
+}
+.cheader{
+  color: rgb(232, 230, 227);
+  line-height: 28px;
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  flex-grow: 1;
+}
+.contli{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
+}
+.citem{
+  color: rgb(232, 230, 227);
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 500;
 
+}
+.cfprice{
+  flex-grow: 0;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  color: rgb(127, 252, 192);
+}
+.ctprice{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: rgb(179, 172, 162);
+  line-height: 20px;
+  margin-top: 4px;
+}
+span{
+  text-decoration: line-through;
+}
+.cartorder{
+  position: sticky;
+  top: 24px;
+}
+.placeorder{font-size: 18px;
+  font-weight: normal;
+  line-height: 28px;
+  margin-top: 32px;
+}
+.orderbutton{
+  background-color: rgb(3, 109, 58);
+  color: rgb(232, 230, 227);
+  border-radius: 5px;
+  min-height: 56px;
+  font-size: 18px;
+  padding: 16px 0;
+  justify-content: center;
+  line-height: 24px;
+  font-weight: 500;
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  border:none;
+}
+.poli{
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+.poli-items{display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.poli-items-text{
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  color: rgb(232, 230, 227);
+}
+.tip{display: flex;
+  flex-direction: column;
+}
+.tip2{
+  display: flex;
+}
+.tiptitle{
+  flex: 1;
+  align-items: center;
+  display: flex;
+}
+.tiptext{color: rgb(232, 230, 227);
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.tiptable{
+  overflow-x: auto;
+  margin-bottom: -16px;
+  padding: 16px 0;
+  white-space: nowrap;
+  display: flex;
+  overflow-y: hidden;
+}
+.tipbuttonclass{
+  position: relative;
+}
+.tipbutton{
+  background-color: rgb(24, 26, 27);
+  color: rgb(232, 230, 227);
+  border-radius: 500px;
+  padding: 0px 12px;
+  height: 36px;
+  width: fit-content;
+  line-height: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border:none;
 
+}
+.pototal{color: rgb(232, 230, 227);
+  line-height: 28px;
+  font-size: 20px;
+  justify-content: space-between;
+  font-weight: 500;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+}
+
+.divider{
+  background-color: rgb(40, 44, 45);
+  margin: 16px 0px;
+  border: none;
+  height: 1px;
+}

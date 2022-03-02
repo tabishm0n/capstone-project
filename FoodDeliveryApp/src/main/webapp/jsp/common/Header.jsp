@@ -26,7 +26,7 @@
         <img src="<%=request.getContextPath()%>/resources/profile.png" alt=""></button>
         <ul class="dropdown-menu">
           <li>Profile</li>
-          <li>Cart</li>
+          <li><a href="<%=request.getContextPath()%>/jsp/Cart.jsp">Cart</a></li>
           <li>Orders</li>
           <li><li><a href="<%=request.getContextPath()%>/Logout">Log Out</a></li></li>
         </ul>

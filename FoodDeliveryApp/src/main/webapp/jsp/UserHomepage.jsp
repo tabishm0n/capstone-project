@@ -31,7 +31,7 @@ List<Rest> rests = rs.getAllRests();
           if(!rests.isEmpty()){
         	  for(Rest r:rests){%>
       
-        <div class="right-1 right"><a href="./jsp/UserRestaurantPage.jsp">
+        <div class="right-1 right"><a href="<%=request.getContextPath()%>/jsp/UserRestaurantPage.jsp">
           <div class="rbanner"><img src="<%=request.getContextPath()%>/resources/food1.png" alt=""></div>
           <div id="binfo">
             <div class="bname"><b><%= r.getRestaurant_name() %></b></div>
