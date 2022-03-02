@@ -4,10 +4,8 @@
 <%@page import="com.capstoneproject.dao.RestDao"%>
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
-<%
-RestDao rs = new RestDao(DbCon.getConnection());
+<%RestDao rs = new RestDao(DbCon.getConnection());
 List<Rest> rests = rs.getAllRests();
-
 %>
 <!DOCTYPE html>
 <html>
@@ -29,115 +27,25 @@ List<Rest> rests = rs.getAllRests();
       
       <div id="rightcol">
       <div class="rightmenu">
-        <div class="right-1 right"><a href="./jsp/IndianCurry.jsp">
-          <div class="rbanner"><img src="./jsp/images/food1.png" alt=""></div>
+       <%
+          if(!rests.isEmpty()){
+        	  for(Rest r:rests){%>
+      
+        <div class="right-1 right"><a href="./jsp/UserRestaurantPage.jsp">
+          <div class="rbanner"><img src="<%=request.getContextPath()%>/resources/food1.png" alt=""></div>
           <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
+            <div class="bname"><b><%= r.getRestaurant_name() %></b></div>
             <div class="brating">4.6</div>
           </div>
           </a>
         </div>
-        <div class="right-2 right">
-          <div class="rbanner"><img src="./jsp/images/food2.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        <div class="right-3 right">
-          <div class="rbanner"><img src="./jsp/images/food3.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
+         <%}
+          }
+          %>
         
       </div>
-      <div class="rightmenu">
-        <div class="right-1 right">
-          <div class="rbanner"><img src="./jsp/images/food1.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
         </div>
-        <div class="right-2 right">
-          <div class="rbanner"><img src="./jsp/images/food2.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        <div class="right-3 right">
-          <div class="rbanner"><img src="./jsp/images/food3.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        
-      </div>
-      <div class="rightmenu">
-        <div class="right-1 right">
-          <div class="rbanner"><img src="./jsp/images/food1.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        <div class="right-2 right">
-          <div class="rbanner"><img src="./jsp/images/food2.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        <div class="right-3 right">
-          <div class="rbanner"><img src="./jsp/images/food3.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        
-      </div>
-      <div class="rightmenu">
-        <div class="right-1 right">
-          <div class="rbanner"><img src="./jsp/images/food1.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        <div class="right-2 right">
-          <div class="rbanner"><img src="./jsp/images/food2.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        <div class="right-3 right">
-          <div class="rbanner"><img src="./jsp/images/food3.png" alt=""></div>
-          <div id="binfo">
-            <div class="bname"><b>Restaurant Name</b></div>
-            <div class="brating">4.6</div>
-          </div>
-          
-        </div>
-        
-      </div>
-      
-    </div>
+      	 
     </div>
 </body>
 

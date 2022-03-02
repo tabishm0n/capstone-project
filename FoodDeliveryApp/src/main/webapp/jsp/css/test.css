@@ -207,7 +207,7 @@ input[type="text" i] {
   display:flex;flex: 1;
   justify-content: center;
 }
-.rightmenu{
+.rightmenu{flex-wrap: wrap;
   display:flex;flex: 1;
   justify-content: space-around;
 }
@@ -220,6 +220,7 @@ input[type="text" i] {
 
 }
 .right{ display: flex;
+height:254px;
   justify-content: center;
   justify-content: center;
   background-color: #00ff15;
