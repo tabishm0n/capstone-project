@@ -62,7 +62,30 @@ public class DishDao {
 		}
 		return items;
 		
-		
 	
 } 
+	public float getTotalCartPrice(ArrayList<Cart> cartList){
+		float sum =0 ;
+		try {
+			if(cartList.size()>0) {
+			for(Cart item:cartList) {
+				String READ_PRICE_SQL = "SELECT price FROM menu_item WHERE menuitem_id=?;";
+				ps = this.con.prepareStatement(READ_PRICE_SQL);
+				ps.setInt(1,item.getMenuitem_id());
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					sum+=rs.getFloat("price")*item.getQuantity();
+					
+				}
+			}
+			}
+				
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return sum;
+		
+	}
 }

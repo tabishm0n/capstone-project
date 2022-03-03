@@ -1,18 +1,5 @@
-<%@page import="com.capstoneproject.connection.DbCon"%>
-<%@page import="com.capstoneproject.dao.DishDao"%>
-<%@page import="com.capstoneproject.model.Cart"%>
-<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<% ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
-List<Cart> cartProduct = null;
-if(cart_list != null){
-	DishDao cDao = new DishDao(DbCon.getConnection());
-	cartProduct = cDao.getCartItems(cart_list);
-	request.setAttribute("cart_list",cart_list);
-	
-}
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,22 +10,22 @@ if(cart_list != null){
 <body>
 <div class="cartcontainer">
 <div class="cartl">
-  
   <div class="ctitle">
     <h3 class="cheader">Your items</h3>
     </div>
   <div class="height_16"></div>
   <ul>
-    
     <% if(cart_list != null)
     	{
     	for (Cart c:cartProduct){%>
     		<li class="coitemli">
     		<div class="selectiondropdown">
             <div class="selectiondropdown2">
-              <select class="select">
+            
+              <select class="select" name="ddquantity" onchange="location = this.value;">
+                <option class="options" selected="selected" ></option>
                 <option value="0" class="options">Remove</option>
-                <option value="1" class="options" selected="selected">1</option>
+                <option value="<%=request.getContextPath()%>/Quantity" class="options">1</option>
                 <option value="2" class="options">2</option>
                 <option value="3" class="options">3</option>
                 <option value="4" class="options">4</option>
@@ -49,6 +36,7 @@ if(cart_list != null){
                 <option value="9" class="options">9</option>
                 <option value="10" class="options">10</option>
                 </select>
+                
                 <div class="arrowselector">
                   <div class="arrowselector2">
                     <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -59,7 +47,6 @@ if(cart_list != null){
                 </div>
               </div>
             </div>
-            
             <a class="restlinkcart" href="">
               <div class="contli">
                 <div class="contli2">
@@ -74,19 +61,11 @@ if(cart_list != null){
     		 </li>
     	<%}
     }
-    
     %>
-      
-   
   </ul>
-
-
-
 </div>
 <div class="cartm">
-  
 </div>
-
   <div class="cartr">
     <div class="cartorder">
       <div class="placeorder">
@@ -111,7 +90,6 @@ if(cart_list != null){
                   <div class="poli-items-text">Delivery fee</div>
                   <div class="spacer _8">
                   </div>
-                 
                 </div>
                 <div class="poli-items-text">
                   <span class="">$1.99</span>
@@ -124,14 +102,12 @@ if(cart_list != null){
                   <div class="poli-items-text">Service fee</div>
                   <div class="spacer _8">
                   </div>
-                 
                 </div>
                 <div class="poli-items-text">
                   <span class="">$2.19</span>
                 </div>
               </li>
               <li class="height_12">
-
               </li>
               <li class="poli">
                 <div class="poli-items">
@@ -163,13 +139,9 @@ if(cart_list != null){
                         </div>
                         <hr class="divider">
                         <div class="pototal">
-                          <div>Total</div>$25.47</div>
+                          <div>Total</div>$ ${total }</div>
                         </div>
                       </div>
-
-
-
-
 </div>
 
 </body>

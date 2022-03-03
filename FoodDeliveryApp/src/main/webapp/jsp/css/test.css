@@ -114,6 +114,9 @@ height:64px;
 	color: #fff;
   align-self: center;
 }
+.cartli{
+  display: flex;
+}
 .items-5{position: relative;
 }
 .items-5:hover ul,.items-5:focus ul{
@@ -606,4 +609,17 @@ li{list-style-type: none;
 }.contli{
   align-self: center;
   flex-grow: 1;
+}
+.badge{
+	 margin-left: 1.5rem;
+  display:inline-block;
+  padding:.25em .4em;
+  font-size:75%;
+  font-weight:700;
+  line-height:1;
+  text-align:center;
+  white-space:nowrap;
+  vertical-align:baseline;
+  border-radius:.25rem;
+  color:#fff;background-color:#f15627;
 }

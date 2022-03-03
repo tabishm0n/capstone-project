@@ -1,8 +1,21 @@
+<%@page import="com.capstoneproject.connection.DbCon"%>
+<%@page import="com.capstoneproject.dao.DishDao"%>
+<%@page import="com.capstoneproject.model.Cart"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-     <%  String username= (String)request.getSession().getAttribute("login");%>
- 
+<% String username= (String)request.getSession().getAttribute("login");
+ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
+List<Cart> cartProduct = null;
+if(cart_list != null){
+	DishDao cDao = new DishDao(DbCon.getConnection());
+	cartProduct = cDao.getCartItems(cart_list);
+	float  total = cDao.getTotalCartPrice(cart_list);
+	request.setAttribute("cart_list",cart_list);
+	request.setAttribute("total",total);
+}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  
@@ -26,7 +39,7 @@
         <img src="<%=request.getContextPath()%>/resources/profile.png" alt=""></button>
         <ul class="dropdown-menu">
           <li>Profile</li>
-          <li><a href="<%=request.getContextPath()%>/jsp/Cart.jsp">Cart</a></li>
+          <li class="cartli"><a href="<%=request.getContextPath()%>/jsp/Cart.jsp">Cart <%if(cart_list != null){ %><span class="badge">${cart_list.size()}</span><%} %></a></li>
           <li>Orders</li>
           <li><li><a href="<%=request.getContextPath()%>/Logout">Log Out</a></li></li>
         </ul>
