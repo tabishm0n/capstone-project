@@ -18,7 +18,7 @@ String error=(String)request.getAttribute("err");
     <div class="login">
 	<h1>Login</h1>
     <form method="post" action="<%= request.getContextPath() %>/Login" >
-    	<input type="text" name="login" placeholder="Username" required="required" />
+    	<input type="text" name="login" placeholder="Username" required="required " autofocus/>
         <input type="password" name="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
     </form>

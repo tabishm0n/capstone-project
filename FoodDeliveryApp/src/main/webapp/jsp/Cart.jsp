@@ -1,6 +1,18 @@
+<%@page import="com.capstoneproject.connection.DbCon"%>
+<%@page import="com.capstoneproject.dao.DishDao"%>
+<%@page import="com.capstoneproject.model.Cart"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+<% ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
+List<Cart> cartProduct = null;
+if(cart_list != null){
+	DishDao cDao = new DishDao(DbCon.getConnection());
+	cartProduct = cDao.getCartItems(cart_list);
+	request.setAttribute("cart_list",cart_list);
+	
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +20,6 @@
 <title>Cart page</title>
 <%@ include file="./common/Header.jsp"%>
 </head>
-<link rel="stylesheet" href="test.css">
 <body>
 <div class="cartcontainer">
 <div class="cartl">
@@ -17,10 +28,57 @@
     <h3 class="cheader">Your items</h3>
     </div>
   <div class="height_16"></div>
-  <div class="contli">
-    <div class="citem">6-Inch Turkey Breast Sub</div>
-    <div class="cfprice">$7.29 <div class="ctprice"><span>$14.58</span></div></div>
-  </div>
+  <ul>
+    
+    <% if(cart_list != null)
+    	{
+    	for (Cart c:cartProduct){%>
+    		<li class="coitemli">
+    		<div class="selectiondropdown">
+            <div class="selectiondropdown2">
+              <select class="select">
+                <option value="0" class="options">Remove</option>
+                <option value="1" class="options" selected="selected">1</option>
+                <option value="2" class="options">2</option>
+                <option value="3" class="options">3</option>
+                <option value="4" class="options">4</option>
+                <option value="5" class="options">5</option>
+                <option value="6" class="options">6</option>
+                <option value="7" class="options">7</option>
+                <option value="8" class="options">8</option>
+                <option value="9" class="options">9</option>
+                <option value="10" class="options">10</option>
+                </select>
+                <div class="arrowselector">
+                  <div class="arrowselector2">
+                    <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                      <path d="M17 11.7494V14.916L12 11.0827L7 14.916V11.7494L12 7.91602L17 11.7494Z" fill="#e8e6e3" transform="rotate(180, 12, 12)" >
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <a class="restlinkcart" href="">
+              <div class="contli">
+                <div class="contli2">
+                  <div class="citem"><%= c.getItem_name() %></div>
+                  <div class="space_8"></div>
+                  <div class="cfprice">$<%=c.getPrice() %> <div class="ctprice"><span>$14.58</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+    		 </li>
+    	<%}
+    }
+    
+    %>
+      
+   
+  </ul>
 
 
 

@@ -71,9 +71,11 @@ List<Dish> dishes = ds.getAllDishes();%>
                         </div>
                       </div>
                       <div class="iadd">
-                        <button aria-label="Quick Add" class="addbutton">
+                       <a href="<%= request.getContextPath() %>/AddToCart?id=<%= d.getMenuitem_id() %>" >
+      					  <button aria-label="Quick Add" class="addbutton">
                           <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
                         </button>
+    					</a>
                       </div>
                     </div>
                   </div>

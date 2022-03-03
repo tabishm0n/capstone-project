@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 public class UserDao {
 	private Connection con;
+	private PreparedStatement ps;
+	private ResultSet rs;
 	public UserDao(Connection con) {
 		this.con = con;
 	}
@@ -23,7 +25,7 @@ public class UserDao {
 		try  {
 			Date date = new Date();
 			java.sql.Date sqldate = new java.sql.Date(date.getTime());
-			PreparedStatement ps = this.con.prepareStatement(INSERT_USERS_SQL);
+			ps = this.con.prepareStatement(INSERT_USERS_SQL);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getCity());
@@ -61,11 +63,11 @@ public class UserDao {
 		boolean result = false;
 		String READ_USERS_SQL ="Select * FROM user_table WHERE login=? AND password=?;";
 		try  {
-			PreparedStatement ps = this.con.prepareStatement(READ_USERS_SQL);
+			ps = this.con.prepareStatement(READ_USERS_SQL);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
 			System.out.println(ps);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
             result = rs.next();
 			
 		}catch (SQLException e) {
@@ -79,12 +81,12 @@ public class UserDao {
 		String READ_TYPE_SQL ="Select user_type FROM user_table WHERE login=? AND password=?";
 		
 		try {
-			PreparedStatement ps1 = this.con.prepareStatement(READ_TYPE_SQL);
-			ps1.setString(1, user.getLogin());
-			ps1.setString(2, user.getPassword());
-			ResultSet rs1 = ps1.executeQuery();
-			while(rs1.next()) {
-					String type = rs1.getString("user_type");
+			ps = this.con.prepareStatement(READ_TYPE_SQL);
+			ps.setString(1, user.getLogin());
+			ps.setString(2, user.getPassword());
+			rs = ps.executeQuery();
+			while(rs.next()) {
+					String type = rs.getString("user_type");
 				if(type.equals("Customer")) {
 					result = 1;
 				}else if (type.equals("Restaurant")) {
