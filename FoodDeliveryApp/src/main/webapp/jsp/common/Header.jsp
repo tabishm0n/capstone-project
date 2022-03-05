@@ -1,10 +1,16 @@
 <%@page import="com.capstoneproject.connection.DbCon"%>
-<%@page import="com.capstoneproject.dao.DishDao"%>
-<%@page import="com.capstoneproject.model.Cart"%>
+<%@page import="com.capstoneproject.dao.*"%>
+<%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% String username= (String)request.getSession().getAttribute("login");
+User auth = (User) request.getSession().getAttribute("auth");
+List<Order> orders = null;
+
+OrderDao orderDao  = new OrderDao(DbCon.getConnection());
+orders = orderDao.userOrders(auth.getId());
+
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
 List<Cart> cartProduct = null;
 if(cart_list != null){

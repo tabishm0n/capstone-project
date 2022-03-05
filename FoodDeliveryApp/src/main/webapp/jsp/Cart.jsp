@@ -1,5 +1,10 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<% DecimalFormat dcf = new DecimalFormat("#.##");
+request.setAttribute("dcf", dcf);
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,18 +28,18 @@
             <div class="selectiondropdown2">
             
               <select class="select" name="ddquantity" onchange="location = this.value;">
-                <option class="options" selected="selected" ></option>
-                <option value="0" class="options">Remove</option>
-                <option value="<%=request.getContextPath()%>/Quantity" class="options">1</option>
-                <option value="2" class="options">2</option>
-                <option value="3" class="options">3</option>
-                <option value="4" class="options">4</option>
-                <option value="5" class="options">5</option>
-                <option value="6" class="options">6</option>
-                <option value="7" class="options">7</option>
-                <option value="8" class="options">8</option>
-                <option value="9" class="options">9</option>
-                <option value="10" class="options">10</option>
+             	<option value="<%=request.getContextPath()%>/Quantity?action=rem&id=<%= c.getMenuitem_id() %>" class="options">Remove</option>
+                <option class="defaultoption" disabled selected ><%= c.getQuantity() %></option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng1&id=<%= c.getMenuitem_id() %>" class="options">1</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng2&id=<%= c.getMenuitem_id() %>" class="options">2</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng3&id=<%= c.getMenuitem_id() %>" class="options">3</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng4&id=<%= c.getMenuitem_id() %>" class="options">4</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng5&id=<%= c.getMenuitem_id() %>" class="options">5</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng6&id=<%= c.getMenuitem_id() %>" class="options">6</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng7&id=<%= c.getMenuitem_id() %>" class="options">7</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng8&id=<%= c.getMenuitem_id() %>" class="options">8</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng9&id=<%= c.getMenuitem_id() %>" class="options">9</option>
+                <option value="<%=request.getContextPath()%>/Quantity?action=chng10&id=<%= c.getMenuitem_id() %>" class="options">10</option>
                 </select>
                 
                 <div class="arrowselector">
@@ -47,12 +52,12 @@
                 </div>
               </div>
             </div>
-            <a class="restlinkcart" href="">
+            <a class="restlinkcart" href="<%=request.getContextPath()%>/RedirectRestaurant">
               <div class="contli">
                 <div class="contli2">
                   <div class="citem"><%= c.getItem_name() %></div>
                   <div class="space_8"></div>
-                  <div class="cfprice">$<%=c.getPrice() %> <div class="ctprice"><span>$14.58</span>
+                  <div class="cfprice">$<%=dcf.format(c.getPrice())%> <div class="ctprice"><span>$14.58</span>
                   </div>
                 </div>
               </div>
@@ -68,9 +73,9 @@
 </div>
   <div class="cartr">
     <div class="cartorder">
-      <div class="placeorder">
+      <div class="placeorder"><a href="<%=request.getContextPath()%>/Checkout">
         <button class="orderbutton">Place order</button>
-      </div>
+      </a></div>
       <div class="height_16">
       </div>
       <hr class="divider">
@@ -139,7 +144,8 @@
                         </div>
                         <hr class="divider">
                         <div class="pototal">
-                          <div>Total</div>$ ${total }</div>
+                          <div>Total</div>$ ${(total>0)?dcf.format(total):0}</div>
+                          					 
                         </div>
                       </div>
 </div>

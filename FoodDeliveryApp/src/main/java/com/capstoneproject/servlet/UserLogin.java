@@ -2,6 +2,7 @@ package com.capstoneproject.servlet;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -19,40 +20,40 @@ import com.capstoneproject.connection.DbCon;
 public class UserLogin extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
-	private UserDao usDao;
-	
-	public void init() {
-		try {
-			usDao = new UserDao(DbCon.getConnection());
-		} catch (ClassNotFoundException e) {
-			
-			e.printStackTrace();
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-		}
-	}
+
 	
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
-		User us = new User();
-		us.setLogin(login);
-		us.setPassword(password);
-		try {
-			if (usDao.verifyUser(us)) {
+		try(PrintWriter out = response.getWriter())  {
+			String login = request.getParameter("login");
+			String password = request.getParameter("password");
+			UserDao usDao = null;
+			try {
+				usDao = new UserDao(DbCon.getConnection());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			User user = usDao.verifyUser(login, password);
+			User us = new User();
+			us.setLogin(login);
+			us.setPassword(password);
+			if (user != null) {
 				int type = usDao.verifyType(us);
 				if(type==1) {
+					request.getSession().setAttribute("auth", user);
 					request.getSession().setAttribute("login", login);
 					request.getRequestDispatcher("./jsp/UserHomepage.jsp").forward(request, response);
 			   
 				}else if(type==2) {
+					request.getSession().setAttribute("auth", user);
 					request.getSession().setAttribute("login", login);
 					request.getRequestDispatcher("./jsp/RestaurantHomepage.jsp").forward(request, response);
 			   
 				}else if(type==3) {
+					request.getSession().setAttribute("auth", user);
 					request.getSession().setAttribute("login", login);
 					request.getRequestDispatcher("./jsp/DeliveryHomepage.jsp").forward(request, response);
 			   

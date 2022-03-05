@@ -59,21 +59,25 @@ public class UserDao {
 			}
 		}
 	}
-	public boolean verifyUser(User user) throws ClassNotFoundException{
-		boolean result = false;
+	public User verifyUser(String username, String password) throws ClassNotFoundException{
+		User user = null;
 		String READ_USERS_SQL ="Select * FROM user_table WHERE login=? AND password=?;";
 		try  {
 			ps = this.con.prepareStatement(READ_USERS_SQL);
-			ps.setString(1, user.getLogin());
-			ps.setString(2, user.getPassword());
+			ps.setString(1, username);
+			ps.setString(2, password);
 			System.out.println(ps);
 			rs = ps.executeQuery();
-            result = rs.next();
-			
+			if(rs.next()){
+            	user = new User();
+            	user.setId(rs.getInt("id"));
+            	user.setLogin(rs.getString("login"));
+            	user.setEmail(rs.getString("email"));
+            }
 		}catch (SQLException e) {
 			printSQLException(e);
 		}
-		return result;
+		return user;
 	}
 	public int verifyType(User user) throws ClassNotFoundException{
 		

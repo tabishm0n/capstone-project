@@ -3,6 +3,7 @@ package com.capstoneproject.model;
 import java.sql.Date;
 
 public class User {
+	private int id;
 	private String login;
 	private String password;
 	private String city;
@@ -15,6 +16,14 @@ public class User {
 	private String payment;
 	private Date registeration_date;
 	
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getLogin() {
 		return login;
 	}
