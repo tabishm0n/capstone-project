@@ -7,12 +7,16 @@
 <% String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");
 List<Order> orders = null;
+List<Cart> cartProduct = null;
+ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
 
+if (username == null) {
+    response.sendRedirect("Login.jsp");
+}else{
 OrderDao orderDao  = new OrderDao(DbCon.getConnection());
 orders = orderDao.userOrders(auth.getId());
 
-ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
-List<Cart> cartProduct = null;
+}
 if(cart_list != null){
 	DishDao cDao = new DishDao(DbCon.getConnection());
 	cartProduct = cDao.getCartItems(cart_list);
@@ -46,7 +50,7 @@ if(cart_list != null){
         <ul class="dropdown-menu">
           <li>Profile</li>
           <li class="cartli"><a href="<%=request.getContextPath()%>/jsp/Cart.jsp">Cart <%if(cart_list != null){ %><span class="badge">${cart_list.size()}</span><%} %></a></li>
-          <li>Orders</li>
+          <li><a href="<%=request.getContextPath()%>/jsp/UserOrders.jsp"">Orders</a></li>
           <li><li><a href="<%=request.getContextPath()%>/Logout">Log Out</a></li></li>
         </ul>
       </li>

@@ -7,7 +7,7 @@ String error=(String)request.getAttribute("err");
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>Insert title here</title>
+    <title>Login Page</title>
     <style><%@include file="./css/styles.css"%></style>
 
 </head>
@@ -16,11 +16,11 @@ String error=(String)request.getAttribute("err");
 
     
     <div class="login">
-	<h1>Login</h1>
+	<h1>User Sign-in</h1>
     <form method="post" action="<%= request.getContextPath() %>/Login" >
     	<input type="text" name="login" placeholder="Username" required="required " autofocus/>
         <input type="password" name="password" placeholder="Password" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
     </form>
 
 <%if(error!=null)

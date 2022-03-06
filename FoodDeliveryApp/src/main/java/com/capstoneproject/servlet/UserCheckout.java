@@ -36,7 +36,7 @@ public class UserCheckout extends HttpServlet {
 				for(Cart c:cart_list) {
 					//prepare order object
 					Order order = new Order();
-					order.setOrder_id(c.getMenuitem_id());
+					order.setMenuitem_id(c.getMenuitem_id());
 					order.setUser_id(login.getId());
 					order.setQuantity(c.getQuantity());
 					order.setOrder_date(sqldate);

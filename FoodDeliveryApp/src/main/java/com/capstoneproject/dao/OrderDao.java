@@ -19,7 +19,7 @@ public class OrderDao {
 		this.con = con;
 	}
 	public boolean insertOrder(Order model) {
-		
+		System.out.print(model);
 		boolean result = false;
 		Date date = new Date();
 		java.sql.Date sqldate = new java.sql.Date(date.getTime());
@@ -44,7 +44,7 @@ public class OrderDao {
 		List<Order> list = new ArrayList<>();
 		
 		try {
-			String SELECT_ORDER_SQL = "SELECT order_id,o.menuitem_id as menuitem_id,quantity,order_date,item_name,price FROM order_table o INNER JOIN menu_item m on m.menuitem_id = o.menuitem_id WHERE user_id=?;";
+			String SELECT_ORDER_SQL = "SELECT order_id,o.menuitem_id as menuitem_id,quantity,order_date,item_name,price FROM order_table o INNER JOIN menu_item m on m.menuitem_id = o.menuitem_id WHERE user_id=? order by order_id desc;";
 			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -53,7 +53,7 @@ public class OrderDao {
 				order.setOrder_id(rs.getInt("order_id"));
 				order.setMenuitem_id(rs.getInt("menuitem_id"));
 				order.setItem_name(rs.getString("item_name"));
-				order.setPrice(rs.getFloat("price"));
+				order.setPrice(rs.getFloat("price")*rs.getInt("quantity"));
 				order.setQuantity(rs.getInt("quantity"));
 				order.setOrder_date(rs.getDate("order_date"));
 				list.add(order);
@@ -63,5 +63,16 @@ public class OrderDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public void cancelOrder(int id){
+		try {
+			String DELETE_ORDER_SQL = "DELETE FROM order_table WHERE order_id=?;";
+			ps = this.con.prepareStatement(DELETE_ORDER_SQL);
+			ps.setInt(1,id);
+			ps.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -15,6 +15,9 @@ request.setAttribute("dcf", dcf);
 <body>
 <div class="cartcontainer">
 <div class="cartl">
+
+  <h1 class="crname">Indian Curry</h1>
+            <hr class="divider">
   <div class="ctitle">
     <h3 class="cheader">Your items</h3>
     </div>

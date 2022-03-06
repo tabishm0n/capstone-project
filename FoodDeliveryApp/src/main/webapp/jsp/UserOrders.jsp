@@ -12,6 +12,120 @@
 </head>
 <body>
          <div class="orderscontainer">
+           <div class="ordercontainertitle">Current Order</div>
+           <% 
+           if(orders!=null)
+           {
+           for(Order o:orders){
+        	   
+           %>
+           
+           <div class="ordercontainerflex">
+             <a class="orderspagestorelink" href="">
+               <div height="140" class="orderimagefigure">
+                 <div class="ordersrestimage" style="height: 140px;">
+                    <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
+                     </div>
+              </div>
+            </a>
+            <div class="space_24"> 
+            </div>
+            <div class="orderspagerestinfo1">
+              <div class="orderspagerestinfo2">
+                <div class="orderspagerestinfo3">
+                  <a  class="orderspagestorelinktitle" href=""><%= o.getItem_name() %>  
+                  </a>
+                  <div class="rating">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
+                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
+
+                      </path>
+                    </svg>
+                    <div class="space_4">
+
+                    </div>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
+                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
+
+                      </path>
+                    </svg>
+                    <div class="space_4">
+
+                    </div>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
+                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
+
+                      </path>
+                    </svg>
+                    <div class="space_4">
+
+                    </div>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
+                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
+
+                      </path>
+                    </svg>
+                    <div class="space_4">
+
+                    </div>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
+                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
+
+                      </path>
+                    </svg>
+                    
+                  </div></div><div class="orderspageidesc">
+                    <div class="mo"><%= o.getQuantity() %> items for $<%= o.getPrice() %>
+                      <span class="orderspagedivider">&nbsp;- &nbsp;
+
+                      </span><%= o.getOrder_date() %>
+                     
+                     
+                      
+                    </div>
+                  </div>
+                  <div class="height_16"></div>
+                  <ul>
+                    <li>
+                      <div class="orderspageitemlist">
+                    <div class="orderspageitemlist2">
+                      <ul>
+                        <li>
+                          <div class="orderspageitem">
+                            <div class="orderspageitemquantity"><%= o.getQuantity() %>
+
+                            </div>
+                            <div class="space_16">
+
+                            </div>
+                            <div class="orderspageitemname">
+                              <div class="orderspageitemname2">
+                                <div><%= o.getItem_name() %> 
+
+                                </div>
+                                
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+           <div class="space_24"></div>
+      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/CancelOrder?id=<%= o.getOrder_id()%>"><button data-baseweb="button" class="orderspagecancelbutton">Cancel Order</button></a></div>
+   
+        </div>
+        <div class="height_16"></div>
+        <% }
+        }
+           %>
+           
+           
            <div class="ordercontainertitle">Past Orders</div>
            <% 
            if(orders!=null)
@@ -92,7 +206,7 @@
                       <ul>
                         <li>
                           <div class="orderspageitem">
-                            <div class="orderspageitemquantity"><%= o.getOrder_date() %>
+                            <div class="orderspageitemquantity"><%= o.getQuantity() %>
 
                             </div>
                             <div class="space_16">
@@ -118,6 +232,7 @@
           </div>
           
         </div>
+        <div class="height_16"></div>
         <% }
         }
            %>

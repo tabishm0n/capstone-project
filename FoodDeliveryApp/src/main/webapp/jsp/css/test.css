@@ -1,17 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:500&display=swap);
 
-*{
+
+*{  font-family: "Montserrat", sans-serif;
 	margin:0;
-  padding: 0;
-  box-sizing: border-box;
+ 	padding: 0;
+ 	box-sizing: border-box;
 }
 
-body {    background-color: rgb(24, 26, 27);
-  color: rgb(232, 230, 227);
-font-family: "Montserrat", sans-serif;
+body {    width: 100%;
+	height:100%;
+	background-color: rgb(24, 26, 27);
+  	color: rgb(232, 230, 227);
 }	
+
 a{
 	cursor: pointer;
+}
+.right a{color: rgb(232, 230, 227);
+	text-decoration: none !important;
 }
 #navArea {
 display: flex;
@@ -99,7 +105,7 @@ height:64px;
 .second{margin-top: 2%;
   flex: 1;
   margin-left: 1%;
-  background-color: yellowgreen;
+  background-color: #313131;;
 }
 .seconds-1{
   padding: 20px;
@@ -224,7 +230,7 @@ input[type="text" i] {
   justify-content: space-around;
 }
 .left{display:flex;flex: 1;
-  background-color: #008cff;
+  background-color: #313131;
   color: #fff;
   font-size: 35px;
   padding: 20px;
@@ -234,8 +240,9 @@ input[type="text" i] {
 .right{ display: flex;
   justify-content: center;
   justify-content: center;
-  background-color: #00ff15;
+  background-color: #313131;
   color: #fff;
+  text-decoration: none;
   font-size: 35px;
   padding: 20px;
   margin: 10px;
@@ -244,12 +251,12 @@ input[type="text" i] {
 .rleft{margin-top: 3%;
   margin-left: 2%;
   width: 30%;
-  background-color: coral;font-weight: bold;
+  background-color:inherit;font-weight: bold;
 }
 .rright{
   margin-top: 3%;
   width: 70%;
-  background-color: aquamarine;
+  background-color: inherit;
 }
 
 .smenutitle{
@@ -401,18 +408,18 @@ li{list-style-type: none;
   width: 100%;
   flex-grow: 1;
 }
-.cartl{background-color: #144618;
+.cartl{background-color: inheirt;
   flex: 2;
   margin-top: 2%;
   margin-left: 1%;
   box-sizing: border-box;
 }
-.cartm{background-color: aqua;
+.cartm{background-color: inherit;
   flex: 1;
   padding: 28rem 0px;
   box-sizing: border-box;
 }
-.cartr{background-color: crimson;
+.cartr{background-color: inherit;
   padding: 80px 0px;
   width: calc(33.3333% - 40px);
   flex: 2;
@@ -421,6 +428,12 @@ li{list-style-type: none;
 .ctitle{
   flex-direction: row;
   display: flex;
+}
+.crname{    margin-top: 24px;
+line-height: 44px;
+    font-size: 36px;
+	    font-weight: 500;
+	    margin: 0;
 }
 .cheader{
   color: rgb(232, 230, 227);
@@ -743,4 +756,55 @@ svg:not(:root) {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.orderspagecancel{
+  flex: 0 0 302px;
+  align-items: stretch;
+  flex-direction: column;
+  display: flex;color: rgb(232, 230, 227);
+}
+.orderspagecancelbutton{
+  box-shadow: none;
+  color: rgb(232, 230, 227);
+  background-color: rgb(177, 21, 21);
+  outline-color: initial;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  padding-top: 16px;
+  transition-property: background;
+  appearance: none;
+  text-decoration: none;
+  border-bottom-style: none;
+  border-right-style: none;
+  border-top-style: none;
+  border-left-style: none;
+  border-bottom-width: 0px;
+  border-right-width: 0px;
+  border-top-width: 0px;
+  border-left-width: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  font-size: 18px;
+  padding-bottom: 16px;
+  margin-bottom: 0;
+  justify-content: center;
+  outline: none;
+  line-height: 24px;
+  display: inline-flex;
+  font-weight: 500;
+  cursor: pointer;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  border-color: #cc2020;
+  text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: center;
 }
