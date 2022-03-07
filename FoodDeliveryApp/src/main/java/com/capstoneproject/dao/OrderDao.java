@@ -21,16 +21,14 @@ public class OrderDao {
 	public boolean insertOrder(Order model) {
 		System.out.print(model);
 		boolean result = false;
-		Date date = new Date();
-		java.sql.Date sqldate = new java.sql.Date(date.getTime());
+	
 		
 		try {
-			String ORDER_INSERT_SQL = "INSERT INTO order_table(menuitem_id,user_id,quantity,order_date) values (?,?,?,?);";
+			String ORDER_INSERT_SQL = "INSERT INTO order_table(menuitem_id,user_id,quantity,order_date) values (?,?,?,NOW());";
 			ps = this.con.prepareStatement(ORDER_INSERT_SQL);
 			ps.setInt(1, model.getMenuitem_id());
 			ps.setInt(2, model.getUser_id());
 			ps.setInt(3,model.getQuantity());
-			ps.setDate(4, sqldate);
 			ps.executeUpdate();
 			result=true;
 		}catch(Exception e) {
@@ -55,7 +53,7 @@ public class OrderDao {
 				order.setItem_name(rs.getString("item_name"));
 				order.setPrice(rs.getFloat("price")*rs.getInt("quantity"));
 				order.setQuantity(rs.getInt("quantity"));
-				order.setOrder_date(rs.getDate("order_date"));
+				order.setOrder_date(rs.getTimestamp("order_date"));
 				list.add(order);
 				
 			}

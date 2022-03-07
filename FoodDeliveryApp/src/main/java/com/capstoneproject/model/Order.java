@@ -1,16 +1,17 @@
 package com.capstoneproject.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Order extends Dish{
 	private int order_id;
 	private int user_id;
 	private int quantity;
-	private Date order_date;
+	private Timestamp order_date;
 	public Order() {
 		
 	}
-	public Order(int order_id, int user_id, int quantity, Date order_date) {
+	public Order(int order_id, int user_id, int quantity, Timestamp order_date) {
 		super();
 		this.order_id = order_id;
 		this.user_id = user_id;
@@ -24,7 +25,7 @@ public class Order extends Dish{
 		return "Order [order_id=" + order_id + ", user_id=" + user_id + ", quantity=" + quantity + ", order_date="
 				+ order_date + "]";
 	}
-	public Order(int user_id, int quantity, Date order_date) {
+	public Order(int user_id, int quantity, Timestamp order_date) {
 		super();
 		this.user_id = user_id;
 		this.quantity = quantity;
@@ -48,10 +49,10 @@ public class Order extends Dish{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public Date getOrder_date() {
+	public Timestamp getOrder_date() {
 		return order_date;
 	}
-	public void setOrder_date(Date order_date) {
+	public void setOrder_date(Timestamp order_date) {
 		this.order_date = order_date;
 	}
 	

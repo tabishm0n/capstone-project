@@ -1,7 +1,10 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% 
+SimpleDateFormat date = new SimpleDateFormat("MMM dd");
+SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
 %>
 <!DOCTYPE html>
 <html>
@@ -78,7 +81,7 @@
                     <div class="mo"><%= o.getQuantity() %> items for $<%= o.getPrice() %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
-                      </span><%= o.getOrder_date() %>
+                      </span><%= date.format(o.getOrder_date()) %><span> at </span><%= time.format(o.getOrder_date()) %>
                      
                      
                       

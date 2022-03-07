@@ -26,7 +26,7 @@ public class UserCheckout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try(PrintWriter out = response.getWriter();){
 			Date date = new Date();
-			java.sql.Date sqldate = new java.sql.Date(date.getTime());
+			java.sql.Timestamp sqldate = new java.sql.Timestamp(date.getTime());
 			// Retrieve all cart items
 			ArrayList<Cart> cart_list = (ArrayList<Cart>)request.getSession().getAttribute("cart-list");
 			//user authentication
