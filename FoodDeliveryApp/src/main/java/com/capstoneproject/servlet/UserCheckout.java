@@ -42,7 +42,7 @@ public class UserCheckout extends HttpServlet {
 				/* orderslist = oDao.userOrdersList(login.getId()); */
 				orderID = oDao.orderId(login.getId());
 				/*for(Orders o:orderslist){System.out.println("orders loop");*/
-				for(Cart c:cart_list) { System.out.println("cart loop - order id: "+orderID);
+				for(Cart c:cart_list) { 
 					/* orderitems = oDao.userOrderItems(o.getOrder_id()); */
 					//prepare order object
 					Orderitems order = new Orderitems();

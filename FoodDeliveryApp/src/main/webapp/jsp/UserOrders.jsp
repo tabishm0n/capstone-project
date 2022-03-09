@@ -5,10 +5,24 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%  
+<%  String user= (String)request.getSession().getAttribute("login");
+User login = (User) request.getSession().getAttribute("auth");
+List<Orders>orderslist = null; 
+int orderid =0;
+List<Orderitems> orders = null;
+List<Orderitems> orderitems = null;
 SimpleDateFormat date = new SimpleDateFormat("MMM dd");
 SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
 
+if (user == null) {
+    response.sendRedirect("Login.jsp");
+}else{
+OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
+orderslist = orderDao.userOrdersList(login.getId());
+orderid = orderDao.orderId(login.getId());
+orders = orderDao.userOrders(login.getId());
+
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -21,11 +35,13 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
          <div class="orderscontainer">
            <div class="ordercontainertitle">Current Order</div>
            <% 
-           if(orders!=null)
-           {  
-        	   for(Orderitems o:orders){
-        	   {
-        		   
+           if(orderslist!=null)
+           {   for(Orderitems o1:orders){
+        	   OrderDao oDao  = new OrderDao(DbCon.getConnection());
+        	   orderitems = oDao.userOrderItems(o1.getOrder_id());
+ 			   System.out.println("orders list : \n"+orders);
+ 			   System.out.println("orders list : \n"+orderitems);
+ 			  	
            %>
            <div class="ordercontainerflex">
              <a class="orderspagestorelink" href="">
@@ -82,28 +98,27 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
                     </svg>
                     
                   </div></div><div class="orderspageidesc">
-                    <div class="mo"><%= o.getQuantity() %> items for $<%= o.getPrice() %>
+                    <div class="mo"><%= o1.getQuantity() %> items for $<%=  o1.getPrice() %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
-                      </span><%= date.format(o.getOrder_date()) %><span> at </span><%= time.format(o.getOrder_date()) %>
+                      </span><%= date.format(o1.getOrder_date()) %><span> at </span><%= time.format(o1.getOrder_date()) %>
                     </div>
                   </div>
-                  <% }
-           			%>
+                 <%
+                    for(Orderitems o2:orderitems)
+           			
+                    {
+			           %>
                   <div class="height_16"></div>
                   <ul>
                     <li>
                       <div class="orderspageitemlist">
                     <div class="orderspageitemlist2">
-                    <%
-                    for(Orderitems o2:orderitems)
-           			
-                    {
-			           %>
+                   
                       <ul>
                         <li>
                           <div class="orderspageitem">
-                            <div class="orderspageitemquantity"><%= o2.getQuantity() %>
+                            <div class="orderspageitemquantity"><%=  o2.getQuantity() %>
 							</div>
                             <div class="space_16">
                             </div>
@@ -116,28 +131,29 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
                           </div>
                         </li>
                       </ul>
-                       <% }
-         				 
-				           %>
+                      
                     </div>
                   </div>
                 </li>
               </ul>
+               <%
+                    }
+			           %>
             </div>
           </div>
            <div class="space_24"></div>
-      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/CancelOrder?id=<%= o.getOrder_id()%>"><button data-baseweb="button" class="orderspagecancelbutton">Cancel Order</button></a></div>
-     <% 
-		 %>
+      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/CancelOrder?id=<%= o1.getOrder_id()%>"><button data-baseweb="button" class="orderspagecancelbutton">Cancel Order</button></a></div>
+    
         </div>
         <div class="height_16"></div>
-        <% }
+        <% 
+           }
            }
 			 %>
            
-           
+          <%--   
            <div class="ordercontainertitle">Past Orders</div>
-           <% 
+          <% 
            if(orders!=null)
            {
            for(Orderitems o:orders){
@@ -245,7 +261,7 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
         <div class="height_16"></div>
         <% }
         }
-           %>
+           %> --%>
       </div> 
 </body>
 </html> 

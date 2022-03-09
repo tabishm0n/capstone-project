@@ -36,10 +36,11 @@ public class OrderDao {
 	}
 
 	
-	  public List<Orders> userOrdersList(int id) { List<Orders> list = new
-	  ArrayList<>(); String ORDER_ID_SQL =
-	  "SELECT order_id FROM orders WHERE user_id=?"; try { ps =
-	 this.con.prepareStatement(ORDER_ID_SQL); ps.setInt(1, id); rs =
+	  public List<Orders> userOrdersList(int id) { 
+		  List<Orders> list = new
+	  ArrayList<>(); String ORDER_ID_SQL =	  "SELECT order_id FROM orders WHERE user_id=?"; 
+	  try {
+		  ps =	 this.con.prepareStatement(ORDER_ID_SQL); ps.setInt(1, id); rs =
 	  ps.executeQuery(); while(rs.next()) { Orders order = new Orders();
 	  order.setOrder_id(rs.getInt("order_id")); list.add(order); }
 	  
@@ -97,14 +98,13 @@ public class OrderDao {
 		return result;
 	}
 	
-	public List<Orderitems> userOrders(int uid,int oid){
+	public List<Orderitems> userOrders(int id){
 		List<Orderitems> list = new ArrayList<>();
 		
 		try {
-			String SELECT_ORDER_SQL = " SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date,oi.order_id from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id WHERE oi.order_id=? AND od.user_id=? GROUP BY oi.order_id,date ORDER BY oi.order_id DESC;";
+			String SELECT_ORDER_SQL = " SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date,oi.order_id from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id WHERE od.user_id=? GROUP BY oi.order_id,date ORDER BY oi.order_id DESC;";
 			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
-			ps.setInt(1, oid);
-			ps.setInt(2, uid);
+			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Orderitems order = new Orderitems();
