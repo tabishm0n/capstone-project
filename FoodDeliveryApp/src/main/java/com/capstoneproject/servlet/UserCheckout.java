@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.OrderDao;
 import com.capstoneproject.model.Cart;
-import com.capstoneproject.model.Order;
+import com.capstoneproject.model.Orderitems;
+import com.capstoneproject.model.Orders;
 import com.capstoneproject.model.User;
 
 
@@ -31,23 +32,35 @@ public class UserCheckout extends HttpServlet {
 			ArrayList<Cart> cart_list = (ArrayList<Cart>)request.getSession().getAttribute("cart-list");
 			//user authentication
 			User login = (User) request.getSession().getAttribute("auth");
+			List<Orders>orderslist = null;
+			/* List<Orderitems> orderitems = null; */
+			int orderID =0;
 			//check auth and cart list
 			if(cart_list != null && login!=null) {
-				for(Cart c:cart_list) {
+				OrderDao oDao = new OrderDao(DbCon.getConnection());
+				boolean result = oDao.insertOrders(login.getId());
+				/* orderslist = oDao.userOrdersList(login.getId()); */
+				orderID = oDao.orderId(login.getId());
+				/*for(Orders o:orderslist){System.out.println("orders loop");*/
+				for(Cart c:cart_list) { System.out.println("cart loop - order id: "+orderID);
+					/* orderitems = oDao.userOrderItems(o.getOrder_id()); */
 					//prepare order object
-					Order order = new Order();
+					Orderitems order = new Orderitems();
 					order.setMenuitem_id(c.getMenuitem_id());
 					order.setUser_id(login.getId());
 					order.setQuantity(c.getQuantity());
 					order.setOrder_date(sqldate);
 					//initiate the DAO class
-					OrderDao oDao = new OrderDao(DbCon.getConnection());
+					
 					//Calling the insert method
-					boolean result = oDao.insertOrder(order);
-					if(!result) break;
+					boolean result2 = oDao.insertOrderitems(order,orderID);
+					
+					/* } */
 				}
+				
 				cart_list.clear();
 				response.sendRedirect("./jsp/UserOrders.jsp");
+				
 			}else {
 				if(login==null) {
 					response.sendRedirect("./jsp/Login.jsp");

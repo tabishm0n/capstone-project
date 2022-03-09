@@ -1,4 +1,4 @@
-<%@page import="com.capstoneproject.connection.DbCon"%>
+<%-- <%@page import="com.capstoneproject.connection.DbCon"%>
 <%@page import="com.capstoneproject.dao.*"%>
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
@@ -6,8 +6,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%  
+String user= (String)request.getSession().getAttribute("login");
+User authent = (User) request.getSession().getAttribute("auth");
 SimpleDateFormat date = new SimpleDateFormat("MMM dd");
 SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
+List<Orders>orderslist = null;
+List<Orderitems> orders = null;
+List<Orderitems> orderitems = null;
+int orderId= 0;
+if (user == null) {
+    response.sendRedirect("Login.jsp");
+
+}
 
 %>
 <!DOCTYPE html>
@@ -22,9 +32,13 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
            <div class="ordercontainertitle">Current Order</div>
            <% 
            if(orders!=null)
-           {  
-        	   for(Orderitems o:orders){
+           {   OrderDao orderDao  = new OrderDao(DbCon.getConnection());
+           	   orderId =orderDao.OrderID(authent.getId());	
+               orderslist = orderDao.userOrdersList(authent.getId());
+        	   for(Orders o:orderslist){
         	   {
+        		   orders = orderDao.userOrders(authent.getId(),o.getOrder_id());	
+        		   orderitems = orderDao.userOrderItems(o.getOrder_id());
         		   
            %>
            <div class="ordercontainerflex">
@@ -126,7 +140,7 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
             </div>
           </div>
            <div class="space_24"></div>
-      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/CancelOrder?id=<%= o.getOrder_id()%>"><button data-baseweb="button" class="orderspagecancelbutton">Cancel Order</button></a></div>
+      <div class="orderspagecancel"><a href=""><button data-baseweb="button" class="orderspagecancelbutton">Cancel Order</button></a></div>
      <% 
 		 %>
         </div>
@@ -248,4 +262,4 @@ SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
            %>
       </div> 
 </body>
-</html> 
+</html>  --%>

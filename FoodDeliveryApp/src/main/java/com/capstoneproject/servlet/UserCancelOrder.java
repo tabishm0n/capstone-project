@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.OrderDao;
-import com.capstoneproject.model.Order;
+import com.capstoneproject.model.Orders;
 
 @WebServlet("/CancelOrder")
 public class UserCancelOrder extends HttpServlet {

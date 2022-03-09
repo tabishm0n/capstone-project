@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<%-- --%>
+<title>Insert title here</title>=
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>

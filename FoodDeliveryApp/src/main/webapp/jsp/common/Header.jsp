@@ -6,16 +6,26 @@
     pageEncoding="ISO-8859-1"%>
 <% String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");
-List<Order> orders = null;
+ List<Orders>orderslist = null; 
+int orderid =0;
+List<Orderitems> orders = null;
+List<Orderitems> orderitems = null;
 List<Cart> cartProduct = null;
+int orderId= 0;
+
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
 
 if (username == null) {
     response.sendRedirect("Login.jsp");
 }else{
-OrderDao orderDao  = new OrderDao(DbCon.getConnection());
-orders = orderDao.userOrders(auth.getId());
-
+	OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
+	  orderslist = orderDao.userOrdersList(auth.getId());
+	orderid = orderDao.orderId(auth.getId());
+for(Orders o:orderslist) {
+	orders = orderDao.userOrders(auth.getId(),o.getOrder_id());
+	orderitems = orderDao.userOrderItems(o.getOrder_id());
+	
+}
 }
 if(cart_list != null){
 	DishDao cDao = new DishDao(DbCon.getConnection());
