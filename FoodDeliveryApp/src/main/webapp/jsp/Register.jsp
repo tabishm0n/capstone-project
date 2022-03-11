@@ -41,7 +41,7 @@
     <select class="selecttype" name="user_type">
         <option value="" selected disabled hidden>User Type</option>
         <option value="Customer">Customer</option>
-        <option value="Restaurant">Restaurant</option>
+        <option value="Restaurant">Restaurant Manager</option>
         <option value="Delivery">Deliverer</option>
       </select>
     

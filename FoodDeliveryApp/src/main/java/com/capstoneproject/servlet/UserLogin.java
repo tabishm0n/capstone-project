@@ -34,30 +34,43 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			User user = usDao.verifyUser(login, password);
+			User verify = usDao.verifyUser(login, password);
 			User us = new User();
 			us.setLogin(login);
 			us.setPassword(password);
-			if (user != null) {
-				int type = usDao.verifyType(us);
-				if(type==1) {
-					request.getSession().setAttribute("auth", user);
-					request.getSession().setAttribute("login", login);
-					request.getRequestDispatcher("./jsp/UserHomepage.jsp").forward(request, response);
-			   
-				}else if(type==2) {
-					request.getSession().setAttribute("auth", user);
-					request.getSession().setAttribute("login", login);
-					request.getRequestDispatcher("./jsp/RestaurantHomepage.jsp").forward(request, response);
-			   
-				}else if(type==3) {
-					request.getSession().setAttribute("auth", user);
-					request.getSession().setAttribute("login", login);
-					request.getRequestDispatcher("./jsp/DeliveryHomepage.jsp").forward(request, response);
-			   
-				}
+			if (verify != null) {
+				User user = usDao.verifyType(us);
+				String usertype = user.getUser_type();
+				String first_name = user.getFirst_name();
+				String last_name= user.getLast_name();
+				String phone= user.getPhone(); 
+				String city= user.getCity();
+				String street_address= user.getStreet_address();
+				String email= user.getEmail();
+				String payment= user.getPayment(); 
+				request.getSession().setAttribute("first_name", first_name);
+				request.getSession().setAttribute("last_name", last_name);
+				request.getSession().setAttribute("phone", phone);
+				request.getSession().setAttribute("city", city);
+				request.getSession().setAttribute("street_address", street_address);
+				request.getSession().setAttribute("email", email);
+				request.getSession().setAttribute("payment", payment);
+				request.getSession().setAttribute("auth", verify);
+				request.getSession().setAttribute("login", login);
+				if(usertype.equals("Customer")) {
+					request.getSession().setAttribute("usertype", "Customer");
+					
+				}else if(usertype.equals("Restaurant")) {
+					request.getSession().setAttribute("usertype", "Restaurant");
+					
+				}else if(usertype.equals("Delivery")) {
+					request.getSession().setAttribute("usertype", "Delivery");
+					
+				}else if(usertype.equals("Admin")) {
+					request.getSession().setAttribute("usertype", "Admin");
+					
+				}request.getRequestDispatcher("./jsp/UserHomepage.jsp").forward(request, response);
+				   
 				 } else {
 				request.setAttribute("err", "Invalid Username or Password");
 				request.getRequestDispatcher("./jsp/Login.jsp").forward(request, response);

@@ -1,51 +1,29 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:500&display=swap);
 
-
-*{  font-family: "Montserrat", sans-serif;
+*{
 	margin:0;
- 	padding: 0;
- 	box-sizing: border-box;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body {    width: 100%;
-	height:100%;
-	background-color: rgb(24, 26, 27);
-  	color: rgb(232, 230, 227);
+body {    background-color: rgb(24, 26, 27);
+  color: rgb(232, 230, 227);
+font-family: "Montserrat", sans-serif;
 }	
-
 a{
 	cursor: pointer;
 }
-.right a{color: rgb(232, 230, 227);
+.dropdown-menu a, .right a{
 	text-decoration: none !important;
 }
-#navArea {
-display: flex;
-justify-content: space-between;
-padding: 0px 10%;
-position: fixed;
-width: 100%;
-top: 0px;
-background: white;
-transition: background 0.5s;
+.dropdown-menu a{
+	
+  color: #313131;
 }
+.right a{
+	color: #fff;
 
-#navArea.is-sticky {
-background: #000;
-}
-
-#navArea.is-sticky a {
-color:#fff;
-}
-
-#navArea .logo img {
-height: 84px;
-transition: height 0.5s;
-}
-#navArea.is-sticky .logo img {
-height:64px;
-}
-
+	}
 .container1{
 	display:flex;
 	flex-direction:row;
@@ -133,7 +111,6 @@ height:64px;
 .dropdown-menu{width: max-content;
   position: absolute; cursor: pointer;
   top: 6rem;
-  color: #313131;
   font-weight: 600;
   left: -4rem;
   background-color: #fff;
@@ -150,6 +127,7 @@ height:64px;
   transition: opacity  200ms ease-in-out;
 }
 .dropdownmenu li{
+  text-decoration: none;
   list-style: none;
   padding: 0.5rem 1rem;
   border-radius: 0.2rem;
@@ -241,8 +219,7 @@ input[type="text" i] {
   justify-content: center;
   justify-content: center;
   background-color: #313131;
-  color: #fff;
-  text-decoration: none;
+  
   font-size: 35px;
   padding: 20px;
   margin: 10px;
@@ -270,6 +247,9 @@ input[type="text" i] {
 }
 .height_16{
   height: 16px;
+}
+.height_10{
+  height: 10px;
 }.height_12{
   height: 12px;
 }
@@ -807,4 +787,159 @@ svg:not(:root) {
     text-indent: 0px;
     text-shadow: none;
     text-align: center;
+}
+
+.profilecontainer{
+  margin-left: 35%;
+  margin-top: 5%;
+  width: 500px;
+  flex-direction: column;
+  display: flex;
+}
+.profilecontainer2{
+  flex-direction: column;
+  display: flex;
+}
+.profilecontainer3{
+  display: flex;
+  flex-direction: row;
+}
+.profiledetails{
+  margin-left: 24px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.namechange{
+  background-color: transparent;
+  color: rgb(232, 230, 227);
+  padding-left: 0px;
+  padding-top: 0px;
+  display: inline-flex;
+  line-height: 36px;
+  font-size: 24px;
+  padding-bottom: 8px;
+  outline: none;
+  border: none;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  padding-right: 16px;
+  font-weight: 500;
+  align-items: center;
+  font-family: inherit;
+}
+.shapeedit{
+  margin-left: 12px;
+  display: flex;
+}
+.edittag{
+  font-size: 12px;
+}
+
+.phonenumber{
+  color: rgb(232, 230, 227);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  
+}
+.profileinput{
+  width: 50%;
+  line-height: 20px;
+  font-size: 14px;
+  font-size: 14px;
+  display: block;
+}
+
+#hidden{
+  display: none;
+}
+#hidden2{
+  display: none;
+}
+.profileinput2{
+  box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
+  border-color: rgb(50, 54, 57);
+  background-color: rgb(29, 31, 32);
+  color: rgb(232, 230, 227);
+  border-style: solid;
+  border-width: 1px;
+  transition-duration: 0.25s;
+  border-radius: 4px;
+  line-height: 20px;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+}
+.profileinput2 input{
+  caret-color: rgb(242, 146, 56);
+  background-color: transparent;
+  color: rgb(232, 230, 227);
+  outline: none;
+  border-style: none;
+  border-width: 0px;
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: text;
+  line-height: 20px;
+  max-width: 100%;
+  font-size: 14px;
+  width: 100%;
+  border-color: #736b5e;
+
+}
+
+.locationheader{
+  color: rgb(232, 230, 227);
+  padding: 0;
+  display: block;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.savechanges,.logoutbutton{
+  
+  text-decoration: none;
+  display: inline-flex;
+  margin: 0;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  outline: none;
+  border-radius: 4px;
+  border: none;
+  justify-content: center;
+  font-size: 16px;
+  position: relative;
+  line-height: 24px;
+  cursor: pointer;
+  padding-right: 16px;
+  padding-left: 16px;
+  align-items: center;
+  font-family: inherit;
+  transition-duration: 0.25s;
+}
+
+.savechanges{
+  background-color: rgb(242, 140, 56);
+  color: rgb(252, 252, 252);
+}
+.savechanges:hover{
+background-color: rgb(219, 119, 38);
+}
+.logoutbutton{    width: 48%;
+  background-color: rgb(39, 42, 44);
+  color: rgb(231, 87, 70);
+}
+.logoutbutton:hover{
+  background-color: rgb(39, 42, 44);
+  color: rgb(194, 46, 29);
 }

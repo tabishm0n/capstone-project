@@ -15,6 +15,11 @@ List<Rest> rests = rs.getAllRests();
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
+<%
+if (usertype == "Customer") {
+  
+%>
+
 <div class="container2">
     
       <div class="leftcol">
@@ -47,6 +52,16 @@ List<Rest> rests = rs.getAllRests();
         </div>
       	 
     </div>
+    <%
+}else if (usertype == "Restaurant") {
+  
+%>
+<h1>Hi Restaurant Owner!</h1>
+<%
+}
+else
+	
+%><h1>Hello nobody</h1>
 </body>
 
 </html>

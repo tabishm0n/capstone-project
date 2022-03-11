@@ -71,6 +71,7 @@ public class UserDao {
 			if(rs.next()){
             	user = new User();
             	user.setId(rs.getInt("id"));
+            	user.setPassword(rs.getString("password"));
             	user.setLogin(rs.getString("login"));
             	user.setEmail(rs.getString("email"));
             }
@@ -79,10 +80,10 @@ public class UserDao {
 		}
 		return user;
 	}
-	public int verifyType(User user) throws ClassNotFoundException{
+	public User verifyType(User user) throws ClassNotFoundException{
 		
-		int result = 0;
-		String READ_TYPE_SQL ="Select user_type FROM user_table WHERE login=? AND password=?";
+		User userinfo = null;
+		String READ_TYPE_SQL ="Select * FROM user_table WHERE login=? AND password=?";
 		
 		try {
 			ps = this.con.prepareStatement(READ_TYPE_SQL);
@@ -90,19 +91,41 @@ public class UserDao {
 			ps.setString(2, user.getPassword());
 			rs = ps.executeQuery();
 			while(rs.next()) {
-					String type = rs.getString("user_type");
-				if(type.equals("Customer")) {
-					result = 1;
-				}else if (type.equals("Restaurant")) {
-					result = 2;
-				}else if (type.equals("Delivery")) {
-					result = 3;
-				}
+					userinfo = new User();
+					userinfo.setFirst_name(rs.getString("first_name"));
+					userinfo.setLast_name(rs.getString("last_name"));
+					userinfo.setPhone(rs.getString("phone"));
+					userinfo.setCity(rs.getString("city"));
+					userinfo.setStreet_address(rs.getString("street_address"));
+					userinfo.setEmail(rs.getString("email"));
+					userinfo.setPayment(rs.getString("payment"));
+					userinfo.setUser_type(rs.getString("user_type"));
 			}
 			
 		}catch (SQLException e) {
 			printSQLException(e);
 		}
+		return userinfo;
+	}
+	public int updateProfile( User user,int id) throws ClassNotFoundException{
+		int result = 0;
+		try {
+			String UPDATE_USER_SQL = " UPDATE user_table SET first_name=? ,last_name=? ,city=? ,street_address=? ,email=? ,payment=?  WHERE id=?;";
+											 
+			ps = this.con.prepareStatement(UPDATE_USER_SQL);
+			ps.setString(1, user.getFirst_name());
+			ps.setString(2, user.getLast_name());
+			ps.setString(3, user.getCity());
+			ps.setString(4, user.getStreet_address());
+			ps.setString(5, user.getEmail());
+			ps.setString(6, user.getPayment());
+			ps.setInt(7, id);
+			System.out.println(ps);
+			result = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 }

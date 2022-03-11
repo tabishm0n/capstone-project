@@ -4,7 +4,8 @@
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<% String username= (String)request.getSession().getAttribute("login");
+<% String usertype= (String)request.getSession().getAttribute("usertype");
+String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");
 
 List<Cart> cartProduct = null;
@@ -45,10 +46,20 @@ if(cart_list != null){
   <li class="items-5 item"><button class="link">
         <img src="<%=request.getContextPath()%>/resources/profile.png" alt=""></button>
         <ul class="dropdown-menu">
-          <li>Profile</li>
+         
+          <li><a href="<%=request.getContextPath()%>/jsp/UserProfilePage.jsp">Profile</a></li>
+         <%
+			if (usertype == "Customer") {
+			  
+			%>
           <li class="cartli"><a href="<%=request.getContextPath()%>/jsp/Cart.jsp">Cart <%if(cart_list != null){ %><span class="badge">${cart_list.size()}</span><%} %></a></li>
+         
           <li><a href="<%=request.getContextPath()%>/jsp/UserOrders.jsp"">Orders</a></li>
+         <%
+			}
+			%>
           <li><li><a href="<%=request.getContextPath()%>/Logout">Log Out</a></li></li>
+        
         </ul>
       </li>
       </div>

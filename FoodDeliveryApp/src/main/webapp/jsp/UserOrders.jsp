@@ -5,8 +5,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%  String user= (String)request.getSession().getAttribute("login");
-User login = (User) request.getSession().getAttribute("auth");
+<%  User user = (User) request.getSession().getAttribute("auth");
+String login = (String)request.getSession().getAttribute("login");
 List<Orders>orderslist = null; 
 int orderid =0;
 List<Orderitems> orders = null;
@@ -18,9 +18,9 @@ if (user == null) {
     response.sendRedirect("Login.jsp");
 }else{
 OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
-orderslist = orderDao.userOrdersList(login.getId());
-orderid = orderDao.orderId(login.getId());
-orders = orderDao.userOrders(login.getId());
+orderslist = orderDao.userOrdersList(user.getId());
+orderid = orderDao.orderId(user.getId());
+orders = orderDao.userOrders(user.getId());
 
 }
 %>
