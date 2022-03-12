@@ -2,18 +2,34 @@
 <%@page import="com.capstoneproject.dao.*"%>
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% String usertype= (String)request.getSession().getAttribute("usertype");
 String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");
-
+Rest restinfo = (Rest) request.getSession().getAttribute("restinfo");
+SimpleDateFormat date = new SimpleDateFormat("MMM dd");
+SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
+List<Orders>orderslist = null; 
+List<Orderitems>restaurantorderslist = null; 
+int orderid =0;
+List<Orderitems> orders = null;
+List<Orderitems> orderitems = null;
 List<Cart> cartProduct = null;
 
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
 
 if (username == null) {
     response.sendRedirect("Login.jsp");
+}else{
+	OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
+	orderslist = orderDao.userOrdersList(auth.getId());
+	if(usertype.equals("Restaurant"))
+	restaurantorderslist = orderDao.RestaurantOrdersList(restinfo.getRestaurant_id());
+	orderid = orderDao.orderId(auth.getId());
+	orders = orderDao.userOrders(auth.getId());
+
 }
 if(cart_list != null){
 	DishDao cDao = new DishDao(DbCon.getConnection());

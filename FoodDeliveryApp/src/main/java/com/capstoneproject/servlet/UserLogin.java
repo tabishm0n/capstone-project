@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.capstoneproject.dao.RestDao;
 import com.capstoneproject.dao.UserDao;
+import com.capstoneproject.model.Rest;
 import com.capstoneproject.model.User;
 import com.capstoneproject.connection.DbCon;
 
@@ -28,18 +30,17 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			String login = request.getParameter("login");
 			String password = request.getParameter("password");
 			UserDao usDao = null;
+			RestDao rsDao = null;
 			try {
 				usDao = new UserDao(DbCon.getConnection());
+				rsDao = new RestDao(DbCon.getConnection());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			User verify = usDao.verifyUser(login, password);
-			User us = new User();
-			us.setLogin(login);
-			us.setPassword(password);
 			if (verify != null) {
-				User user = usDao.verifyType(us);
+				User user = usDao.verifyType(verify);
 				String usertype = user.getUser_type();
 				String first_name = user.getFirst_name();
 				String last_name= user.getLast_name();
@@ -61,6 +62,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					request.getSession().setAttribute("usertype", "Customer");
 					
 				}else if(usertype.equals("Restaurant")) {
+					Rest restinfo = rsDao.getRestdetails(verify);
+					request.getSession().setAttribute("restinfo", restinfo);
 					request.getSession().setAttribute("usertype", "Restaurant");
 					
 				}else if(usertype.equals("Delivery")) {

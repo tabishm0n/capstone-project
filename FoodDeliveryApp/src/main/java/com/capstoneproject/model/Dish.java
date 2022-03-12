@@ -7,13 +7,15 @@ public class Dish {
 	private float price;
 	private boolean active;
 	private int quantity;
+	private int category;
+	private String category_name;
 	public Dish() {
 		super();
 	}
 
 
-	
-	public Dish(int menuitem_id, String item_name, String description, float price, boolean active, int quantity) {
+	public Dish(int menuitem_id, String item_name, String description, float price, boolean active, int quantity,
+			int category, String category_name) {
 		super();
 		this.menuitem_id = menuitem_id;
 		this.item_name = item_name;
@@ -21,14 +23,37 @@ public class Dish {
 		this.price = price;
 		this.active = active;
 		this.quantity = quantity;
+		this.category = category;
+		this.category_name = category_name;
 	}
-
 
 
 	@Override
 	public String toString() {
 		return "Dish [menuitem_id=" + menuitem_id + ", item_name=" + item_name + ", description=" + description
-				+ ", price=" + price + ", active=" + active + ", quantity=" + quantity + "]";
+				+ ", price=" + price + ", active=" + active + ", quantity=" + quantity + ", category=" + category
+				+ ", category_name=" + category_name + "]";
+	}
+
+
+	public String getCategory_name() {
+		return category_name;
+	}
+
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+
+
+	public int getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(int category) {
+		this.category = category;
 	}
 
 

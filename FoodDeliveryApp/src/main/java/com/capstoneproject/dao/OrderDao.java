@@ -23,7 +23,7 @@ public class OrderDao {
 		boolean result = false;
 		
 		try {
-			String ORDER_INSERT_SQL = "INSERT INTO orders (user_id) VALUES (?) ; ";
+			String ORDER_INSERT_SQL = "INSERT INTO orders (user_id,order_status) VALUES (?,1) ; ";
 			ps = this.con.prepareStatement(ORDER_INSERT_SQL);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -36,15 +36,25 @@ public class OrderDao {
 	}
 
 	
-	  public List<Orders> userOrdersList(int id) { 
-		  List<Orders> list = new
-	  ArrayList<>(); String ORDER_ID_SQL =	  "SELECT order_id FROM orders WHERE user_id=?"; 
-	  try {
-		  ps =	 this.con.prepareStatement(ORDER_ID_SQL); ps.setInt(1, id); rs =
-	  ps.executeQuery(); while(rs.next()) { Orders order = new Orders();
-	  order.setOrder_id(rs.getInt("order_id")); list.add(order); }
-	  
-	  } catch (SQLException e) { e.printStackTrace(); } return list; }
+	public List<Orders> userOrdersList(int id) { 
+		  List<Orders> list = new ArrayList<>(); 
+		  String ORDER_ID_SQL ="SELECT order_id FROM orders WHERE user_id=?"; 
+		  try {
+			  ps = this.con.prepareStatement(ORDER_ID_SQL);
+			  ps.setInt(1, id);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  	{ 
+					Orders order = new Orders();
+				  	order.setOrder_id(rs.getInt("order_id")); 
+				  	list.add(order); 
+			  	}
+		  } catch (SQLException e) 
+		  { 
+			  e.printStackTrace(); 
+			  } 
+		  return list;
+	   }
 	 
 	public int orderId(int id) {
 		int res=0;
@@ -117,10 +127,38 @@ public class OrderDao {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-		}return list;
+		}
+		return list;
 	}
 	
-
+	public List<Orderitems> RestaurantOrdersList(int id) { 
+		  List<Orderitems> list = new ArrayList<>(); 
+		  String REST_ORDER_SQL ="SELECT oi.menuitem_id,mi.item_name,oi.quantity, us.first_name,us.last_name,oi.order_date, od.user_id FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=?;"; 
+		
+		  try {
+			  ps = this.con.prepareStatement(REST_ORDER_SQL); 
+			  ps.setInt(1, id);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  { 
+				  Orderitems order = new Orderitems();
+				  order.setMenuitem_id(rs.getInt("menuitem_id"));
+				  order.setItem_name(rs.getString("item_name"));
+				  order.setQuantity(rs.getInt("quantity"));
+				  order.setFirst_name(rs.getString("first_name"));
+				  order.setLast_name(rs.getString("last_name"));
+				  order.setOrder_date(rs.getTimestamp("order_date"));
+				  order.setUser_id(rs.getInt("user_id"));
+				  list.add(order); 
+			  }
+		  } 
+		  catch (SQLException e) 
+		  	{ 
+			  e.printStackTrace(); 
+			  } 
+		  System.out.println(list);
+		  return list;
+	   }	
 
 	public void cancelOrder(int id){
 		try {

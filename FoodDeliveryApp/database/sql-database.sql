@@ -27,7 +27,9 @@ CREATE TABLE public.menu_item (
     item_name character varying(50) NOT NULL,
     description character varying(255) NOT NULL,
     price numeric(3,1) NOT NULL,
-    active boolean NOT NULL
+    active boolean NOT NULL,
+    restaurant_id bigint NOT NULL,
+    category bigint NOT NULL
 );
 
 
@@ -52,8 +54,22 @@ CREATE TABLE public.orderitems (
     order_date timestamp(0) without time zone NOT NULL
 );
 
+CREATE TABLE public.orderitems_completed (
+    orderitem_id bigint NOT NULL,
+    order_id bigint NOT NULL,
+    menuitem_id bigint NOT NULL,
+    quantity bigint NOT NULL,
+    order_date timestamp(0) without time zone NOT NULL
+);
 
 CREATE SEQUENCE public.orderitems_orderitem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+CREATE SEQUENCE public.orderitems_completed_orderitem_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -64,10 +80,14 @@ CREATE SEQUENCE public.orderitems_orderitem_id_seq
 ALTER SEQUENCE public.orderitems_orderitem_id_seq OWNED BY public.orderitems.orderitem_id;
 
 
+ALTER SEQUENCE public.orderitems_completed_orderitem_id_seq OWNED BY public.orderitems.orderitem_id;
+
+
 
 CREATE TABLE public.orders (
     order_id bigint NOT NULL,
-    user_id bigint NOT NULL
+    user_id bigint NOT NULL,
+    order_status bigint NOT NULL
 );
 
 
@@ -90,7 +110,7 @@ CREATE TABLE public.restaurant (
     operational boolean NOT NULL,
     description character varying(50) NOT NULL,
     restaurant_name character varying(50) NOT NULL,
-    id bigint NOT NULL
+    user_id bigint NOT NULL
 );
 
 
@@ -123,6 +143,24 @@ CREATE SEQUENCE public.status_list_status_id_seq
 
 
 ALTER SEQUENCE public.status_list_status_id_seq OWNED BY public.status_list.status_id;
+
+
+CREATE TABLE public.category (
+    category_id bigint NOT NULL,
+    category_name character varying(50) NOT NULL
+);
+
+
+CREATE SEQUENCE public.category_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+ALTER SEQUENCE public.category_category_id_seq OWNED BY public.category.category_id;
 
 
 
@@ -160,8 +198,6 @@ ALTER TABLE ONLY public.ingredients ALTER COLUMN ingredients_id SET DEFAULT next
 ALTER TABLE ONLY public.menu_item ALTER COLUMN menuitem_id SET DEFAULT nextval('public.menu_item_menuitem_id_seq'::regclass);
 
 
-
-
 ALTER TABLE ONLY public.orderitems ALTER COLUMN orderitem_id SET DEFAULT nextval('public.orderitems_orderitem_id_seq'::regclass);
 
 
@@ -193,6 +229,9 @@ ALTER TABLE ONLY public.menu_item
 ALTER TABLE ONLY public.orderitems
     ADD CONSTRAINT orderitems_pkey PRIMARY KEY (orderitem_id);
 
+    ALTER TABLE ONLY public.orderitems_completed
+    ADD CONSTRAINT orderitems_completed_pkey PRIMARY KEY (orderitem_id);
+
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (order_id);
@@ -207,6 +246,9 @@ ALTER TABLE ONLY public.restaurant
 ALTER TABLE ONLY public.status_list
     ADD CONSTRAINT status_list_pkey PRIMARY KEY (status_id);
 
+ALTER TABLE ONLY public.category
+    ADD CONSTRAINT category_pkey PRIMARY KEY (category_id);
+
 
 
 ALTER TABLE ONLY public.user_table
@@ -215,7 +257,7 @@ ALTER TABLE ONLY public.user_table
 
 
 ALTER TABLE ONLY public.restaurant
-    ADD CONSTRAINT fk_user_table FOREIGN KEY (id) REFERENCES public.user_table(id);
+    ADD CONSTRAINT fk_user_table FOREIGN KEY (user_id) REFERENCES public.user_table(id);
 
 
 
@@ -228,10 +270,29 @@ ALTER TABLE ONLY public.orderitems
 ALTER TABLE ONLY public.orderitems
     ADD CONSTRAINT orderitems_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.orders(order_id);
 
+    
+ALTER TABLE ONLY public.orderitems_completed
+    ADD CONSTRAINT orderitems_completed_menuitem_id_fkey FOREIGN KEY (menuitem_id) REFERENCES public.menu_item(menuitem_id);
+
+
+ALTER TABLE ONLY public.orderitems_completed
+    ADD CONSTRAINT orderitems_completed_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.orders(order_id);
+
 
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_table(id);
+
+
+ALTER TABLE ONLY public.menu_item
+    ADD CONSTRAINT menu_item_restaurant_id_fkey FOREIGN KEY (restaurant_id) REFERENCES public.restaurant(restaurant_id);
+
+ALTER TABLE ONLY public.menu_item
+    ADD CONSTRAINT menu_item_category_fkey FOREIGN KEY (category) REFERENCES public.category(category_id);
+
+    
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_order_status_fkey FOREIGN KEY (order_status) REFERENCES public.status_list(status_id);
 
 
 
@@ -245,8 +306,10 @@ INSERT INTO public.ingredients VALUES (7, 'Salt', 'Butter Chicken', 1);
 INSERT INTO public.ingredients VALUES (8, 'Oil', 'Butter Chicken', 1);
 
 
-INSERT INTO public.menu_item VALUES (1, 'Butter Chicken', 'Delicious Indian Curry with tender Chicken', 30.5, true);
-INSERT INTO public.menu_item VALUES (2, 'Biryani', 'Exquisite Hyderabadi Biryani served with Chicken', 42.5, true);
+INSERT INTO public.menu_item VALUES (1, 'Butter Chicken', 'Delicious Indian Curry with tender Chicken', 30.5, true,1,2);
+INSERT INTO public.menu_item VALUES (2, 'Biryani', 'Exquisite Hyderabadi Biryani served with Chicken', 42.5, true,1,2);
+INSERT INTO public.menu_item VALUES (4, 'Samosa', 'Indian Snack filled with flavored masehed Potatoes', 10.5, true,1,1);
+INSERT INTO public.menu_item VALUES (3, 'Chinese Noodles', 'Hand-made Noodles served in hot Chicken broth', 18.0, true,2,2);
 
 
 
@@ -263,7 +326,10 @@ INSERT INTO public.user_table VALUES (4, 'lee', '123', 'Sudbury', 'Chinatown', '
 INSERT INTO public.user_table VALUES (3, 'bharath', '123', 'Toronto', 'Yonge St.', 'Bharath', 'Kumar', 'bharathkumar@gmail.com', '9872342349', 'Restaurant', '1236548153', '2022-03-01 19:24:33.224157');
 INSERT INTO public.user_table VALUES (5, 'chris', '123', 'Toronto', 'Jarl St.', 'Chris', 'Evans', 'chris.evans@gmail.com', '2345723987', 'Restaurant', '12739084', '2022-03-01 20:05:04.359832');
 INSERT INTO public.user_table VALUES (6, 'tom', '123', 'Toronto', 'Bayview St.', 'Tommy', 'Wiseau', 'itstommy@gmail.com', '692354987', 'Restaurant', '984321964', '2022-03-01 20:06:46.655692');
+INSERT INTO public.user_table VALUES (7, 'naseeh', '123', 'Toronto', 'William St', 'Naseeh', 'Uddin', 'naseeh123@gmail.com', '28435640982', 'Customer', '6549821212', '2022-03-02 00:00:00');
 
 
+INSERT INTO public.status_list VALUES (1,'Order Created'),(2,'Order Prepared'),(3,'Order out for Delivery'),(4,'Order Delivered');
 
+INSERT INTO public.category VALUES (1,'Appetizer'),(2,'Main Course'),(3,'Sides'),(4,'Dessert'),(5,'Beverages');
 

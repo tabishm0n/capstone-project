@@ -3,6 +3,8 @@ package com.capstoneproject.model;
 import java.sql.Timestamp;
 
 public class Orderitems {
+	private String first_name;
+	private String last_name;
 	private int user_id;
 	private int order_id;
 	private float price;
@@ -17,9 +19,20 @@ public Orderitems() {
 
 
 
-public Orderitems(int user_id, int order_id, float price, int menuitem_id, String item_name, int orderitem_id,
-		int quantity, Timestamp order_date) {
+@Override
+public String toString() {
+	return "Orderitems [first_name=" + first_name + ", last_name=" + last_name + ", user_id=" + user_id + ", order_id="
+			+ order_id + ", price=" + price + ", menuitem_id=" + menuitem_id + ", item_name=" + item_name
+			+ ", orderitem_id=" + orderitem_id + ", quantity=" + quantity + ", order_date=" + order_date + "]";
+}
+
+
+
+public Orderitems(String first_name, String last_name, int user_id, int order_id, float price, int menuitem_id,
+		String item_name, int orderitem_id, int quantity, Timestamp order_date) {
 	super();
+	this.first_name = first_name;
+	this.last_name = last_name;
 	this.user_id = user_id;
 	this.order_id = order_id;
 	this.price = price;
@@ -32,11 +45,26 @@ public Orderitems(int user_id, int order_id, float price, int menuitem_id, Strin
 
 
 
-@Override
-public String toString() {
-	return "Orderitems [user_id=" + user_id + ", order_id=" + order_id + ", price=" + price + ", menuitem_id="
-			+ menuitem_id + ", item_name=" + item_name + ", orderitem_id=" + orderitem_id + ", quantity=" + quantity
-			+ ", order_date=" + order_date + "]";
+public String getFirst_name() {
+	return first_name;
+}
+
+
+
+public void setFirst_name(String first_name) {
+	this.first_name = first_name;
+}
+
+
+
+public String getLast_name() {
+	return last_name;
+}
+
+
+
+public void setLast_name(String last_name) {
+	this.last_name = last_name;
 }
 
 

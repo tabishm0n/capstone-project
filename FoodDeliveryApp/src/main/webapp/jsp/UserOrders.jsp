@@ -2,26 +2,11 @@
 <%@page import="com.capstoneproject.dao.*"%>
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%  User user = (User) request.getSession().getAttribute("auth");
-String login = (String)request.getSession().getAttribute("login");
-List<Orders>orderslist = null; 
-int orderid =0;
-List<Orderitems> orders = null;
-List<Orderitems> orderitems = null;
-SimpleDateFormat date = new SimpleDateFormat("MMM dd");
-SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
-
 if (user == null) {
     response.sendRedirect("Login.jsp");
-}else{
-OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
-orderslist = orderDao.userOrdersList(user.getId());
-orderid = orderDao.orderId(user.getId());
-orders = orderDao.userOrders(user.getId());
-
 }
 %>
 <!DOCTYPE html>

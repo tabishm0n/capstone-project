@@ -5,7 +5,9 @@
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
       <%DishDao ds = new DishDao(DbCon.getConnection());
-List<Dish> dishes = ds.getAllDishes();%>
+Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
+List<Dish> category = ds.getCategories(userrestinfo.getRestaurant_id());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +29,7 @@ List<Dish> dishes = ds.getAllDishes();%>
   </div>
   <div class="container2">
     <div class="second">
-      <div class="seconds-1 second"><h1> rname </h1></div>
+      <div class="seconds-1 second"><h1> <%= userrestinfo.getRestaurant_name() %></h1></div>
       <div class="seconds-2 second"><h3>Rating</h3></div>
     </div>
      </div>
@@ -41,15 +43,20 @@ List<Dish> dishes = ds.getAllDishes();%>
       </div>
        
       <div class="rright">
-        
+        <%
+          if(!category.isEmpty())
+          {	
+        	  for(Dish c:category)
+        	  {		
+        		  List<Dish> dishes = ds.getAllDishes(c.getCategory(),userrestinfo.getRestaurant_id());
+        		%>
         <li class="li">
-          <div class="smenutitle">Appetizer</div>
+          <div class="smenutitle"><%= c.getCategory_name() %></div>
           <div class="height"></div>
-          
           <ul class="list">
           <%
-          if(!dishes.isEmpty()){
         	  for(Dish d:dishes){%>
+        	  
         		  <li class="litem">
                   <div class="itemdiv" tabindex="0">
                     <div class="itemdiv2">
@@ -80,160 +87,15 @@ List<Dish> dishes = ds.getAllDishes();%>
                     </div>
                   </div>
                 </li>
-        	  <%}
-          }
+                  <%
+        	  }
           %>
-           <%-- <li class="litem">
-              <div class="itemdiv" tabindex="0">
-                <div class="itemdiv2">
-                  <div class="itemdiv3">
-                    <div class="itemdiv4">
-                      <div class="ititle">
-                        <span class="">Samosa</span>
-                      </div>
-                      <div class="iprice">
-                        <div>
-                          <span>$2.25</span>
-                        </div>
-                      </div>
-                      <div class="idesc">
-                        <div>
-                          <span>The triangular shaped flaky snack filled with tasty potato, green peas.</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="iadd">
-                    <button aria-label="Quick Add" class="addbutton">
-                      <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="litem">
-              <div class="itemdiv" tabindex="0">
-                <div class="itemdiv2">
-                  <div class="itemdiv3">
-                    <div class="itemdiv4">
-                      <div class="ititle">
-                        <span class="">Masala Fries</span>
-                      </div>
-                      <div class="iprice">
-                        <div>
-                          <span class="">$6.45</span>
-                        </div>
-                      </div>
-                      <div class="idesc">
-                        <div>
-                          <span>Fries but with Masala</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="iadd">
-                    <button aria-label="Quick Add" class="addbutton">
-                      <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="litem">
-              <div class="itemdiv" tabindex="0">
-                <div class="itemdiv2">
-                  <div class="itemdiv3">
-                    <div class="itemdiv4">
-                      <div class="ititle">
-                        <span class="">Plain Rice</span>
-                      </div>
-                      <div class="iprice">
-                        <div>
-                          <span class="">$4.95</span>
-                        </div>
-                      </div>
-                      <div class="idesc">
-                        <div>
-                          <span>Cooked Rice</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="iadd">
-                    <button aria-label="Quick Add" class="addbutton">
-                      <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="litem">
-              <div class="itemdiv" tabindex="0">
-                <div class="itemdiv2">
-                  <div class="itemdiv3">
-                    <div class="itemdiv4">
-                      <div class="ititle">
-                        <span class="">Plain Roti</span>
-                      </div>
-                      <div class="iprice">
-                        <div>
-                          <span class="">$4.25</span>
-                        </div>
-                      </div>
-                      <div class="idesc">
-                        <div>
-                          <span>Traditional giant flat bread</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="iadd">
-                    <button aria-label="Quick Add" class="addbutton">
-                      <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="litem">
-              <div class="itemdiv" tabindex="0">
-                <div class="itemdiv2">
-                  <div class="itemdiv3">
-                    <div class="itemdiv4">
-                      <div class="ititle">
-                        <span class="">Chicken Samosa</span>
-                      </div>
-                      <div class="iprice">
-                        <div>
-                          <span class="">$3.95</span>
-                        </div>
-                      </div>
-                      <div class="idesc">
-                        <div class="">
-                          <span>The triangular shaped flaky snack filled with tasty minced chicken.</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="iadd">
-                    <button aria-label="Quick Add" class="addbutton">
-                      <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
           </ul>
         </li>
- --%>
-        <div class="smenutitle">Main Course</div>
-
-        <div class="smenutitle">Sides</div>
-
-        <div class="smenutitle">Dessert</div>
-
-        <div class="smenutitle">Beverages</div>
-
+        <%	
+        }
+        } 
+        %>
       </div>
     </div>
   </div>
