@@ -30,6 +30,8 @@ public class UserCheckout extends HttpServlet {
 			java.sql.Timestamp sqldate = new java.sql.Timestamp(date.getTime());
 			// Retrieve all cart items
 			ArrayList<Cart> cart_list = (ArrayList<Cart>)request.getSession().getAttribute("cart-list");
+			int rid = Integer.parseInt(request.getParameter("rid"));
+			
 			//user authentication
 			User login = (User) request.getSession().getAttribute("auth");
 			List<Orders>orderslist = null;
@@ -38,7 +40,7 @@ public class UserCheckout extends HttpServlet {
 			//check auth and cart list
 			if(cart_list != null && login!=null) {
 				OrderDao oDao = new OrderDao(DbCon.getConnection());
-				boolean result = oDao.insertOrders(login.getId());
+				boolean result = oDao.insertOrders(login.getId(),rid);
 				/* orderslist = oDao.userOrdersList(login.getId()); */
 				orderID = oDao.orderId(login.getId());
 				/*for(Orders o:orderslist){System.out.println("orders loop");*/

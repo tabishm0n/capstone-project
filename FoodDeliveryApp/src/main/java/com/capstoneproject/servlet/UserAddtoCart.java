@@ -24,9 +24,11 @@ public class UserAddtoCart extends HttpServlet {
 		
 		try(PrintWriter out = response.getWriter()){
 			ArrayList<Cart> cartList= new ArrayList<>(); 
-			int id = Integer.parseInt(request.getParameter("id"));
+			int mid = Integer.parseInt(request.getParameter("mid"));
+			int rid = Integer.parseInt(request.getParameter("rid"));
 			Cart ct = new Cart();
-			ct.setMenuitem_id(id);
+			ct.setMenuitem_id(mid);
+			ct.setRestaurant_id(rid);
 			ct.setQuantity(1);
 			
 			HttpSession session = request.getSession();
@@ -40,13 +42,19 @@ public class UserAddtoCart extends HttpServlet {
 				cartList = cart_list;
 				boolean exists= false;
 				
-				
-				
 				  for(Cart c:cart_list) { 
-				  if(c.getMenuitem_id()==id) {
-					  exists=true;
-					  out.println("<h3 style='color: crimson; text-align: center'>Item Already exist in cart<a href='./jsp/Cart.jsp'>Go to Cart</a></h3>'");
-				  }
+					  if(c.getRestaurant_id()!=rid) {
+						  exists=true;
+						  request.getRequestDispatcher("./jsp/CartRemoveConfirmationPage.jsp").forward(request, response);
+						}
+					  else if(c.getMenuitem_id()==mid) {
+							  exists=true;
+							  request.getSession().setAttribute("itemexist", "Item Already exist in Cart!");
+							  Dish itemexists = new Dish();
+							  itemexists.setMenuitem_id(mid);
+							  request.getSession().setAttribute("itemexistsid",itemexists);
+							  response.sendRedirect("./jsp/UserRestaurantPage.jsp");
+						  }
 				 
 				 }
 				  if(!exists) {

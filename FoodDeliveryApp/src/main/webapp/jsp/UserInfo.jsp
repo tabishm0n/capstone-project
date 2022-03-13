@@ -9,7 +9,7 @@
 <body>
 <%-- --%>
 <h1> User registered - All Good!  </h1>
-<a href="./jsp/Login.jsp">Go Login</a>
+<a href="<%= request.getContextPath() %>/jsp/Login.jsp">Go Login</a>
 
 </body>
 </html>

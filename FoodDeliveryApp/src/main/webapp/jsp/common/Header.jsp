@@ -12,7 +12,9 @@ Rest restinfo = (Rest) request.getSession().getAttribute("restinfo");
 SimpleDateFormat date = new SimpleDateFormat("MMM dd");
 SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
 List<Orders>orderslist = null; 
-List<Orderitems>restaurantorderslist = null; 
+List<Orderitems>restaurantorderslistcreated = null; 
+List<Orderitems>restaurantorderslistprepared = null; 
+List<Orderitems>restaurantorderslistdelivered = null; 
 int orderid =0;
 List<Orderitems> orders = null;
 List<Orderitems> orderitems = null;
@@ -25,8 +27,11 @@ if (username == null) {
 }else{
 	OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
 	orderslist = orderDao.userOrdersList(auth.getId());
-	if(usertype.equals("Restaurant"))
-	restaurantorderslist = orderDao.RestaurantOrdersList(restinfo.getRestaurant_id());
+	if(usertype.equals("Restaurant")){
+	restaurantorderslistcreated = orderDao.RestaurantOrdersListCreated(restinfo.getRestaurant_id());
+	restaurantorderslistprepared = orderDao.RestaurantOrdersListPrepared(restinfo.getRestaurant_id());
+	restaurantorderslistdelivered = orderDao.RestaurantOrdersListDelivered(restinfo.getRestaurant_id());
+	}
 	orderid = orderDao.orderId(auth.getId());
 	orders = orderDao.userOrders(auth.getId());
 

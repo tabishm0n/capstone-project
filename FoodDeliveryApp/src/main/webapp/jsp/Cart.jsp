@@ -3,6 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 <% DecimalFormat dcf = new DecimalFormat("#.##");
 request.setAttribute("dcf", dcf);
+Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
 
 %>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ request.setAttribute("dcf", dcf);
 <div class="cartcontainer">
 <div class="cartl">
 
-  <h1 class="crname">Indian Curry</h1>
+  <h1 class="crname"><%= userrestinfo.getRestaurant_name() %></h1>
             <hr class="divider">
   <div class="ctitle">
     <h3 class="cheader">Your items</h3>
@@ -76,7 +77,7 @@ request.setAttribute("dcf", dcf);
 </div>
   <div class="cartr">
     <div class="cartorder">
-      <div class="placeorder"><a href="<%=request.getContextPath()%>/Checkout">
+      <div class="placeorder"><a href="<%=request.getContextPath()%>/Checkout?rid=<%= userrestinfo.getRestaurant_id()%>">
         <button class="orderbutton">Place order</button>
       </a></div>
       <div class="height_16">

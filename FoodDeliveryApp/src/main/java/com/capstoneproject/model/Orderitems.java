@@ -13,23 +13,16 @@ public class Orderitems {
 	private int orderitem_id;
 	private int quantity;
 	private Timestamp order_date;
+	private String restaurant_name;
+	private int restaurant_id;
 public Orderitems() {
 		
 	}
 
 
-
-@Override
-public String toString() {
-	return "Orderitems [first_name=" + first_name + ", last_name=" + last_name + ", user_id=" + user_id + ", order_id="
-			+ order_id + ", price=" + price + ", menuitem_id=" + menuitem_id + ", item_name=" + item_name
-			+ ", orderitem_id=" + orderitem_id + ", quantity=" + quantity + ", order_date=" + order_date + "]";
-}
-
-
-
 public Orderitems(String first_name, String last_name, int user_id, int order_id, float price, int menuitem_id,
-		String item_name, int orderitem_id, int quantity, Timestamp order_date) {
+		String item_name, int orderitem_id, int quantity, Timestamp order_date, String restaurant_name,
+		int restaurant_id) {
 	super();
 	this.first_name = first_name;
 	this.last_name = last_name;
@@ -41,8 +34,38 @@ public Orderitems(String first_name, String last_name, int user_id, int order_id
 	this.orderitem_id = orderitem_id;
 	this.quantity = quantity;
 	this.order_date = order_date;
+	this.restaurant_name = restaurant_name;
+	this.restaurant_id = restaurant_id;
 }
 
+
+@Override
+public String toString() {
+	return "Orderitems [first_name=" + first_name + ", last_name=" + last_name + ", user_id=" + user_id + ", order_id="
+			+ order_id + ", price=" + price + ", menuitem_id=" + menuitem_id + ", item_name=" + item_name
+			+ ", orderitem_id=" + orderitem_id + ", quantity=" + quantity + ", order_date=" + order_date
+			+ ", restaurant_name=" + restaurant_name + ", restaurant_id=" + restaurant_id + "]";
+}
+
+
+public String getRestaurant_name() {
+	return restaurant_name;
+}
+
+
+public void setRestaurant_name(String restaurant_name) {
+	this.restaurant_name = restaurant_name;
+}
+
+
+public int getRestaurant_id() {
+	return restaurant_id;
+}
+
+
+public void setRestaurant_id(int restaurant_id) {
+	this.restaurant_id = restaurant_id;
+}
 
 
 public String getFirst_name() {

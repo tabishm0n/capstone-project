@@ -87,7 +87,8 @@ ALTER SEQUENCE public.orderitems_completed_orderitem_id_seq OWNED BY public.orde
 CREATE TABLE public.orders (
     order_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    order_status bigint NOT NULL
+    order_status bigint NOT NULL,
+    restaurant_id bigint NOT NULL
 );
 
 
@@ -283,6 +284,9 @@ ALTER TABLE ONLY public.orderitems_completed
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_table(id);
 
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_restaurant_id_fkey FOREIGN KEY (restaurant_id) REFERENCES public.restaurant(restaurant_id);
+
 
 ALTER TABLE ONLY public.menu_item
     ADD CONSTRAINT menu_item_restaurant_id_fkey FOREIGN KEY (restaurant_id) REFERENCES public.restaurant(restaurant_id);
@@ -308,8 +312,8 @@ INSERT INTO public.ingredients VALUES (8, 'Oil', 'Butter Chicken', 1);
 
 INSERT INTO public.menu_item VALUES (1, 'Butter Chicken', 'Delicious Indian Curry with tender Chicken', 30.5, true,1,2);
 INSERT INTO public.menu_item VALUES (2, 'Biryani', 'Exquisite Hyderabadi Biryani served with Chicken', 42.5, true,1,2);
-INSERT INTO public.menu_item VALUES (4, 'Samosa', 'Indian Snack filled with flavored masehed Potatoes', 10.5, true,1,1);
 INSERT INTO public.menu_item VALUES (3, 'Chinese Noodles', 'Hand-made Noodles served in hot Chicken broth', 18.0, true,2,2);
+INSERT INTO public.menu_item VALUES (4, 'Samosa', 'Indian Snack filled with flavored masehed Potatoes', 10.5, true,1,1);
 
 
 

@@ -24,8 +24,6 @@ if (user == null) {
            {   for(Orderitems o1:orders){
         	   OrderDao oDao  = new OrderDao(DbCon.getConnection());
         	   orderitems = oDao.userOrderItems(o1.getOrder_id());
- 			   System.out.println("orders list : \n"+orders);
- 			   System.out.println("orders list : \n"+orderitems);
  			  	
            %>
            <div class="ordercontainerflex">
@@ -41,7 +39,7 @@ if (user == null) {
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo2">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href="">Restaurant Name   
+                  <a  class="orderspagestorelinktitle" href=""><%= o1.getRestaurant_name() %>  
                   </a>
                   <div class="rating">
                     <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
@@ -83,7 +81,7 @@ if (user == null) {
                     </svg>
                     
                   </div></div><div class="orderspageidesc">
-                    <div class="mo"><%= o1.getQuantity() %> items for $<%=  o1.getPrice() %>
+                    <div class="mo"><%= o1.getQuantity() %> item(s) for $<%=  o1.getPrice() %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
                       </span><%= date.format(o1.getOrder_date()) %><span> at </span><%= time.format(o1.getOrder_date()) %>

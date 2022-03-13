@@ -49,7 +49,9 @@
             
         <button type="submit" class="btn btn-primary btn-block btn-large">Sign Up</button>
     </form>
-
+	 <form method="post" action="<%= request.getContextPath() %>/jsp/Login.jsp" >
+    	<button class="btn btn-secondary btn-block btn-large">Go Back</button>
+    </form>
  </div>
 
 </body>

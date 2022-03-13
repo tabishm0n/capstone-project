@@ -19,13 +19,14 @@ public class OrderDao {
 	public OrderDao(Connection con) {
 		this.con = con;
 	}
-	public boolean insertOrders(int id) {
+	public boolean insertOrders(int uid,int rid) {
 		boolean result = false;
 		
 		try {
-			String ORDER_INSERT_SQL = "INSERT INTO orders (user_id,order_status) VALUES (?,1) ; ";
+			String ORDER_INSERT_SQL = "INSERT INTO orders (user_id,order_status,restaurant_id) VALUES (?,1,?) ; ";
 			ps = this.con.prepareStatement(ORDER_INSERT_SQL);
-			ps.setInt(1, id);
+			ps.setInt(1, uid);
+			ps.setInt(2, rid);
 			ps.executeUpdate();
 			result=true;
 		}catch(Exception e) {
@@ -112,7 +113,7 @@ public class OrderDao {
 		List<Orderitems> list = new ArrayList<>();
 		
 		try {
-			String SELECT_ORDER_SQL = " SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date,oi.order_id from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id WHERE od.user_id=? GROUP BY oi.order_id,date ORDER BY oi.order_id DESC;";
+			String SELECT_ORDER_SQL = " SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date,oi.order_id,od.restaurant_id,rs.restaurant_name from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN restaurant rs ON od.restaurant_id=rs.restaurant_id WHERE od.user_id=? GROUP BY oi.order_id,date,od.restaurant_id,rs.restaurant_name ORDER BY oi.order_id DESC;";
 			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -122,6 +123,8 @@ public class OrderDao {
 				order.setPrice(rs.getFloat("total"));
 				order.setQuantity(rs.getInt("items"));
 				order.setOrder_date(rs.getTimestamp("date"));
+				order.setRestaurant_id(rs.getInt("restaurant_id"));
+				order.setRestaurant_name(rs.getString("restaurant_name"));
 				list.add(order);
 				
 			}
@@ -131,9 +134,93 @@ public class OrderDao {
 		return list;
 	}
 	
-	public List<Orderitems> RestaurantOrdersList(int id) { 
+	public List<Orderitems> RestaurantOrdersListCreated(int rid) { 
 		  List<Orderitems> list = new ArrayList<>(); 
-		  String REST_ORDER_SQL ="SELECT oi.menuitem_id,mi.item_name,oi.quantity, us.first_name,us.last_name,oi.order_date, od.user_id FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=?;"; 
+		  String REST_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=1 GROUP BY od.order_id,date,us.first_name,us.last_name  ORDER BY order_id DESC; "; 
+		
+		  try {
+			  ps = this.con.prepareStatement(REST_ORDER_SQL); 
+			  ps.setInt(1, rid);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  { 
+				  Orderitems order = new Orderitems();
+				  order.setOrder_id(rs.getInt("order_id"));
+				  order.setFirst_name(rs.getString("first_name"));
+				  order.setLast_name(rs.getString("last_name"));
+				  order.setPrice(rs.getFloat("total"));
+				  order.setQuantity(rs.getInt("items"));
+				  order.setOrder_date(rs.getTimestamp("date"));
+				  
+				  list.add(order); 
+			  }
+		  } 
+		  catch (SQLException e) 
+		  	{ 
+			  e.printStackTrace(); 
+			  } 
+		  System.out.println(list);
+		  return list;
+	   }
+	public List<Orderitems> RestaurantOrdersListPrepared(int rid) { 
+		  List<Orderitems> list = new ArrayList<>(); 
+		  String REST_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=2 GROUP BY od.order_id,date,us.first_name,us.last_name  ORDER BY order_id DESC; "; 
+		
+		  try {
+			  ps = this.con.prepareStatement(REST_ORDER_SQL); 
+			  ps.setInt(1, rid);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  { 
+				  Orderitems order = new Orderitems();
+				  order.setOrder_id(rs.getInt("order_id"));
+				  order.setFirst_name(rs.getString("first_name"));
+				  order.setLast_name(rs.getString("last_name"));
+				  order.setPrice(rs.getFloat("total"));
+				  order.setQuantity(rs.getInt("items"));
+				  order.setOrder_date(rs.getTimestamp("date"));
+				  
+				  list.add(order); 
+			  }
+		  } 
+		  catch (SQLException e) 
+		  	{ 
+			  e.printStackTrace(); 
+			  } 
+		  System.out.println(list);
+		  return list;
+	   }
+	public List<Orderitems> RestaurantOrdersListDelivered(int rid) { 
+		  List<Orderitems> list = new ArrayList<>(); 
+		  String REST_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,TO_CHAR (oi.order_date,'HH12:MI:SS')date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=4 GROUP BY od.order_id,date,us.first_name,us.last_name  ORDER BY order_id DESC;  "; 
+		
+		  try {
+			  ps = this.con.prepareStatement(REST_ORDER_SQL); 
+			  ps.setInt(1, rid);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  { 
+				  Orderitems order = new Orderitems();
+				  order.setOrder_id(rs.getInt("order_id"));
+				  order.setFirst_name(rs.getString("first_name"));
+				  order.setLast_name(rs.getString("last_name"));
+				  order.setPrice(rs.getFloat("total"));
+				  order.setQuantity(rs.getInt("items"));
+				  order.setOrder_date(rs.getTimestamp("date"));
+				  
+				  list.add(order); 
+			  }
+		  } 
+		  catch (SQLException e) 
+		  	{ 
+			  e.printStackTrace(); 
+			  } 
+		  System.out.println(list);
+		  return list;
+	   }
+	public List<Orderitems> RestaurantOrdersItems(int id) { 
+		  List<Orderitems> list = new ArrayList<>(); 
+		  String REST_ORDER_SQL ="SELECT DISTINCT od.order_id FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=?; "; 
 		
 		  try {
 			  ps = this.con.prepareStatement(REST_ORDER_SQL); 
@@ -158,7 +245,7 @@ public class OrderDao {
 			  } 
 		  System.out.println(list);
 		  return list;
-	   }	
+	   }
 
 	public void cancelOrder(int id){
 		try {
@@ -166,6 +253,17 @@ public class OrderDao {
 			ps = this.con.prepareStatement(DELETE_ORDER_SQL);
 			ps.setInt(1,id);
 			ps.setInt(2,id);
+			ps.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void acceptOrder(int id){
+		try {
+			String DELETE_ORDER_SQL = "UPDATE orders SET order_status=2 WHERE order_id=?;";
+			ps = this.con.prepareStatement(DELETE_ORDER_SQL);
+			ps.setInt(1,id);
 			ps.execute();
 		}catch(Exception e) {
 			e.printStackTrace();

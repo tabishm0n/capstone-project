@@ -4,7 +4,9 @@
 <%@page import="com.capstoneproject.dao.DishDao"%>
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
-      <%DishDao ds = new DishDao(DbCon.getConnection());
+<%String itemexists=(String)request.getSession().getAttribute("itemexist"); 
+Dish itemexistsid = (Dish)request.getSession().getAttribute("itemexistsid");  
+DishDao ds = new DishDao(DbCon.getConnection());
 Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
 List<Dish> category = ds.getCategories(userrestinfo.getRestaurant_id());
 %>
@@ -75,10 +77,15 @@ List<Dish> category = ds.getCategories(userrestinfo.getRestaurant_id());
                               <span><%= d.getDescription() %></span>
                             </div>
                           </div>
+                          
+							<%if(itemexists!=null && d.getMenuitem_id() == itemexistsid.getMenuitem_id()){
+								out.println("<font color=red size=4px>"+itemexists+"</font>");
+							}
+							%>
                         </div>
                       </div>
                       <div class="iadd">
-                       <a href="<%= request.getContextPath() %>/AddToCart?id=<%= d.getMenuitem_id() %>" >
+                       <a href="<%= request.getContextPath() %>/AddToCart?mid=<%= d.getMenuitem_id() %>&rid=<%=userrestinfo.getRestaurant_id()%>" >
       					  <button aria-label="Quick Add" class="addbutton">
                           <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" class="shapeadd"><path d="M15.833 8.75H11.25V4.167h-2.5V8.75H4.167v2.5H8.75v4.583h2.5V11.25h4.583v-2.5z" fill="#f15627"></path></svg>
                         </button>
