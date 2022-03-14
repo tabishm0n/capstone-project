@@ -371,7 +371,7 @@ if (usertype == "Customer")
      </div>
            <%}
            }
-           else if(delivererorderslistpending!=null)
+           else if(!delivererorderslistpending.isEmpty())
            {   %>
            <div class="ordercontainertitle">Order Pickup</div>
            <% 
