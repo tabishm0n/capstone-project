@@ -5,7 +5,6 @@
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
 <%
-request.getSession().setAttribute("itemexist", null);
 RestDao rs = new RestDao(DbCon.getConnection());
 List<Rest> rests = rs.getAllRests();
 %>
@@ -56,12 +55,13 @@ if (usertype == "Customer")
     <%
 }else if (usertype == "Restaurant") {
 %>
+<div class="restauranthome">
  <div class="orderscontainer">
-           
+           <div class="ordercontainertitle">Pending Orders</div>
            <% 
            if(restaurantorderslistcreated!=null)
            {   %>
-           <div class="ordercontainertitle">Pending Orders</div>
+           
            <% 
         	   for(Orderitems r:restaurantorderslistcreated){
         		   OrderDao oDao  = new OrderDao(DbCon.getConnection());
@@ -137,7 +137,7 @@ if (usertype == "Customer")
 			    
 			  
 			 <% 
-           if(restaurantorderslistprepared!=null)
+           if(!restaurantorderslistprepared.isEmpty())
            {   %>
            <div class="ordercontainertitle">Active Orders</div>
            <%
@@ -205,7 +205,7 @@ if (usertype == "Customer")
 			   </div>
 			 </div>
 			  <div class="space_24"></div>
-			
+			<div ><button class="orderspagedeliverybutton">Out For Delivery</button></div>
 			</div>
 			<div class="height_16"></div>
 			<% 
@@ -213,13 +213,14 @@ if (usertype == "Customer")
            }
 			 %>
 			</div>
+			</div>
 			<div class="orderscontainer2">
 			    
 			  
 			  <% 
-           if(restaurantorderslistdelivered!=null)
+           if(!restaurantorderslistdelivered.isEmpty())
            {   %>
-           <div class="ordercontainertitle">Delivered Orders</div>
+           <div class="ordercontainertitle">Completed Orders</div>
            <%
         	   for(Orderitems r:restaurantorderslistdelivered){
         		   OrderDao oDao  = new OrderDao(DbCon.getConnection());
@@ -293,13 +294,157 @@ if (usertype == "Customer")
            }
 			 %>
 			</div>
-			 </div>
+			 
 	<%
-}else if (usertype == "Delivery") {
-	
-	%>
+}else if (usertype == "Delivery") {%>
 
-<h1>Hello Deliverer!</h1>
+ <div class="orderscontainer">
+           
+           <% int a=1;
+           if(!deliverertripexists.isEmpty()){
+        	   %>
+              <div class="ordercontainertitle">Current Trip</div>
+           <% 
+        	   for(Orderitems d:deliverertripexists){
+        		   OrderDao oDao  = new OrderDao(DbCon.getConnection());
+            	   orderitems = oDao.userOrderItems(d.getOrder_id());
+        	   %>
+           <div class="ordercontainerflex">
+             <a class="orderspagestorelink" href="">
+               <div height="140" class="orderimagefigure">
+                 <div class="ordersrestimage" style="height: 140px;">
+                    <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
+                     </div>
+              </div>
+            </a>
+            <div class="space_24"> 
+            </div>
+            <div class="orderspagerestinfo1">
+              <div class="orderspagerestinfo22">
+                <div class="orderspagerestinfo3">
+                  <a  class="orderspagestorelinktitle" href=""><%= d.getFirst_name()%> <%= d.getLast_name()%><span class="orderspageidesc"> &nbsp;<%= d.getUser_city() %>, <%=d.getUser_address() %>&nbsp; </span> Ordered from<span class="orderspagedivider">&nbsp; -&nbsp; </span><%=d.getRestaurant_name() %> <span class="orderspageidesc"><%= d.getRest_city() %>, <%=d.getRest_address() %></span> 
+                  </a>
+                  </div>
+                  <div >
+                    <div class="orderspageidesc"><%= d.getQuantity() %> item(s), Delivery fee earned &nbsp;:&nbsp; <span class="orderspagestorelinktitle" >$<%= d.getPrice() %></span> 
+                      <span class="orderspagedivider">&nbsp;- &nbsp;
+
+                      </span><%= date.format(d.getOrder_date()) %><span> at </span><%= time.format(d.getOrder_date()) %>
+                    </div>
+                  </div>	
+                 <%
+                    for(Orderitems o:orderitems)
+                    {
+			           %>
+                  <div class="height_16"></div>
+                  <ul>
+                    <li>
+                      <div class="orderspageitemlist">
+                    <div class="orderspageitemlist2">
+                      <ul>
+                        <li>
+                          <div class="orderspageitem">
+                            <div class="orderspageitemquantity"><%=  o.getQuantity() %>
+							</div>
+                            <div class="space_16">
+                            </div>
+                            <div class="orderspageitemname">
+                              <div class="orderspageitemname2">
+                                <div><%= o.getItem_name() %> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+               <%
+                  }
+			       %>
+            </div>
+          </div>
+           <div class="space_24"></div>
+      <div class="orderspageaccept"><a href="<%=request.getContextPath()%>/OrderDelivered?oid=<%= d.getOrder_id()%>&did=<%= delivererinfo.getDeliverer_id()%>&amount=<%= d.getPrice() %>"><button class="orderspagedeliveredbutton">Order Delivered</button></a></div>
+     </div>
+           <%}
+           }
+           else if(delivererorderslistpending!=null)
+           {   %>
+           <div class="ordercontainertitle">Order Pickup</div>
+           <% 
+        	   for(Orderitems d:delivererorderslistpending){
+        		   OrderDao oDao  = new OrderDao(DbCon.getConnection());
+            	   orderitems = oDao.userOrderItems(d.getOrder_id());
+        	   %>
+           <div class="ordercontainerflex">
+             <a class="orderspagestorelink" href="">
+               <div height="140" class="orderimagefigure">
+                 <div class="ordersrestimage" style="height: 140px;">
+                    <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
+                     </div>
+              </div>
+            </a>
+            <div class="space_24"> 
+            </div>
+            <div class="orderspagerestinfo1">
+              <div class="orderspagerestinfo22">
+                <div class="orderspagerestinfo3">
+                  <a  class="orderspagestorelinktitle" href=""><%= d.getFirst_name()%> <%= d.getLast_name()%><span class="orderspageidesc"> &nbsp;<%= d.getUser_city() %>, <%=d.getUser_address() %>&nbsp; </span> Ordered from<span class="orderspagedivider">&nbsp; -&nbsp; </span><%=d.getRestaurant_name() %> <span class="orderspageidesc"><%= d.getRest_city() %>, <%=d.getRest_address() %></span> 
+                  </a>
+                  </div>
+                  <div >
+                    <div class="orderspageidesc"><%= d.getQuantity() %> item(s), Delivery fee earned &nbsp;:&nbsp; <span class="orderspagestorelinktitle" >$<%= d.getPrice() %></span> 
+                      <span class="orderspagedivider">&nbsp;- &nbsp;
+
+                      </span><%= date.format(d.getOrder_date()) %><span> at </span><%= time.format(d.getOrder_date()) %>
+                    </div>
+                  </div>	
+                 <%
+                    for(Orderitems o:orderitems)
+                    {
+			           %>
+                  <div class="height_16"></div>
+                  <ul>
+                    <li>
+                      <div class="orderspageitemlist">
+                    <div class="orderspageitemlist2">
+                      <ul>
+                        <li>
+                          <div class="orderspageitem">
+                            <div class="orderspageitemquantity"><%=  o.getQuantity() %>
+							</div>
+                            <div class="space_16">
+                            </div>
+                            <div class="orderspageitemname">
+                              <div class="orderspageitemname2">
+                                <div><%= o.getItem_name() %> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+               <%
+                  }
+			       %>
+            </div>
+          </div>
+           <div class="space_24"></div>
+      <div class="orderspageaccept"><a href="<%=request.getContextPath()%>/PickupOrder?oid=<%= d.getOrder_id()%>&did=<%= delivererinfo.getDeliverer_id()%>"><button class="orderspagedeliverybutton">Pickup Order</button></a></div>
+     </div>
+        <div class="height_16"></div>
+        <% 
+           }
+           }
+			 %>
+			 </div>
 	<%
 }
 	

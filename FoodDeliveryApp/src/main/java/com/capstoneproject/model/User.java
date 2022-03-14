@@ -15,9 +15,22 @@ public class User {
 	private String user_type;
 	private String payment;
 	private Date registeration_date;
+	private int deliverer_id;
+	private float wallet;
 	
 	
-	
+	public int getDeliverer_id() {
+		return deliverer_id;
+	}
+	public void setDeliverer_id(int deliverer_id) {
+		this.deliverer_id = deliverer_id;
+	}
+	public float getWallet() {
+		return wallet;
+	}
+	public void setWallet(float wallet) {
+		this.wallet = wallet;
+	}
 	public int getId() {
 		return id;
 	}

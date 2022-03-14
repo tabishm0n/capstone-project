@@ -132,15 +132,14 @@ if (user == null) {
         <% 
            }
            }
-			 %>
-           
-          <%--   
+	
+           if(!completedorders.isEmpty())
+           {%>
            <div class="ordercontainertitle">Past Orders</div>
-          <% 
-           if(orders!=null)
-           {
-           for(Orderitems o:orders){
-        	   
+           <%
+           for(Orderitems c:completedorders){
+        	   OrderDao oDao  = new OrderDao(DbCon.getConnection());
+        	   orderitems = oDao.userOrderItems(c.getOrder_id());
            %>
            
            <div class="ordercontainerflex">
@@ -156,7 +155,7 @@ if (user == null) {
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo2">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href="">Restaurant Name 
+                  <a  class="orderspagestorelinktitle" href=""><%= c.getRestaurant_name() %>   
                   </a>
                   <div class="rating">
                     <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
@@ -198,15 +197,18 @@ if (user == null) {
                     </svg>
                     
                   </div></div><div class="orderspageidesc">
-                    <div class="mo"><%= o.getQuantity() %> items for $<%= o.getPrice() %>
+                    <div class="mo"><%= c.getQuantity() %> item(s) for $<%= c.getPrice() %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
-                      </span><%= o.getOrder_date() %>
+                      </span><%= date.format(c.getOrder_date()) %><span> at </span><%= time.format(c.getOrder_date()) %>
                      
-                     
-                      
                     </div>
                   </div>
+                  <%
+                    for(Orderitems o2:orderitems)
+           			
+                    {
+			           %>
                   <div class="height_16"></div>
                   <ul>
                     <li>
@@ -215,7 +217,7 @@ if (user == null) {
                       <ul>
                         <li>
                           <div class="orderspageitem">
-                            <div class="orderspageitemquantity"><%= o.getQuantity() %>
+                            <div class="orderspageitemquantity"><%=  o2.getQuantity() %>
 
                             </div>
                             <div class="space_16">
@@ -223,7 +225,7 @@ if (user == null) {
                             </div>
                             <div class="orderspageitemname">
                               <div class="ah ed">
-                                <div>Item Name
+                                <div><%= o2.getItem_name() %>
 
                                 </div>
                                 
@@ -237,14 +239,18 @@ if (user == null) {
                   </div>
                 </li>
               </ul>
+               <%
+                    }
+			           %>
             </div>
           </div>
           
         </div>
         <div class="height_16"></div>
-        <% }
+        <% 
         }
-           %> --%>
+        }
+           %>
       </div> 
 </body>
 </html> 

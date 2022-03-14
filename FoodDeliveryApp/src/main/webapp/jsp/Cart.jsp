@@ -101,7 +101,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                   </div>
                 </div>
                 <div class="poli-items-text">
-                  <span class="">$1.99</span>
+                  <span class="">$${(total>0)?dcf.format(total)*0.14:0}</span>
                 </div>
               </li>
               <li class="height_12">
@@ -123,7 +123,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                   <div class="poli-items-text">Taxes</div>
                 </div>
                 <div class="poli-items-text">
-                  <span class="">$2.44</span>
+                  <span class="">$${(total>0)?dcf.format(total)*0.11:0}</span>
                 </div>
               </li>
             </ul>

@@ -67,6 +67,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					request.getSession().setAttribute("usertype", "Restaurant");
 					
 				}else if(usertype.equals("Delivery")) {
+					User delivererinfo = usDao.getDelivererDetails(verify);
+					request.getSession().setAttribute("delivererinfo", delivererinfo);
 					request.getSession().setAttribute("usertype", "Delivery");
 					
 				}else if(usertype.equals("Admin")) {

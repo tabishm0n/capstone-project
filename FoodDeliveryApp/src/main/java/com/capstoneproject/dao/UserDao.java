@@ -128,4 +128,22 @@ public class UserDao {
 		
 		return result;
 	}
+	public User getDelivererDetails(User user) {
+		User delivererinfo = null;
+		String GET_DELIVERER_ID_SQL = "SELECT * FROM deliverer WHERE user_id=?;";
+		try {
+			ps = this.con.prepareStatement(GET_DELIVERER_ID_SQL);
+			ps.setInt(1, user.getId());
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				delivererinfo = new User();
+				delivererinfo.setWallet(rs.getFloat("wallet"));
+				delivererinfo.setDeliverer_id(rs.getInt("deliverer_id"));
+			}
+			
+		}catch (SQLException e) {
+			printSQLException(e);
+		}
+		return delivererinfo;
+	}
 }

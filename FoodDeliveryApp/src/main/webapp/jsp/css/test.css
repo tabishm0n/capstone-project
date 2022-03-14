@@ -636,7 +636,7 @@ line-height: 44px;
 .orderscontainer2{
   margin: 0 auto;
 }
-.ordercontainertitle{
+.ordercontainertitle{width: 639px;
   margin: 8px 0px 32px;
   font-weight: 700;
   line-height: 44px;
@@ -666,6 +666,9 @@ line-height: 44px;
 .orderspagerestinfo2{
   margin-left: 10px;
   width: 420px;
+}
+.orderspagerestinfo22{
+  margin-left: 10px;
 }
 .orderspagerestinfo3{
   margin-bottom: 4px;
@@ -744,16 +747,18 @@ svg:not(:root) {
   height: 100%;
   object-fit: cover;
 }
-.orderspagecancel,.orderspageaccept{
+.orderspagecancel{
   flex: 0 0 302px;
   align-items: stretch;
   flex-direction: column;
   display: flex;color: rgb(232, 230, 227);
 }
-.orderspageaccept{
-	
+.orderspageaccept{flex: 0 0 180px;
+	 align-items: stretch;
+  flex-direction: column;
+  display: flex;color: rgb(232, 230, 227);
 }
-.orderspagecancelbutton,.orderspageacceptbutton{
+.orderspagecancelbutton,.orderspageacceptbutton,.orderspagedeliverybutton,.orderspagedeliveredbutton{
   box-shadow: none;
   font-family:inherit;
   padding-right: 20px;
@@ -790,6 +795,17 @@ svg:not(:root) {
 }
 .orderspageacceptbutton:hover{
 	background-color: rgb(54, 151, 24);
+}
+.orderspagedeliverybutton{
+	background-color: rgb(250, 247, 58);
+}
+.orderspagedeliverybutton:hover{
+	background-color: rgb(224, 222, 53);
+}
+.orderspagedeliveredbutton{
+	background-color: rgb(59, 171, 247);
+}.orderspagedeliveredbutton:hover{
+	background-color: rgb(52, 151, 218);
 }
 .orderspagecancelbutton{
   color: rgb(232, 230, 227);

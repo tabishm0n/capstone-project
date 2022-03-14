@@ -15,14 +15,23 @@ public class Orderitems {
 	private Timestamp order_date;
 	private String restaurant_name;
 	private int restaurant_id;
+	private String user_city;
+	private String user_address;
+	private String rest_city;
+	private String rest_address;
+	private int order_status;
+	private int deliverer_id;
+	private float wallet;
 public Orderitems() {
 		
 	}
 
 
+
 public Orderitems(String first_name, String last_name, int user_id, int order_id, float price, int menuitem_id,
 		String item_name, int orderitem_id, int quantity, Timestamp order_date, String restaurant_name,
-		int restaurant_id) {
+		int restaurant_id, String user_city, String user_address, String rest_city, String rest_address,
+		int order_status, int deliverer_id, float wallet) {
 	super();
 	this.first_name = first_name;
 	this.last_name = last_name;
@@ -36,7 +45,15 @@ public Orderitems(String first_name, String last_name, int user_id, int order_id
 	this.order_date = order_date;
 	this.restaurant_name = restaurant_name;
 	this.restaurant_id = restaurant_id;
+	this.user_city = user_city;
+	this.user_address = user_address;
+	this.rest_city = rest_city;
+	this.rest_address = rest_address;
+	this.order_status = order_status;
+	this.deliverer_id = deliverer_id;
+	this.wallet = wallet;
 }
+
 
 
 @Override
@@ -44,8 +61,107 @@ public String toString() {
 	return "Orderitems [first_name=" + first_name + ", last_name=" + last_name + ", user_id=" + user_id + ", order_id="
 			+ order_id + ", price=" + price + ", menuitem_id=" + menuitem_id + ", item_name=" + item_name
 			+ ", orderitem_id=" + orderitem_id + ", quantity=" + quantity + ", order_date=" + order_date
-			+ ", restaurant_name=" + restaurant_name + ", restaurant_id=" + restaurant_id + "]";
+			+ ", restaurant_name=" + restaurant_name + ", restaurant_id=" + restaurant_id + ", user_city=" + user_city
+			+ ", user_address=" + user_address + ", rest_city=" + rest_city + ", rest_address=" + rest_address
+			+ ", order_status=" + order_status + ", deliverer_id=" + deliverer_id + ", wallet=" + wallet + "]";
 }
+
+
+
+public int getOrder_status() {
+	return order_status;
+}
+
+
+
+public void setOrder_status(int order_status) {
+	this.order_status = order_status;
+}
+
+
+
+public int getDeliverer_id() {
+	return deliverer_id;
+}
+
+
+
+public void setDeliverer_id(int deliverer_id) {
+	this.deliverer_id = deliverer_id;
+}
+
+
+
+public float getWallet() {
+	return wallet;
+}
+
+
+
+public void setWallet(float wallet) {
+	this.wallet = wallet;
+}
+
+
+
+public String getUser_city() {
+	return user_city;
+}
+
+
+
+public void setUser_city(String user_city) {
+	this.user_city = user_city;
+}
+
+
+
+public String getUser_address() {
+	return user_address;
+}
+
+
+
+
+
+public void setUser_address(String user_address) {
+	this.user_address = user_address;
+}
+
+
+
+
+
+public String getRest_city() {
+	return rest_city;
+}
+
+
+
+
+
+public void setRest_city(String rest_city) {
+	this.rest_city = rest_city;
+}
+
+
+
+
+
+public String getRest_address() {
+	return rest_address;
+}
+
+
+
+
+
+public void setRest_address(String rest_address) {
+	this.rest_address = rest_address;
+}
+
+
+
 
 
 public String getRestaurant_name() {

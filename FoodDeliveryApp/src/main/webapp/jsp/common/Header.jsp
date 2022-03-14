@@ -9,13 +9,17 @@
 String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");
 Rest restinfo = (Rest) request.getSession().getAttribute("restinfo");
+User delivererinfo = (User) request.getSession().getAttribute("delivererinfo");
 SimpleDateFormat date = new SimpleDateFormat("MMM dd");
 SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
 List<Orders>orderslist = null; 
 List<Orderitems>restaurantorderslistcreated = null; 
 List<Orderitems>restaurantorderslistprepared = null; 
 List<Orderitems>restaurantorderslistdelivered = null; 
+List<Orderitems>delivererorderslistpending = null;
+List<Orderitems>deliverertripexists=null;
 int orderid =0;
+List<Orderitems> completedorders = null;
 List<Orderitems> orders = null;
 List<Orderitems> orderitems = null;
 List<Cart> cartProduct = null;
@@ -28,12 +32,18 @@ if (username == null) {
 	OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
 	orderslist = orderDao.userOrdersList(auth.getId());
 	if(usertype.equals("Restaurant")){
-	restaurantorderslistcreated = orderDao.RestaurantOrdersListCreated(restinfo.getRestaurant_id());
-	restaurantorderslistprepared = orderDao.RestaurantOrdersListPrepared(restinfo.getRestaurant_id());
-	restaurantorderslistdelivered = orderDao.RestaurantOrdersListDelivered(restinfo.getRestaurant_id());
+		restaurantorderslistcreated = orderDao.RestaurantOrdersListCreated(restinfo.getRestaurant_id());
+		restaurantorderslistprepared = orderDao.RestaurantOrdersListPrepared(restinfo.getRestaurant_id());
+		restaurantorderslistdelivered = orderDao.RestaurantOrdersListDelivered(restinfo.getRestaurant_id());
 	}
+	else if(usertype.equals("Delivery")){
+		deliverertripexists = orderDao.Istripexists(delivererinfo.getDeliverer_id());
+		delivererorderslistpending = orderDao.DelivererOrdersListPrepared();
+		
+		}
 	orderid = orderDao.orderId(auth.getId());
-	orders = orderDao.userOrders(auth.getId());
+	orders = orderDao.newUserOrders(auth.getId());
+	completedorders = orderDao.completedUserOrders(auth.getId());
 
 }
 if(cart_list != null){
