@@ -31,21 +31,24 @@ public class UserCheckout extends HttpServlet {
 			// Retrieve all cart items
 			ArrayList<Cart> cart_list = (ArrayList<Cart>)request.getSession().getAttribute("cart-list");
 			int rid = Integer.parseInt(request.getParameter("rid"));
-			
 			//user authentication
 			User login = (User) request.getSession().getAttribute("auth");
 			List<Orders>orderslist = null;
-			/* List<Orderitems> orderitems = null; */
+			List<Orderitems>existingorder = null;
 			int orderID =0;
+			OrderDao oDao = new OrderDao(DbCon.getConnection());
+			existingorder = oDao.checkOrdersExist(login.getId(),rid);
 			//check auth and cart list
-			if(cart_list != null && login!=null) {
-				OrderDao oDao = new OrderDao(DbCon.getConnection());
+			if(!existingorder.isEmpty()) {
+				request.getSession().setAttribute("existingorder", existingorder);
+				  request.getRequestDispatcher("./jsp/OrderRemoveConfirmation.jsp").forward(request, response);
+					
+			}
+			else if(cart_list != null && login!=null) {
+				
 				boolean result = oDao.insertOrders(login.getId(),rid);
-				/* orderslist = oDao.userOrdersList(login.getId()); */
 				orderID = oDao.orderId(login.getId());
-				/*for(Orders o:orderslist){System.out.println("orders loop");*/
 				for(Cart c:cart_list) { 
-					/* orderitems = oDao.userOrderItems(o.getOrder_id()); */
 					//prepare order object
 					Orderitems order = new Orderitems();
 					order.setMenuitem_id(c.getMenuitem_id());
@@ -55,9 +58,7 @@ public class UserCheckout extends HttpServlet {
 					//initiate the DAO class
 					
 					//Calling the insert method
-					boolean result2 = oDao.insertOrderitems(order,orderID);
-					
-					/* } */
+					boolean result2 = oDao.insertOrderitems(order,orderID);					
 				}
 				
 				cart_list.clear();

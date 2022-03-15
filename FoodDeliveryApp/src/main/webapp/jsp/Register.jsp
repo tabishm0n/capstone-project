@@ -35,24 +35,52 @@
 
      <input type="email" name="email" placeholder="Email-Id" required="required"/>
     
-     <input type="text" name="phone" placeholder="Phone Number" required="required"/>
+     <input type="text" maxlength="10" name="phone" placeholder="Phone Number" required="required"/>
     
-    
-    <select class="selecttype" name="user_type">
+    <input type="text" maxlength="10" name="payment" placeholder="Payment Info" required="required"/>
+     
+    <select class="selecttype" name="user_type" onchange="additionalInputBox(this);">
         <option value="" selected disabled hidden>User Type</option>
         <option value="Customer">Customer</option>
-        <option value="Restaurant">Restaurant Manager</option>
+        <option id="restInput" value="Restaurant">Restaurant Manager</option>
         <option value="Delivery">Deliverer</option>
       </select>
+      
+      <div id="hidden" style="display:none;">
+      
+       <input type="text" name="restaurant_name" placeholder="Restaurant Name" />
     
-     <input type="text" name="payment" placeholder="Payment Info" required="required"/>
-            
+     <input type="text" name="description" placeholder="Description" />
+    	
+      <input type="text" name="rest_city" placeholder="City" />
+    
+     <input type="text" name="rest_address" placeholder="Street Address" />
+     
+     </div>
+     
         <button type="submit" class="btn btn-primary btn-block btn-large">Sign Up</button>
     </form>
 	 <form method="post" action="<%= request.getContextPath() %>/jsp/Login.jsp" >
     	<button class="btn btn-secondary btn-block btn-large">Go Back</button>
     </form>
  </div>
+<script type="text/javascript">
+    function additionalInputBox(nameSelect){
+        console.log(nameSelect);
+        if(nameSelect){
+        	restValue = document.getElementById("restInput").value;
+            if(restValue == nameSelect.value){
+                document.getElementById("hidden").style.display = "block";
+            }
+            else{
+                document.getElementById("hidden").style.display = "none";
+            }
+        }
+        else{
+            document.getElementById("hidden").style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>

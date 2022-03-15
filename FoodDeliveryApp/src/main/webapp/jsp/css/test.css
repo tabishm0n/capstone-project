@@ -399,7 +399,6 @@ li{list-style-type: none;
 }
 .cartm{background-color: inherit;
   flex: 1;
-  padding: 28rem 0px;
   box-sizing: border-box;
 }
 .cartr{background-color: inherit;
@@ -465,6 +464,7 @@ line-height: 44px;
   font-weight: normal;
   line-height: 28px;
   margin-top: 32px;
+  font-family: "Montserrat", sans-serif;
 }
 .orderbutton{
   background-color: rgb(3, 109, 58);
@@ -481,6 +481,9 @@ line-height: 44px;
   cursor: pointer;
   margin: 0;
   border:none;
+  transition-duration: 0.25s;
+}.orderbutton:hover{
+  background-color: rgb(2, 90, 48);
 }
 .poli{
   font-size: 16px;
@@ -683,7 +686,7 @@ line-height: 44px;
   background-size: 0% 100%, 100% 100%;
   will-change: background-size;
   text-underline-position: under;
-  transition-duration: 500ms;
+  transition-duration: 0.25s;
   font-size: 20px;
   line-height: 28px;
   font-weight: 500;
@@ -789,6 +792,35 @@ svg:not(:root) {
   text-indent: 0px;
   text-shadow: none;
   text-align: center;
+}.orderspagestatus{
+	display: flex;
+	justify-content: center;
+}
+.orderspagestatusbutton{flex: 0 0 100px;
+ color: rgb(232, 230, 227);
+ padding-right: 10px;
+ padding-left: 10px;
+ border-radius: 0px;
+ padding-top: 8px;
+ text-decoration: none;
+ border: none;
+ margin: 0;
+ font-size: 15px;
+ padding-bottom: 8px;
+ justify-content: center;
+ line-height: 15px;
+ cursor: pointer;
+ align-items: center;
+ transition-duration: 0.25s;
+ text-align: center;
+}
+.orderspagestatusbutton{
+
+	background-color: rgb(97, 97, 97);
+}
+.orderspagestatusbutton:hover{
+
+	background-color: rgb(77, 77, 77);
 }
 .orderspageacceptbutton{color: #fff;
 	background-color: rgb(70, 190, 33);

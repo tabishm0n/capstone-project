@@ -86,7 +86,7 @@ public class DishDao {
 		
 	
 } 
-	public float getTotalCartPrice(ArrayList<Cart> cartList){
+	public float getSubtotalCartPrice(ArrayList<Cart> cartList){
 		float sum =0 ;
 		try {
 			if(cartList.size()>0) {
@@ -108,6 +108,107 @@ public class DishDao {
 		}
 		
 		return sum;
+		
+	}
+	public float getDeliveryFeeCartPrice(ArrayList<Cart> cartList){
+		float sum =0 ;
+		float res=0;
+		try {
+			if(cartList.size()>0) {
+			for(Cart item:cartList) {
+				String READ_PRICE_SQL = "SELECT price FROM menu_item WHERE menuitem_id=?;";
+				ps = this.con.prepareStatement(READ_PRICE_SQL);
+				ps.setInt(1,item.getMenuitem_id());
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					sum+=rs.getFloat("price")*item.getQuantity();
+				}
+				
+			}
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		res =(float)((sum*0.06)+5);
+		return res;
+		
+	}
+	public float getServiceFeeCartPrice(ArrayList<Cart> cartList){
+		float sum =0 ;
+		float res=0;
+		try {
+			if(cartList.size()>0) {
+			for(Cart item:cartList) {
+				String READ_PRICE_SQL = "SELECT price FROM menu_item WHERE menuitem_id=?;";
+				ps = this.con.prepareStatement(READ_PRICE_SQL);
+				ps.setInt(1,item.getMenuitem_id());
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					sum+=rs.getFloat("price")*item.getQuantity();
+					
+				}
+			}
+			
+			}
+				
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		res =(float)((sum*0.1)+2);
+		return res;
+		
+	}
+	public float getTaxesCartPrice(ArrayList<Cart> cartList){
+		float sum =0 ;
+		float res=0;
+		try {
+			if(cartList.size()>0) {
+			for(Cart item:cartList) {
+				String READ_PRICE_SQL = "SELECT price FROM menu_item WHERE menuitem_id=?;";
+				ps = this.con.prepareStatement(READ_PRICE_SQL);
+				ps.setInt(1,item.getMenuitem_id());
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					sum+=rs.getFloat("price")*item.getQuantity();
+					
+				}
+			}
+			}
+				
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		res =(float)(sum*0.13);
+		return res;
+		
+	}
+
+	public float getTotalCartPrice(ArrayList<Cart> cartList){
+		float sum =0 ;
+		float res=0;
+		try {
+			if(cartList.size()>0) {
+			for(Cart item:cartList) {
+				String READ_PRICE_SQL = "SELECT price FROM menu_item WHERE menuitem_id=?;";
+				ps = this.con.prepareStatement(READ_PRICE_SQL);
+				ps.setInt(1,item.getMenuitem_id());
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					sum+=rs.getFloat("price")*item.getQuantity();
+					
+				}
+			}
+			}
+				
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		res =(float)(sum+(sum*0.13)+((sum*0.06)+5)+((sum*0.1)+2));
+		return res;
 		
 	}
 }

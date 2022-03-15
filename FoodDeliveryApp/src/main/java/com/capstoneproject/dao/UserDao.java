@@ -4,6 +4,7 @@ package com.capstoneproject.dao;
 import java.sql.*;
 import java.util.Date;
 
+import com.capstoneproject.model.Rest;
 import com.capstoneproject.model.User;
 
 import java.sql.PreparedStatement;
@@ -37,7 +38,52 @@ public class UserDao {
 			ps.setString(9, user.getUser_type());
 			ps.setString(10, user.getPayment());
 			ps.setDate(11, sqldate);
-			System.out.println(ps);
+			result = ps.executeUpdate();
+		}catch (SQLException e) {
+			printSQLException(e);
+		}
+		return result;
+	}
+	public int getUserID(String username, String password) throws ClassNotFoundException{
+		int id =0;
+		String READ_USERS_SQL ="Select id FROM user_table WHERE login=? AND password=?;";
+		try  {
+			ps = this.con.prepareStatement(READ_USERS_SQL);
+			ps.setString(1, username);
+			ps.setString(2, password);
+			rs = ps.executeQuery();
+			if(rs.next()){
+            	id = (rs.getInt("id"));
+            }
+		}catch (SQLException e) {
+			printSQLException(e);
+		}
+		return id;
+	}
+	public int registerRestUser(Rest user,int uid) throws ClassNotFoundException{
+		String INSERT_REST_SQL = "INSERT INTO restaurant (city,street_address,operational,description,restaurant_name,user_id) VALUES (?,?,?,?,?,?);";
+		int result = 0 ;
+		try  {
+			ps = this.con.prepareStatement(INSERT_REST_SQL);
+
+			ps.setString(1, user.getCity());
+			ps.setString(2, user.getStreet_address());
+			ps.setBoolean(3,true);
+			ps.setString(4,user.getDescription());
+			ps.setString(5, user.getRestaurant_name());
+			ps.setInt(6, uid);
+			result = ps.executeUpdate();
+		}catch (SQLException e) {
+			printSQLException(e);
+		}
+		return result;
+	}
+	public int registerDeliveryUser(int uid) throws ClassNotFoundException{
+		String INSERT_DEL_SQL = "INSERT INTO deliverer (wallet,user_id) VALUES (0,?);";
+		int result = 0 ;
+		try  {
+			ps = this.con.prepareStatement(INSERT_DEL_SQL);
+			ps.setInt(1, uid);
 			result = ps.executeUpdate();
 		}catch (SQLException e) {
 			printSQLException(e);
@@ -66,7 +112,6 @@ public class UserDao {
 			ps = this.con.prepareStatement(READ_USERS_SQL);
 			ps.setString(1, username);
 			ps.setString(2, password);
-			System.out.println(ps);
 			rs = ps.executeQuery();
 			if(rs.next()){
             	user = new User();
@@ -120,7 +165,6 @@ public class UserDao {
 			ps.setString(5, user.getEmail());
 			ps.setString(6, user.getPayment());
 			ps.setInt(7, id);
-			System.out.println(ps);
 			result = ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

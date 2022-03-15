@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.UserDao;
+import com.capstoneproject.model.Rest;
 import com.capstoneproject.model.User;
 
 @WebServlet("/Register")
@@ -54,9 +55,29 @@ public void init() {
 		us.setPhone(phone);
 		us.setUser_type(user_type);
 		us.setPayment(payment);
-		
-		try {
+		String usertype = us.getUser_type();
+		try {if(usertype.equals("Customer")) {
 			usDao.registerUser(us);
+		}
+		else if(usertype.equals("Restaurant")) {
+				usDao.registerUser(us);
+				int uid = usDao.getUserID(login,password);
+				String restaurant_name = request.getParameter("restaurant_name");
+				String description = request.getParameter("description");
+				String rest_city = request.getParameter("rest_city");
+				String rest_address = request.getParameter("rest_address");
+				Rest rs = new Rest();
+				rs.setRestaurant_name(restaurant_name);
+				rs.setDescription(description);
+				rs.setCity(rest_city);
+				rs.setStreet_address(rest_address);
+				usDao.registerRestUser(rs,uid);
+			}
+		else if(usertype.equals("Delivery")) {
+				usDao.registerUser(us);
+				int uid = usDao.getUserID(login,password);
+				usDao.registerDeliveryUser(uid);
+			}
 			}
 		catch(Exception e) {
 			e.printStackTrace();

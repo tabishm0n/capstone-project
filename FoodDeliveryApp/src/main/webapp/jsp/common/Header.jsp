@@ -13,11 +13,14 @@ User delivererinfo = (User) request.getSession().getAttribute("delivererinfo");
 SimpleDateFormat date = new SimpleDateFormat("MMM dd");
 SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
 List<Orders>orderslist = null; 
+int statuslist = 0; 
+String message ="";
 List<Orderitems>restaurantorderslistcreated = null; 
 List<Orderitems>restaurantorderslistprepared = null; 
 List<Orderitems>restaurantorderslistdelivered = null; 
 List<Orderitems>delivererorderslistpending = null;
 List<Orderitems>deliverertripexists=null;
+List<Orderitems>outfordelivery=null;
 int orderid =0;
 List<Orderitems> completedorders = null;
 List<Orderitems> orders = null;
@@ -35,8 +38,9 @@ if (username == null) {
 		restaurantorderslistcreated = orderDao.RestaurantOrdersListCreated(restinfo.getRestaurant_id());
 		restaurantorderslistprepared = orderDao.RestaurantOrdersListPrepared(restinfo.getRestaurant_id());
 		restaurantorderslistdelivered = orderDao.RestaurantOrdersListDelivered(restinfo.getRestaurant_id());
-	}
+		}
 	else if(usertype.equals("Delivery")){
+		
 		deliverertripexists = orderDao.Istripexists(delivererinfo.getDeliverer_id());
 		delivererorderslistpending = orderDao.DelivererOrdersListPrepared();
 		
@@ -49,8 +53,16 @@ if (username == null) {
 if(cart_list != null){
 	DishDao cDao = new DishDao(DbCon.getConnection());
 	cartProduct = cDao.getCartItems(cart_list);
+	float  subtotal = cDao.getSubtotalCartPrice(cart_list);
+	float  deliveryfee = cDao.getDeliveryFeeCartPrice(cart_list);
+	float  servicefee = cDao.getServiceFeeCartPrice(cart_list);
+	float taxes = cDao.getTaxesCartPrice(cart_list);
 	float  total = cDao.getTotalCartPrice(cart_list);
 	request.setAttribute("cart_list",cart_list);
+	request.setAttribute("subtotal",subtotal);
+	request.setAttribute("deliveryfee",deliveryfee);
+	request.setAttribute("servicefee",servicefee);
+	request.setAttribute("taxes",taxes);
 	request.setAttribute("total",total);
 }
 %>

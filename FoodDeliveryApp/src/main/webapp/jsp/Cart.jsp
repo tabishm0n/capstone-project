@@ -61,8 +61,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                 <div class="contli2">
                   <div class="citem"><%= c.getItem_name() %></div>
                   <div class="space_8"></div>
-                  <div class="cfprice">$<%=dcf.format(c.getPrice())%> <div class="ctprice"><span>$14.58</span>
-                  </div>
+                  <div class="cfprice">$<%=dcf.format(c.getPrice())%> <%-- <div class="ctprice"><span>$14.58</span> </div> --%>
                 </div>
               </div>
             </div>
@@ -89,7 +88,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                 <div class="poli-items-text">Subtotal</div>
               </div>
               <div class="poli-items-text">
-                <span class="">$14.58</span>
+                <span class="">$ ${(subtotal>0)?dcf.format(subtotal):0}</span>
               </div
               ></li>
               <li class="height_12">
@@ -101,7 +100,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                   </div>
                 </div>
                 <div class="poli-items-text">
-                  <span class="">$${(total>0)?dcf.format(total)*0.14:0}</span>
+                  <span class="">$ ${(deliveryfee>0)?dcf.format(deliveryfee):0}</span>
                 </div>
               </li>
               <li class="height_12">
@@ -113,7 +112,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                   </div>
                 </div>
                 <div class="poli-items-text">
-                  <span class="">$2.19</span>
+                  <span class="">$ ${(servicefee>0)?dcf.format(servicefee):0}</span>
                 </div>
               </li>
               <li class="height_12">
@@ -123,7 +122,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                   <div class="poli-items-text">Taxes</div>
                 </div>
                 <div class="poli-items-text">
-                  <span class="">$${(total>0)?dcf.format(total)*0.11:0}</span>
+                  <span class="">$ ${(taxes>0)?dcf.format(taxes):0}</span>
                 </div>
               </li>
             </ul>
@@ -135,7 +134,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                       <h2 class="tiptext">Add a tip</h2>
                       <div class="space _12"></div>
                     </div>
-                    <div class="tiptext">$4.27</div>
+                    <div class="tiptext">$0</div>
                   </div>
                   <div class="tiptable">
                     <div class="tipbuttonclass">

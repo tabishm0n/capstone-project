@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="com.capstoneproject.connection.DbCon"%>
 <%@page import="com.capstoneproject.dao.*"%>
 <%@page import="com.capstoneproject.model.*"%>
@@ -5,6 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%  User user = (User) request.getSession().getAttribute("auth");
+DecimalFormat dcf = new DecimalFormat("#.##");
+request.setAttribute("dcf", dcf);
 if (user == null) {
     response.sendRedirect("Login.jsp");
 }
@@ -24,7 +27,14 @@ if (user == null) {
            {   for(Orderitems o1:orders){
         	   OrderDao oDao  = new OrderDao(DbCon.getConnection());
         	   orderitems = oDao.userOrderItems(o1.getOrder_id());
- 			  	
+        	   statuslist = oDao.userOrderStatus(o1.getOrder_id(), user.getId());
+        	   if(statuslist ==1){
+        		   message="Order Sent";
+        	   }else if(statuslist==2){
+        		   message="Order Prepared";
+        	   }else if(statuslist==3){
+        		   message="Order is on its way";
+        	   }
            %>
            <div class="ordercontainerflex">
              <a class="orderspagestorelink" href="">
@@ -41,47 +51,12 @@ if (user == null) {
                 <div class="orderspagerestinfo3">
                   <a  class="orderspagestorelinktitle" href=""><%= o1.getRestaurant_name() %>  
                   </a>
-                  <div class="rating">
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
-                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
-
-                      </path>
-                    </svg>
-                    <div class="space_4">
-
-                    </div>
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
-                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
-
-                      </path>
-                    </svg>
-                    <div class="space_4">
-
-                    </div>
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
-                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
-
-                      </path>
-                    </svg>
-                    <div class="space_4">
-
-                    </div>
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
-                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
-
-                      </path>
-                    </svg>
-                    <div class="space_4">
-
-                    </div>
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">
-                      <path d="M12.458 1l3.646 7 7.813.5-5.73 5.5 2.084 8-7.813-4-7.812 4 2.083-8L1 8.5 8.813 8l3.645-7z">
-
-                      </path>
-                    </svg>
-                    
-                  </div></div><div class="orderspageidesc">
-                    <div class="mo"><%= o1.getQuantity() %> item(s) for $<%=  o1.getPrice() %>
+                  
+			<div class="orderspagestatus"><button class="orderspagestatusbutton"><%= message %></button></div>
+	
+                  </div>
+                  <div class="orderspageidesc">
+                    <div class="mo"><%= o1.getQuantity() %> item(s) for $<%= dcf.format(o1.getPrice()) %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
                       </span><%= date.format(o1.getOrder_date()) %><span> at </span><%= time.format(o1.getOrder_date()) %>
@@ -197,7 +172,7 @@ if (user == null) {
                     </svg>
                     
                   </div></div><div class="orderspageidesc">
-                    <div class="mo"><%= c.getQuantity() %> item(s) for $<%= c.getPrice() %>
+                    <div class="mo"><%= c.getQuantity() %> item(s) for $<%= dcf.format(c.getPrice()) %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
                       </span><%= date.format(c.getOrder_date()) %><span> at </span><%= time.format(c.getOrder_date()) %>

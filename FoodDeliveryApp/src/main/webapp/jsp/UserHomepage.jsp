@@ -144,6 +144,8 @@ if (usertype == "Customer")
         	   for(Orderitems r:restaurantorderslistprepared){
         		   OrderDao oDao  = new OrderDao(DbCon.getConnection());
             	   orderitems = oDao.userOrderItems(r.getOrder_id());
+            	   outfordelivery = oDao.checkOrderDelivery(restinfo.getRestaurant_id(),r.getOrder_id());
+            		
         	   %>
 			  <div class="ordercontainerflex">
 			    <a class="orderspagestorelink" href="">
@@ -205,7 +207,14 @@ if (usertype == "Customer")
 			   </div>
 			 </div>
 			  <div class="space_24"></div>
+			  <%if(!outfordelivery.isEmpty()){
+				  
+			  
+				  %>
 			<div ><button class="orderspagedeliverybutton">Out For Delivery</button></div>
+			<%
+			}
+				 %>
 			</div>
 			<div class="height_16"></div>
 			<% 
