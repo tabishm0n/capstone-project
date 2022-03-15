@@ -64,8 +64,9 @@ a{
   padding: 0;
   pointer-events: auto;
   cursor: pointer;
-  width: 2%;
-}.favbg{
+}
+
+.favbg{
   box-shadow: rgb(0 0 0 / 10%) 0px 0px 8px, rgb(0 0 0 / 4%) 0px 4px 4px;
   background-image: initial;
     background-color: rgb(24, 26, 27);
@@ -77,12 +78,30 @@ a{
     align-items: center;
     display: flex;
 }
+
 .shape{
   height: 16px;
   width: 16px;
   flex: none;
   overflow: hidden;
 }
+.addmenuitem{
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 8px, rgb(0 0 0 / 4%) 0px 4px 4px;
+  background-image: initial;
+    background-color: rgb(24, 26, 27);
+    width: 100px;
+    border-radius: 10px;
+    height: 36px;
+    justify-content: center;
+    background: #4dc053;
+    align-items: center;
+    display: flex;
+    transition-duration: 0.25s;
+}
+.addmenuitem:hover{
+  background: #41a346;
+}
+
 .second{margin-top: 2%;
   flex: 1;
   margin-left: 1%;
@@ -355,23 +374,68 @@ li{list-style-type: none;
   right: 8px;
   top: 8px;
 }
-.addbutton{
-  border-color: rgb(48, 52, 54);
+.iedit{
+  position: absolute;
+  right: 8px;
+  top: 0;
+}.iedit2{
+  position: absolute;
+  right: 100px;
+  top: 0;
+}
+.iedit3{
+  position: absolute;
+  right: 180px;
+  top: 0;
+}
+.addbutton,.editbutton{
   display: flex;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   padding: 2px 4px;
-  height: 36px;
   box-shadow: rgb(0 0 0 / 10%) 0px 0px 8px, rgb(0 0 0 / 4%) 0px 4px 4px;
-
-    background-color: rgb(24, 26, 27);
-    width: 36px;
-    border-radius: 50%;
-    height: 36px;
-    background: #FFFFFF;
-
+  width: 36px;
+  border-radius: 50%;
+  height: 36px;
+  transition-duration: 0.25s;
+  
+}
+.editbutton:hover{
+  background-color: rgb(24, 26, 27);
+}
+.editbutton2,.deletebutton{
+ cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 60px;
+  border-radius: 10px;
+  border: none;
+  transition-duration: 0.25s;
+}
+.editbutton2{
+  background-color: rgb(64, 171, 233);
+ 
+}
+.editbutton2:hover{
+  background-color: rgb(56, 143, 194);
+}
+.deletebutton{
+  background-color: rgb(226, 46, 14);
+}
+.deletebutton:hover{
+  background-color: rgb(170, 33, 9);
+}
+.addbutton{border-color: rgb(48, 52, 54);
+  background: #FFFFFF;
+}
+.editbutton{border:none;
+  background: #5f5f5f;
+}
+.editbutton:hover{
+  background: #4e4e4e;
 }
 .iadd button {
   border-width: 0;
@@ -384,8 +448,28 @@ li{list-style-type: none;
 }.shapeadd{
   width: 20px;
   height: 20px;flex: none;
-  fill: rgb(255, 255, 255);
+
+}.restshapeadd{
+  width: 25px;
+  height: 25px;flex: none;
+  
 }
+.restedit{
+  width: 25px;
+  height: 25px;flex: none;
+  
+}
+.restdelete{
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  
+}
+.restshapeedit{
+  width:16px;
+  height: 16px;flex: none;
+  
+}
+
 .cartcontainer {    align-items: stretch;
   display: flex;
   width: 100%;
@@ -861,6 +945,7 @@ svg:not(:root) {
 .profilecontainer3{
   display: flex;
   flex-direction: row;
+  width:fit-content;
 }
 .profiledetails{
   margin-left: 24px;
@@ -869,7 +954,7 @@ svg:not(:root) {
   justify-content: center;
 }
 
-.namechange{width:190px;
+.namechange{
   background-color: transparent;
   color: rgb(232, 230, 227);
   padding-left: 0px;
@@ -919,6 +1004,14 @@ svg:not(:root) {
   display: none;
 }#hidden3{
   display: none;
+}#hidden4{
+  display: none;
+}#hidden5{
+  display: none;
+}#hidden6{
+  display: none;
+}#hidden7{
+  display: none;
 }
 .profileinput2,.profileinput1,.profileinput3,.profileinput4{
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
@@ -964,12 +1057,11 @@ svg:not(:root) {
 .profileinput4{
   width: 200%;
 }
-.walletinput{
-  width: 150%;
+.walletinput{width: 150%;
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
   border-color: rgb(50, 54, 57);
   background-color: rgb(29, 31, 32);
-  color: rgb(127, 252, 192);
+  color: rgb(232, 230, 227);
   border-style: solid;
   border-width: 1px;
   transition-duration: 0.25s;
@@ -1034,3 +1126,124 @@ background-color: rgb(219, 119, 38);
   flex-direction: row;
   justify-content: space-between;
 }
+.register{
+  background-color: #1f1f1f;
+  border-radius: 10px;
+  padding: 50px;
+  position: absolute;
+	top: 40%;
+	left: 50%;
+	margin: -150px 0 0 -150px;
+	width:500px;
+	height:350px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register h1 {
+   color: #fff;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+     letter-spacing:1px;
+      text-align:center; 
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+.formbutton{transition-duration: 0.25s;
+  cursor: pointer;
+       background-color: #41a346;
+       font-family: "Montserrat", sans-serif;
+       color: #fff;
+      font-size: 20px;
+    }
+    .formbutton:hover{
+      background-color: #36853a;
+    }
+  .register input,.formbutton { 
+      width: 100%; 
+      margin-bottom: 10px; 
+      border: none;
+      outline: none;
+      padding: 10px;
+      border: 1px solid rgba(0,0,0,0.3);
+      border-radius: 4px;
+      box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+      
+    }
+    .register input{color: rgb(0, 0, 0);
+      font-size: 13px;
+      background: rgba(253, 253, 253);
+    }
+
+.closebutton{
+  background-color: rgb(24, 26, 27);
+  width: 48px;
+  right: 8px;
+  top: 8px;
+  border-radius: 50%;
+  z-index: 11;
+  justify-content: center;
+  height: 48px;
+  cursor: pointer;
+  align-items: center;
+  position: absolute;
+  display: flex;
+  border-color: #736b5e;
+  transition-duration: 0.25s;
+}
+.closebutton:hover{
+  background-color: rgb(40, 42, 44);
+}
+.closebutton2{
+  line-height: 1;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+}.deletecontainer {display: flex;
+	justify-content: center;
+flex-direction: column;
+}
+.deletebox{margin-top: 100px;
+	display: flex;
+	justify-content: center;
+}
+.deleteformbutton1,.deleteformbutton2{
+  flex: 0 0 180px;
+  color: rgb(232, 230, 227);
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 0px;
+  padding-top: 16px;
+  text-decoration: none;
+  border: none;
+  margin: 0;
+  font-size: 18px;
+  padding-bottom: 16px;
+  justify-content: center;
+  line-height: 24px;
+  cursor: pointer;
+  align-items: center;
+  transition-duration: 0.25s;
+  text-align: center;
+}
+.deleteformbutton1{
+  background-color: rgb(59, 171, 247);
+}
+.deleteformbutton1:hover{
+  background-color: rgb(52, 151, 218);
+}
+.deleteformbutton2{
+  background-color: rgb(177, 21, 21);
+}.deleteformbutton2:hover{
+  background-color: rgb(160, 15, 15);
+}
+

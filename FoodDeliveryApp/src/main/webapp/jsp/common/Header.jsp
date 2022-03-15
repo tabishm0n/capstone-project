@@ -32,17 +32,18 @@ List<Cart> cartProduct = null;
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
 
 if (username == null) {
-    response.sendRedirect("Login.jsp");
+    response.sendRedirect("./jsp/Login.jsp");
+
 }else{
 	OrderDao orderDao  = new OrderDao(DbCon.getConnection());	
 	orderslist = orderDao.userOrdersList(auth.getId());
 	if(usertype.equals("Restaurant")){
+		
 		restaurantorderslistcreated = orderDao.RestaurantOrdersListCreated(restinfo.getRestaurant_id());
 		restaurantorderslistprepared = orderDao.RestaurantOrdersListPrepared(restinfo.getRestaurant_id());
 		restaurantorderslistdelivered = orderDao.RestaurantOrdersListDelivered(restinfo.getRestaurant_id());
 		}
 	else if(usertype.equals("Delivery")){
-		
 		deliverertripexists = orderDao.Istripexists(delivererinfo.getDeliverer_id());
 		delivererpastorders = orderDao.Istripexists(delivererinfo.getDeliverer_id());
 		delivererorderslistpending = orderDao.DelivererOrdersListPrepared();
@@ -101,6 +102,15 @@ if(cart_list != null){
           <li class="cartli"><a href="<%=request.getContextPath()%>/jsp/Cart.jsp">Cart <%if(cart_list != null){ %><span class="badge">${cart_list.size()}</span><%} %></a></li>
          
           <li><a href="<%=request.getContextPath()%>/jsp/UserOrders.jsp"">Orders</a></li>
+         <%
+			}
+			%>
+			<%
+			if (usertype == "Restaurant") {
+			  
+			%>
+          
+          <li><a href="<%=request.getContextPath()%>/jsp/RestaurantMenuPage.jsp"">Menu</a></li>
          <%
 			}
 			%>

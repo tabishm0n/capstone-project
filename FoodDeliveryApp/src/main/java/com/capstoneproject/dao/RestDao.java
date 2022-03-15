@@ -42,6 +42,7 @@ public class RestDao {
 		}
 		return rests;
 	}
+	
 	public Rest getRestdetails(User user){
 		Rest restinfo =  null;
 		try {

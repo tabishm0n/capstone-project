@@ -9,7 +9,7 @@
 DecimalFormat dcf = new DecimalFormat("#.##");
 request.setAttribute("dcf", dcf);
 if (user == null) {
-    response.sendRedirect("Login.jsp");
+	  response.sendRedirect("./jsp/Login.jsp");
 }
 %>
 <!DOCTYPE html>

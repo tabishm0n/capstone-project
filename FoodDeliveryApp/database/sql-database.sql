@@ -54,7 +54,8 @@ ALTER SEQUENCE public.deliverer_deliverer_id_seq OWNED BY public.deliverer.deliv
 CREATE TABLE public.deliverer_info (
     devliererinfo_id bigint NOT NULL,
     deliverer_id bigint NOT NULL,
-    order_id bigint NOT NULL
+    order_id bigint NOT NULL,
+    earnings float NOT NULL
 );
 
 
