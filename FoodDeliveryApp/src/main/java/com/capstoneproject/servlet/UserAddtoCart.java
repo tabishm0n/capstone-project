@@ -24,6 +24,7 @@ public class UserAddtoCart extends HttpServlet {
 		
 		try(PrintWriter out = response.getWriter()){
 			ArrayList<Cart> cartList= new ArrayList<>(); 
+			
 			int mid = Integer.parseInt(request.getParameter("mid"));
 			int rid = Integer.parseInt(request.getParameter("rid"));
 			Cart ct = new Cart();
@@ -32,6 +33,7 @@ public class UserAddtoCart extends HttpServlet {
 			ct.setQuantity(1);
 			
 			HttpSession session = request.getSession();
+			session.removeAttribute("itemexist"); 
 			ArrayList<Cart> cart_list= (ArrayList<Cart>) session.getAttribute("cart-list");
 			if(cart_list==null) {
 				cartList.add(ct);
@@ -49,6 +51,7 @@ public class UserAddtoCart extends HttpServlet {
 						}
 					  else if(c.getMenuitem_id()==mid) {
 							  exists=true;
+							  
 							  request.getSession().setAttribute("itemexist", "Item Already exist in Cart!");
 							  Dish itemexists = new Dish();
 							  itemexists.setMenuitem_id(mid);

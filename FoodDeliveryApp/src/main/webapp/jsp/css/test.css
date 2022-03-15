@@ -851,7 +851,7 @@ svg:not(:root) {
   margin-left: 35%;
   margin-top: 5%;
   width: 500px;
-  flex-direction: column;
+  flex-direction: row;
   display: flex;
 }
 .profilecontainer2{
@@ -869,7 +869,7 @@ svg:not(:root) {
   justify-content: center;
 }
 
-.namechange{
+.namechange{width:190px;
   background-color: transparent;
   color: rgb(232, 230, 227);
   padding-left: 0px;
@@ -888,6 +888,7 @@ svg:not(:root) {
   align-items: center;
   font-family: inherit;
 }
+
 .shapeedit{
   margin-left: 12px;
   display: flex;
@@ -916,8 +917,10 @@ svg:not(:root) {
 }
 #hidden2{
   display: none;
+}#hidden3{
+  display: none;
 }
-.profileinput2{
+.profileinput2,.profileinput1,.profileinput3,.profileinput4{
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
   border-color: rgb(50, 54, 57);
   background-color: rgb(29, 31, 32);
@@ -928,10 +931,12 @@ svg:not(:root) {
   border-radius: 4px;
   line-height: 20px;
   font-size: 14px;
-  width: 100%;
   display: flex;
 }
-.profileinput2 input{
+.profileinput2{
+  width: 100%;
+}
+.profileinput2 input,.profileinput1 input,.profileinput4 input,.profileinput3 input{
   caret-color: rgb(242, 146, 56);
   background-color: transparent;
   color: rgb(232, 230, 227);
@@ -950,7 +955,30 @@ svg:not(:root) {
   border-color: #736b5e;
 
 }
-
+.profileinput1{
+  width: 120%;
+}
+.profileinput3{
+  width: 150%;
+}
+.profileinput4{
+  width: 200%;
+}
+.walletinput{
+  width: 150%;
+  box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
+  border-color: rgb(50, 54, 57);
+  background-color: rgb(29, 31, 32);
+  color: rgb(127, 252, 192);
+  border-style: solid;
+  border-width: 1px;
+  transition-duration: 0.25s;
+  border-radius: 4px;
+  line-height: 220px;
+  font-size: 60px;
+  display: flex;
+  text-align: center;
+}
 .locationheader{
   color: rgb(232, 230, 227);
   padding: 0;

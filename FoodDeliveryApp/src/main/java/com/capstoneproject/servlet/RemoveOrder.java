@@ -27,7 +27,6 @@ public class RemoveOrder extends HttpServlet {
 		int ans = Integer.parseInt(request.getParameter("ans"));
 		String rid =request.getParameter("rid");
 		String oid = request.getParameter("oid");
-		System.out.println(ans+"\n"+rid+"\n"+oid);
 		if(ans==1) {
 			OrderDao orderDao = new OrderDao(DbCon.getConnection());
 			orderDao.removeExistingOrder(Integer.parseInt(oid),Integer.parseInt(rid));

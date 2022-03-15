@@ -11,6 +11,7 @@ import java.util.List;
 import com.capstoneproject.model.Dish;
 import com.capstoneproject.model.Orderitems;
 import com.capstoneproject.model.Orders;
+import com.capstoneproject.model.User;
 
 public class OrderDao {
 	private Connection con;
@@ -212,7 +213,6 @@ public class OrderDao {
 		  	{ 
 			  e.printStackTrace(); 
 			  } 
-		  System.out.println(list);
 		  return list;
 	   }
 	public List<Orderitems> RestaurantOrdersListPrepared(int rid) { 
@@ -275,7 +275,6 @@ public class OrderDao {
 		  	{ 
 			  e.printStackTrace(); 
 			  } 
-		  System.out.println(list);
 		  return list;
 	   }
 	public List<Orderitems> RestaurantOrdersListDelivered(int rid) { 
@@ -378,8 +377,25 @@ public class OrderDao {
 		try {
 			String SELECT_WALLET_SQL = "SELECT wallet FROM deliverer WHERE deliverer_id=?";
 			ps = this.con.prepareStatement(SELECT_WALLET_SQL);
-			ps.executeQuery();
 			ps.setInt(1,did);
+			ps.executeQuery();
+			while(rs.next()) 
+			  { 
+				  value =rs.getFloat("wallet");
+				  
+			  }System.out.print("current wallet amount in DAO \n"+value+"\n");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	public float getWalletUID(int uid){
+		float value = 0;
+		try {
+			String SELECT_WALLET_SQL = "SELECT wallet FROM deliverer WHERE deliverer_id=?";
+			ps = this.con.prepareStatement(SELECT_WALLET_SQL);
+			ps.setInt(1,uid);
+			ps.executeQuery();
 			while(rs.next()) 
 			  { 
 				  value =rs.getFloat("wallet");
@@ -390,13 +406,15 @@ public class OrderDao {
 		}
 		return value;
 	}
-	public void pickupOrder(int oid,int did){
+	
+	public void pickupOrder(int oid,int did,float earning){
 		try {
-			String PICKUP_ORDER_SQL = "UPDATE orders SET order_status=3 WHERE order_id=?;INSERT INTO deliverer_info (deliverer_id,order_id) VALUES (?,?)";
+			String PICKUP_ORDER_SQL = "UPDATE orders SET order_status=3 WHERE order_id=?;INSERT INTO deliverer_info (deliverer_id,order_id,earnings) VALUES (?,?,?)";
 			ps = this.con.prepareStatement(PICKUP_ORDER_SQL);
 			ps.setInt(1,oid);
 			ps.setInt(2,did);
 			ps.setInt(3,oid);
+			ps.setFloat(4, earning);
 			ps.execute();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -452,7 +470,6 @@ public class OrderDao {
 			  	{ 
 				  e.printStackTrace(); 
 				  } 
-			  System.out.println(list);
 			  return list;
 		
 	}
@@ -480,7 +497,6 @@ public class OrderDao {
 		  	{ 
 			  e.printStackTrace(); 
 			  } 
-		  System.out.println(list);
 		  return list;
 	   }
 	public List<Orderitems> checkOrderDelivery(int rid,int oid) { 
@@ -506,7 +522,6 @@ public class OrderDao {
 		  	{ 
 			  e.printStackTrace(); 
 			  } 
-		  System.out.println(list);
 		  return list;
 	   }
 	

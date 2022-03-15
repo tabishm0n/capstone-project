@@ -2,6 +2,7 @@ package com.capstoneproject.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,11 +22,14 @@ public class PickupOrder extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try(PrintWriter out = response.getWriter()){
+			
 			String oid = request.getParameter("oid");
 			String did = request.getParameter("did");
+			String earning = request.getParameter("earning");
+			
 			if(oid!=null) {
 				OrderDao orderDao = new OrderDao(DbCon.getConnection());
-				orderDao.pickupOrder(Integer.parseInt(oid),Integer.parseInt(did));
+				orderDao.pickupOrder(Integer.parseInt(oid),Integer.parseInt(did),Float.parseFloat(earning));
 			}
 			
 				response.sendRedirect("./jsp/UserHomepage.jsp");

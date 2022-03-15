@@ -49,6 +49,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				String street_address= user.getStreet_address();
 				String email= user.getEmail();
 				String payment= user.getPayment(); 
+				request.getSession().setAttribute("usertype", usertype);
 				request.getSession().setAttribute("first_name", first_name);
 				request.getSession().setAttribute("last_name", last_name);
 				request.getSession().setAttribute("phone", phone);
@@ -65,9 +66,20 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					Rest restinfo = rsDao.getRestdetails(verify);
 					request.getSession().setAttribute("restinfo", restinfo);
 					request.getSession().setAttribute("usertype", "Restaurant");
+					String restaurant_name1 = restinfo.getRestaurant_name();
+					String description1 = restinfo.getDescription();
+					String rest_city1 = restinfo.getCity();
+					String rest_address1 = restinfo.getStreet_address();
+					request.getSession().setAttribute("rest_city", rest_city1);
+					request.getSession().setAttribute("rest_address", rest_address1 );
+					request.getSession().setAttribute("description", description1 );
+					request.getSession().setAttribute("restaurant_name", restaurant_name1);
+				
 					
 				}else if(usertype.equals("Delivery")) {
 					User delivererinfo = usDao.getDelivererDetails(verify);
+					float currentwallet = delivererinfo.getWallet();
+					request.getSession().setAttribute("currentwallet", currentwallet);
 					request.getSession().setAttribute("delivererinfo", delivererinfo);
 					request.getSession().setAttribute("usertype", "Delivery");
 					

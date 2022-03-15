@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.OrderDao;
+import com.capstoneproject.dao.UserDao;
+import com.capstoneproject.model.User;
 
 
 @WebServlet("/OrderDelivered")
@@ -29,13 +31,21 @@ public class OrderDelivered extends HttpServlet {
 			float amount = Float.parseFloat(request.getParameter("amount"));
 			String formatamount = dcf.format(amount);
 			if(oid!=null) {
+				User auth = (User) request.getSession().getAttribute("auth");
 				OrderDao orderDao = new OrderDao(DbCon.getConnection());
-				float walletAmount = orderDao.getWallet(Integer.parseInt(did));
+				UserDao userDao = new UserDao(DbCon.getConnection());
+				User delivererinfo = userDao.getDelivererDetails(auth);
+				float walletAmount = delivererinfo.getWallet();
+				System.out.println("Current wallet amount : \n "+walletAmount+"\n");
+				System.out.println("Current earning : \n "+formatamount+"\n");
 				float newamount = walletAmount+Float.parseFloat(formatamount);
+				System.out.println("Total wallet amount : \n "+newamount);
 				orderDao.orderDelivered(Integer.parseInt(oid),Integer.parseInt(did),newamount);
+				request.getSession().setAttribute("currentwallet", newamount);
+				
 			}
-			
-				response.sendRedirect("./jsp/UserHomepage.jsp");
+					
+			response.sendRedirect("./jsp/UserProfilePage.jsp");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

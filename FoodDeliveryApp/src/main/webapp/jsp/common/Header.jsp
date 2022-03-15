@@ -5,7 +5,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<% String usertype= (String)request.getSession().getAttribute("usertype");
+<%
+String usertype= (String)request.getSession().getAttribute("usertype");
 String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");
 Rest restinfo = (Rest) request.getSession().getAttribute("restinfo");
@@ -20,6 +21,7 @@ List<Orderitems>restaurantorderslistprepared = null;
 List<Orderitems>restaurantorderslistdelivered = null; 
 List<Orderitems>delivererorderslistpending = null;
 List<Orderitems>deliverertripexists=null;
+List<Orderitems>delivererpastorders=null;
 List<Orderitems>outfordelivery=null;
 int orderid =0;
 List<Orderitems> completedorders = null;
@@ -42,6 +44,7 @@ if (username == null) {
 	else if(usertype.equals("Delivery")){
 		
 		deliverertripexists = orderDao.Istripexists(delivererinfo.getDeliverer_id());
+		delivererpastorders = orderDao.Istripexists(delivererinfo.getDeliverer_id());
 		delivererorderslistpending = orderDao.DelivererOrdersListPrepared();
 		
 		}

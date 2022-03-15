@@ -4,7 +4,8 @@
 <%@page import="com.capstoneproject.dao.DishDao"%>
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
-<%String itemexists=(String)request.getSession().getAttribute("itemexist"); 
+<%
+String itemexists=(String)request.getSession().getAttribute("itemexist"); 
 Dish itemexistsid = (Dish)request.getSession().getAttribute("itemexistsid");  
 DishDao ds = new DishDao(DbCon.getConnection());
 Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");

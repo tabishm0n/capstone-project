@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@page import="com.capstoneproject.connection.DbCon"%>
@@ -5,6 +6,8 @@
 <%@page import="com.capstoneproject.model.*"%>
 <%@page import="java.util.*"%>
 <%
+DecimalFormat dcf = new DecimalFormat("#.##");
+request.setAttribute("dcf", dcf);session.removeAttribute("itemexist"); 
 RestDao rs = new RestDao(DbCon.getConnection());
 List<Rest> rests = rs.getAllRests();
 %>
@@ -84,7 +87,7 @@ if (usertype == "Customer")
                   </a>
                   </div>
                   <div class="orderspageidesc">
-                    <div class="mo"><%= r.getQuantity() %> item(s) for $<%= r.getPrice() %>
+                    <div class="mo"><%= r.getQuantity() %> item(s) for $<%=dcf.format(r.getPrice()) %>
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
                       </span><%= date.format(r.getOrder_date()) %><span> at </span><%= time.format(r.getOrder_date()) %>
@@ -164,7 +167,7 @@ if (usertype == "Customer")
 			         </a>
 			         </div>
 			         <div class="orderspageidesc">
-			           <div class="mo"><%= r.getQuantity() %> item(s) for $<%= r.getPrice() %>
+			           <div class="mo"><%= r.getQuantity() %> item(s) for $<%=dcf.format(r.getPrice())%>
 			             <span class="orderspagedivider">&nbsp;- &nbsp;
 			
 			             </span><%= date.format(r.getOrder_date()) %><span> at </span><%= time.format(r.getOrder_date()) %>
@@ -252,7 +255,7 @@ if (usertype == "Customer")
 			         </a>
 			         </div>
 			         <div class="orderspageidesc">
-			           <div class="mo"><%= r.getQuantity() %> item(s) for $<%= r.getPrice() %>
+			           <div class="mo"><%= r.getQuantity() %> item(s) for $<%=dcf.format(r.getPrice()) %>
 			             <span class="orderspagedivider">&nbsp;- &nbsp;
 			
 			             </span><%= date.format(r.getOrder_date()) %><span> at </span><%= time.format(r.getOrder_date()) %>
@@ -335,7 +338,7 @@ if (usertype == "Customer")
                   </a>
                   </div>
                   <div >
-                    <div class="orderspageidesc"><%= d.getQuantity() %> item(s), Delivery fee earned &nbsp;:&nbsp; <span class="orderspagestorelinktitle" >$<%= d.getPrice() %></span> 
+                    <div class="orderspageidesc"><%= d.getQuantity() %> item(s), Delivery fee earned &nbsp;:&nbsp; <span class="orderspagestorelinktitle" >$<%=dcf.format(d.getPrice()) %></span> 
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
                       </span><%= date.format(d.getOrder_date()) %><span> at </span><%= time.format(d.getOrder_date()) %>
@@ -405,7 +408,7 @@ if (usertype == "Customer")
                   </a>
                   </div>
                   <div >
-                    <div class="orderspageidesc"><%= d.getQuantity() %> item(s), Delivery fee earned &nbsp;:&nbsp; <span class="orderspagestorelinktitle" >$<%= d.getPrice() %></span> 
+                    <div class="orderspageidesc"><%= d.getQuantity() %> item(s), Delivery fee earned &nbsp;:&nbsp; <span class="orderspagestorelinktitle" >$<%=dcf.format(d.getPrice()) %></span> 
                       <span class="orderspagedivider">&nbsp;- &nbsp;
 
                       </span><%= date.format(d.getOrder_date()) %><span> at </span><%= time.format(d.getOrder_date()) %>
@@ -446,7 +449,7 @@ if (usertype == "Customer")
             </div>
           </div>
            <div class="space_24"></div>
-      <div class="orderspageaccept"><a href="<%=request.getContextPath()%>/PickupOrder?oid=<%= d.getOrder_id()%>&did=<%= delivererinfo.getDeliverer_id()%>"><button class="orderspagedeliverybutton">Pickup Order</button></a></div>
+      <div class="orderspageaccept"><a href="<%=request.getContextPath()%>/PickupOrder?oid=<%= d.getOrder_id()%>&did=<%= delivererinfo.getDeliverer_id()%>&earning=<%= d.getPrice() %>"><button class="orderspagedeliverybutton">Pickup Order</button></a></div>
      </div>
         <div class="height_16"></div>
         <% 

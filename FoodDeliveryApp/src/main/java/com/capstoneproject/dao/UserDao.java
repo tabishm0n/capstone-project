@@ -152,7 +152,7 @@ public class UserDao {
 		}
 		return userinfo;
 	}
-	public int updateProfile( User user,int id) throws ClassNotFoundException{
+	public int updateProfile( User user,int uid) throws ClassNotFoundException{
 		int result = 0;
 		try {
 			String UPDATE_USER_SQL = " UPDATE user_table SET first_name=? ,last_name=? ,city=? ,street_address=? ,email=? ,payment=?  WHERE id=?;";
@@ -164,7 +164,25 @@ public class UserDao {
 			ps.setString(4, user.getStreet_address());
 			ps.setString(5, user.getEmail());
 			ps.setString(6, user.getPayment());
-			ps.setInt(7, id);
+			ps.setInt(7, uid);
+			result = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	public int updateRestProfile( Rest rest,int uid) throws ClassNotFoundException{
+		int result = 0;
+		try {
+			String UPDATE_REST_SQL = " UPDATE restaurant SET city=?,street_address=?,description=?,restaurant_name=? WHERE user_id=?;";
+											 
+			ps = this.con.prepareStatement(UPDATE_REST_SQL);
+			ps.setString(1, rest.getCity());
+			ps.setString(2, rest.getStreet_address());
+			ps.setString(3, rest.getDescription());
+			ps.setString(4, rest.getRestaurant_name());
+			ps.setInt(5, uid);
 			result = ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -190,4 +208,5 @@ public class UserDao {
 		}
 		return delivererinfo;
 	}
+	
 }

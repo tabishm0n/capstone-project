@@ -14,12 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.capstoneproject.connection.DbCon;
-import com.capstoneproject.dao.OrderDao;
-import com.capstoneproject.dao.UserDao;
-import com.capstoneproject.model.Cart;
-import com.capstoneproject.model.Orderitems;
-import com.capstoneproject.model.Orders;
-import com.capstoneproject.model.User;
+import com.capstoneproject.dao.*;
+import com.capstoneproject.model.*;
 
 /**
  * Servlet implementation class UserUpdateProfile
@@ -27,13 +23,15 @@ import com.capstoneproject.model.User;
 @WebServlet("/UpdateProfile")
 public class UserUpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+	private RestDao rsDao;
 	private UserDao usDao;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean result=false;
-		try {
+		
+		try {rsDao = new RestDao(DbCon.getConnection());
 			usDao = new UserDao(DbCon.getConnection());
+			
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -49,6 +47,11 @@ public class UserUpdateProfile extends HttpServlet {
 		String street_address = request.getParameter("street_address");
 		String email = request.getParameter("email");
 		String payment = request.getParameter("payment");
+		String restaurant_name = request.getParameter("restaurant_name");
+		String description = request.getParameter("description");
+		String rest_city = request.getParameter("rest_city");
+		String rest_address = request.getParameter("rest_address");
+		Rest rest = new Rest();
 		User user = new User();
 		user.setFirst_name(first_name);
 		user.setLast_name(last_name);
@@ -56,23 +59,41 @@ public class UserUpdateProfile extends HttpServlet {
 		user.setStreet_address(street_address);
 		user.setEmail(email);
 		user.setPayment(payment);
+		rest.setRestaurant_name(restaurant_name);
+		rest.setDescription(description);
+		rest.setCity(rest_city);
+		rest.setStreet_address(rest_address);
 		try {
-			usDao.updateProfile(user,userID);
-			result=true;
-			}
-		catch(Exception e) {
-			e.printStackTrace();
-		}if(result) {
 			String login = auth.getLogin();
 			String password = auth.getPassword();
-			try {
-				usDao = new UserDao(DbCon.getConnection());
-				User verify = usDao.verifyUser(login, password);
-				User us = new User();
-				us.setLogin(login);
-				us.setPassword(password);
+			usDao = new UserDao(DbCon.getConnection());
+			User verify = usDao.verifyUser(login, password);
+			User user2 = usDao.verifyType(verify);
+			User us = new User();
+			us.setLogin(login);
+			us.setPassword(password);
+			usDao.updateProfile(user,userID);
+			String usertype = user2.getUser_type();
+			if(usertype.equals("Restaurant")) {
+				usDao.updateRestProfile(rest,userID);
+				
+			}System.out.println("usertype");
+			
+			result=true;
+			if(result) {
 				if (verify != null) {
 					User user1 = usDao.verifyType(us);
+					if(usertype.equals("Restaurant")) {
+						Rest rs1 = rsDao.getRestdetails(auth);
+						String restaurant_name1 = rs1.getRestaurant_name();
+						String description1 = rs1.getDescription();
+						String rest_city1 = rs1.getCity();
+						String rest_address1 = rs1.getStreet_address();
+						request.getSession().setAttribute("rest_city", rest_city1);
+						request.getSession().setAttribute("rest_address", rest_address1 );
+						request.getSession().setAttribute("description", description1 );
+						request.getSession().setAttribute("restaurant_name", restaurant_name1);
+					}
 					String user_type = user1.getUser_type();
 					String first_name1 = user1.getFirst_name();
 					String last_name1= user1.getLast_name();
@@ -94,16 +115,13 @@ public class UserUpdateProfile extends HttpServlet {
 					response.sendRedirect("./jsp/UserProfilePage.jsp");
 					 } 
 				
-			} catch (ClassNotFoundException e) {
-				
-				e.printStackTrace();
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			}
-			
+			}  
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 			
 			}
 	}
 
-}
+
