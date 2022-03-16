@@ -9,13 +9,13 @@ public class Dish {
 	private int quantity;
 	private int category;
 	private String category_name;
+	private int restaurant_id;
 	public Dish() {
 		super();
 	}
 
-
 	public Dish(int menuitem_id, String item_name, String description, float price, boolean active, int quantity,
-			int category, String category_name) {
+			int category, String category_name, int restaurant_id) {
 		super();
 		this.menuitem_id = menuitem_id;
 		this.item_name = item_name;
@@ -25,16 +25,24 @@ public class Dish {
 		this.quantity = quantity;
 		this.category = category;
 		this.category_name = category_name;
+		this.restaurant_id = restaurant_id;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Dish [menuitem_id=" + menuitem_id + ", item_name=" + item_name + ", description=" + description
 				+ ", price=" + price + ", active=" + active + ", quantity=" + quantity + ", category=" + category
-				+ ", category_name=" + category_name + "]";
+				+ ", category_name=" + category_name + ", restaurant_id=" + restaurant_id + "]";
 	}
 
+	
+	public int getRestaurant_id() {
+		return restaurant_id;
+	}
+
+	public void setRestaurant_id(int restaurant_id) {
+		this.restaurant_id = restaurant_id;
+	}
 
 	public String getCategory_name() {
 		return category_name;

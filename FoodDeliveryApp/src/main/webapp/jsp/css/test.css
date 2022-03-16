@@ -48,7 +48,7 @@ a{
  width: 120px;
 }
 .banner-1 img{ display: block;
-  width: 99vw;
+  width: 97vw;
   object-fit: cover;  height: 128px;
 
 }
@@ -379,12 +379,12 @@ li{list-style-type: none;
   right: 8px;
   top: 0;
 }.iedit2{
-  position: absolute;
+ position: absolute;
   right: 100px;
   top: 0;
 }
 .iedit3{
-  position: absolute;
+ position: absolute;
   right: 180px;
   top: 0;
 }
@@ -410,7 +410,7 @@ li{list-style-type: none;
   align-items: center;
   justify-content: center;
   height: 36px;
-  width: 60px;
+  width: 75px;
   border-radius: 10px;
   border: none;
   transition-duration: 0.25s;
@@ -1006,12 +1006,6 @@ svg:not(:root) {
   display: none;
 }#hidden4{
   display: none;
-}#hidden5{
-  display: none;
-}#hidden6{
-  display: none;
-}#hidden7{
-  display: none;
 }
 .profileinput2,.profileinput1,.profileinput3,.profileinput4{
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
@@ -1130,7 +1124,7 @@ background-color: rgb(219, 119, 38);
   background-color: #1f1f1f;
   border-radius: 10px;
   padding: 50px;
-  position: absolute;
+  position: fixed;
 	top: 40%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
@@ -1150,25 +1144,43 @@ background-color: rgb(219, 119, 38);
       margin-top: 10px;
       margin-bottom: 30px;
     }
-
+.register input::placeholder{
+  color: #000000;
+}
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
     
-.formbutton{transition-duration: 0.25s;
+.formbutton,.deleteformbutton,.deleteformbutton2{transition-duration: 0.25s;
   cursor: pointer;
-       background-color: #41a346;
+       
        font-family: "Montserrat", sans-serif;
-       color: #fff;
+       
       font-size: 20px;
     }
-    .formbutton:hover{
+    .formbutton{color: #fff;
+    background-color: #41a346;
+    }
+    .formbutton:hover{color: #fff;
       background-color: #36853a;
     }
-  .register input,.formbutton { 
+.deleteformbutton{color: #fff;
+	 background-color: rgb(226, 46, 14);
+}
+.deleteformbutton:hover{color: #fff;
+	 background-color: rgb(170, 33, 9);
+}
+.deleteformbutton2{color: rgb(226, 46, 14);
+	 background-color: rgb(58, 58, 58);
+}
+.deleteformbutton2:hover{
+	 background-color: rgb(78, 78, 78);
+}
+.register input,.register select,.formbutton,.deleteformbutton,.deleteformbutton2 { 
       width: 100%; 
+      text-align:center;      
       margin-bottom: 10px; 
       border: none;
       outline: none;
@@ -1177,11 +1189,17 @@ background-color: rgb(219, 119, 38);
       border-radius: 4px;
       box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
       
-    }
-    .register input{color: rgb(0, 0, 0);
-      font-size: 13px;
-      background: rgba(253, 253, 253);
-    }
+}
+.register input,.register select{
+	color: rgb(0, 0, 0);
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    background: rgba(253, 253, 253);
+}
+.register select option {
+	color: rgb(0, 0, 0);
+    background: rgba(253, 253, 253);
+}
 
 .closebutton{
   background-color: rgb(24, 26, 27);
@@ -1207,43 +1225,5 @@ background-color: rgb(219, 119, 38);
   width: 24px;
   height: 24px;
   cursor: pointer;
-
-}.deletecontainer {display: flex;
-	justify-content: center;
-flex-direction: column;
-}
-.deletebox{margin-top: 100px;
-	display: flex;
-	justify-content: center;
-}
-.deleteformbutton1,.deleteformbutton2{
-  flex: 0 0 180px;
-  color: rgb(232, 230, 227);
-  padding-right: 20px;
-  padding-left: 20px;
-  border-radius: 0px;
-  padding-top: 16px;
-  text-decoration: none;
-  border: none;
-  margin: 0;
-  font-size: 18px;
-  padding-bottom: 16px;
-  justify-content: center;
-  line-height: 24px;
-  cursor: pointer;
-  align-items: center;
-  transition-duration: 0.25s;
-  text-align: center;
-}
-.deleteformbutton1{
-  background-color: rgb(59, 171, 247);
-}
-.deleteformbutton1:hover{
-  background-color: rgb(52, 151, 218);
-}
-.deleteformbutton2{
-  background-color: rgb(177, 21, 21);
-}.deleteformbutton2:hover{
-  background-color: rgb(160, 15, 15);
 }
 
