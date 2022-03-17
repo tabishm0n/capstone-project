@@ -37,7 +37,7 @@ if (user == null) {
         	   }
            %>
            <div class="ordercontainerflex">
-             <a class="orderspagestorelink" href="">
+             <a class="orderspagestorelink" href="<%= request.getContextPath() %>/RestaurantPage?id=<%= o1.getRestaurant_id() %>">
                <div height="140" class="orderimagefigure">
                  <div class="ordersrestimage" style="height: 140px;">
                     <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -49,7 +49,7 @@ if (user == null) {
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo2">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href=""><%= o1.getRestaurant_name() %>  
+                  <a  class="orderspagestorelinktitle" href="<%= request.getContextPath() %>/RestaurantPage?id=<%= o1.getRestaurant_id() %>"><%= o1.getRestaurant_name() %>  
                   </a>
                   
 			<div class="orderspagestatus"><button class="orderspagestatusbutton"><%= message %></button></div>
@@ -118,7 +118,7 @@ if (user == null) {
            %>
            
            <div class="ordercontainerflex">
-             <a class="orderspagestorelink" href="">
+             <a class="orderspagestorelink" href="<%= request.getContextPath() %>/RestaurantPage?id=<%= c.getRestaurant_id() %>">
                <div height="140" class="orderimagefigure">
                  <div class="ordersrestimage" style="height: 140px;">
                     <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -130,7 +130,7 @@ if (user == null) {
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo2">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href=""><%= c.getRestaurant_name() %>   
+                  <a  class="orderspagestorelinktitle" href="<%= request.getContextPath() %>/RestaurantPage?id=<%= c.getRestaurant_id() %>"><%= c.getRestaurant_name() %>   
                   </a>
                   <div class="rating">
                     <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="ratingstars">

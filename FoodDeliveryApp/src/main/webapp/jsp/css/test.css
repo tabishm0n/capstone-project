@@ -12,8 +12,10 @@ font-family: "Montserrat", sans-serif;
 }	
 a{
 	cursor: pointer;
-	
 	text-decoration: none !important;
+}
+.cartl a {
+	color: rgb(232, 230, 227);
 }
 
 .dropdown-menu a{
@@ -666,7 +668,7 @@ line-height: 44px;
   outline: none;
   color: rgb(232, 230, 227);
   background-color: rgb(34, 36, 38);
-  width: 55px;
+  width: 60px;
   padding: 0px 12px 0px 16px;
   height: 36px;
   appearance: none;
@@ -1055,7 +1057,7 @@ svg:not(:root) {
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
   border-color: rgb(50, 54, 57);
   background-color: rgb(29, 31, 32);
-  color: rgb(232, 230, 227);
+  color: rgb(127, 252, 192);
   border-style: solid;
   border-width: 1px;
   transition-duration: 0.25s;

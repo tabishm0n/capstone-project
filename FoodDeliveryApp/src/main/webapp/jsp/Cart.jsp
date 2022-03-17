@@ -17,7 +17,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
 <div class="cartcontainer">
 <div class="cartl">
 
-  <h1 class="crname"><%= userrestinfo.getRestaurant_name() %></h1>
+  <a href="<%= request.getContextPath() %>/RestaurantPage?id=<%= userrestinfo.getRestaurant_id() %>"><h1 class="crname"><%= userrestinfo.getRestaurant_name() %></h1></a>
             <hr class="divider">
   <div class="ctitle">
     <h3 class="cheader">Your items</h3>
@@ -56,12 +56,12 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                 </div>
               </div>
             </div>
-            <a class="restlinkcart" href="<%=request.getContextPath()%>/RedirectRestaurant">
+            <a class="restlinkcart" >
               <div class="contli">
                 <div class="contli2">
                   <div class="citem"><%= c.getItem_name() %></div>
                   <div class="space_8"></div>
-                  <div class="cfprice">$<%=dcf.format(c.getPrice())%> <%-- <div class="ctprice"><span>$14.58</span> </div> --%>
+                  <div class="cfprice">$<%=dcf.format(c.getPrice())%> 
                 </div>
               </div>
             </div>

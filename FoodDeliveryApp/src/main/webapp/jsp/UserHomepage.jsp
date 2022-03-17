@@ -71,7 +71,7 @@ if (usertype == "Customer")
             	   orderitems = oDao.userOrderItems(r.getOrder_id());
         	   %>
            <div class="ordercontainerflex">
-             <a class="orderspagestorelink" href="">
+             <a class="orderspagestorelink">
                <div height="140" class="orderimagefigure">
                  <div class="ordersrestimage" style="height: 140px;">
                     <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -83,7 +83,7 @@ if (usertype == "Customer")
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo2">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href=""><%= r.getFirst_name()%> <%= r.getLast_name()%>   
+                  <a  class="orderspagestorelinktitle"><%= r.getFirst_name()%> <%= r.getLast_name()%>   
                   </a>
                   </div>
                   <div class="orderspageidesc">
@@ -151,7 +151,7 @@ if (usertype == "Customer")
             		
         	   %>
 			  <div class="ordercontainerflex">
-			    <a class="orderspagestorelink" href="">
+			    <a class="orderspagestorelink">
 			      <div height="140" class="orderimagefigure">
 			        <div class="ordersrestimage" style="height: 140px;">
 			           <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -163,7 +163,7 @@ if (usertype == "Customer")
 			   <div class="orderspagerestinfo1">
 			     <div class="orderspagerestinfo2">
 			       <div class="orderspagerestinfo3">
-			         <a  class="orderspagestorelinktitle" href=""><%= r.getFirst_name()%> <%= r.getLast_name()%>     
+			         <a  class="orderspagestorelinktitle" ><%= r.getFirst_name()%> <%= r.getLast_name()%>     
 			         </a>
 			         </div>
 			         <div class="orderspageidesc">
@@ -239,7 +239,7 @@ if (usertype == "Customer")
             	   orderitems = oDao.userOrderItems(r.getOrder_id());
         	   %>
 			  <div class="ordercontainerflex">
-			    <a class="orderspagestorelink" href="">
+			    <a class="orderspagestorelink">
 			      <div height="140" class="orderimagefigure">
 			        <div class="ordersrestimage" style="height: 140px;">
 			           <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -251,7 +251,7 @@ if (usertype == "Customer")
 			   <div class="orderspagerestinfo1">
 			     <div class="orderspagerestinfo2">
 			       <div class="orderspagerestinfo3">
-			         <a  class="orderspagestorelinktitle" href=""><%= r.getFirst_name()%> <%= r.getLast_name()%>     
+			         <a  class="orderspagestorelinktitle" ><%= r.getFirst_name()%> <%= r.getLast_name()%>     
 			         </a>
 			         </div>
 			         <div class="orderspageidesc">
@@ -322,7 +322,7 @@ if (usertype == "Customer")
             	   orderitems = oDao.userOrderItems(d.getOrder_id());
         	   %>
            <div class="ordercontainerflex">
-             <a class="orderspagestorelink" href="">
+             <a class="orderspagestorelink">
                <div height="140" class="orderimagefigure">
                  <div class="ordersrestimage" style="height: 140px;">
                     <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -334,7 +334,7 @@ if (usertype == "Customer")
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo22">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href=""><%= d.getFirst_name()%> <%= d.getLast_name()%><span class="orderspageidesc"> &nbsp;<%= d.getUser_city() %>, <%=d.getUser_address() %>&nbsp; </span> Ordered from<span class="orderspagedivider">&nbsp; -&nbsp; </span><%=d.getRestaurant_name() %> <span class="orderspageidesc"><%= d.getRest_city() %>, <%=d.getRest_address() %></span> 
+                  <a  class="orderspagestorelinktitle"><%= d.getFirst_name()%> <%= d.getLast_name()%><span class="orderspageidesc"> &nbsp;<%= d.getUser_city() %>, <%=d.getUser_address() %>&nbsp; </span> Ordered from<span class="orderspagedivider">&nbsp; -&nbsp; </span><%=d.getRestaurant_name() %> <span class="orderspageidesc"><%= d.getRest_city() %>, <%=d.getRest_address() %></span> 
                   </a>
                   </div>
                   <div >
@@ -392,7 +392,7 @@ if (usertype == "Customer")
             	   orderitems = oDao.userOrderItems(d.getOrder_id());
         	   %>
            <div class="ordercontainerflex">
-             <a class="orderspagestorelink" href="">
+             <a class="orderspagestorelink">
                <div height="140" class="orderimagefigure">
                  <div class="ordersrestimage" style="height: 140px;">
                     <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
@@ -404,7 +404,7 @@ if (usertype == "Customer")
             <div class="orderspagerestinfo1">
               <div class="orderspagerestinfo22">
                 <div class="orderspagerestinfo3">
-                  <a  class="orderspagestorelinktitle" href=""><%= d.getFirst_name()%> <%= d.getLast_name()%><span class="orderspageidesc"> &nbsp;<%= d.getUser_city() %>, <%=d.getUser_address() %>&nbsp; </span> Ordered from<span class="orderspagedivider">&nbsp; -&nbsp; </span><%=d.getRestaurant_name() %> <span class="orderspageidesc"><%= d.getRest_city() %>, <%=d.getRest_address() %></span> 
+                  <a  class="orderspagestorelinktitle"><%= d.getFirst_name()%> <%= d.getLast_name()%><span class="orderspageidesc"> &nbsp;<%= d.getUser_city() %>, <%=d.getUser_address() %>&nbsp; </span> Ordered from<span class="orderspagedivider">&nbsp; -&nbsp; </span><%=d.getRestaurant_name() %> <span class="orderspageidesc"><%= d.getRest_city() %>, <%=d.getRest_address() %></span> 
                   </a>
                   </div>
                   <div >
