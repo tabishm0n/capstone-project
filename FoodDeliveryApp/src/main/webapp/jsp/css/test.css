@@ -12,7 +12,6 @@ font-family: "Montserrat", sans-serif;
 }	
 a{
 	cursor: pointer;
-	
 	text-decoration: none !important;
 }
 
@@ -20,7 +19,7 @@ a{
 	
   color: #313131;
 }
-.right a{
+.right a,.cartl a{
 	color: #fff;
 
 }
@@ -296,6 +295,7 @@ input[type="text" i] {
 .brating{
   display: flex;
   align-self: flex-end;
+  font-size:20px;
 }
 
 .list{
@@ -486,6 +486,7 @@ li{list-style-type: none;
   box-sizing: border-box;
 }
 .cartr{background-color: inherit;
+	margin-right:10px;
   padding: 80px 0px;
   width: calc(33.3333% - 40px);
   flex: 2;
@@ -1010,6 +1011,8 @@ svg:not(:root) {
   display: none;
 }#hidden7{
   display: none;
+}#hidden4{
+  display: none;
 }
 .profileinput2,.profileinput1,.profileinput3,.profileinput4{
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
@@ -1063,7 +1066,7 @@ justify-content: space-between;
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;
   border-color: rgb(50, 54, 57);
   background-color: rgb(29, 31, 32);
-  color: rgb(232, 230, 227);
+  color: rgb(127, 252, 192);
   border-style: solid;
   border-width: 1px;
   transition-duration: 0.25s;

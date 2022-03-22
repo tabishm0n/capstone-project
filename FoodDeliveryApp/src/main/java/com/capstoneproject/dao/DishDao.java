@@ -63,7 +63,7 @@ public class DishDao {
 	public List<Dish> getCategories(int rid){
 		List<Dish> dishes =  new ArrayList<Dish>();
 		try {
-			String SELECT_DISH_SQL = "SELECT DISTINCT ct.category_name,ct.category_id FROM menu_item mi INNER JOIN category ct ON ct.category_id=mi.category WHERE mi.restaurant_id=? AND active=true;";
+			String SELECT_DISH_SQL = "SELECT DISTINCT ct.category_name,ct.category_id FROM menu_item mi INNER JOIN category ct ON ct.category_id=mi.category WHERE mi.restaurant_id=? AND active=true  ORDER BY ct.category_id;";
 			ps = this.con.prepareStatement( SELECT_DISH_SQL);
 			ps.setInt(1,rid);
 			rs = ps.executeQuery();

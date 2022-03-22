@@ -46,7 +46,7 @@ if (usertype == "Customer")
           <div class="rbanner"><img src="<%=request.getContextPath()%>/resources/food1.png" alt=""></div>
           <div id="binfo">
             <div class="bname"><b><%= r.getRestaurant_name() %></b></div>
-            <div class="brating">4.6</div>
+            <div class="brating"><%=r.getCity() %>, <%=r.getStreet_address() %></div>
           </div>
           </a>
         </div>
@@ -63,11 +63,11 @@ if (usertype == "Customer")
 %>
 <div class="restauranthome">
  <div class="orderscontainer">
-           <div class="ordercontainertitle">Pending Orders</div>
-           <% 
-           if(restaurantorderslistcreated!=null)
-           {   %>
            
+           <% 
+           if(!restaurantorderslistcreated.isEmpty())
+           {   %>
+           <div class="ordercontainertitle">Pending Orders</div>
            <% 
         	   for(Orderitems r:restaurantorderslistcreated){
         		   OrderDao oDao  = new OrderDao(DbCon.getConnection());

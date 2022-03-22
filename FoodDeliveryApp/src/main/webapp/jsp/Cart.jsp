@@ -16,8 +16,8 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
 <body>
 <div class="cartcontainer">
 <div class="cartl">
-
-  <a href="<%= request.getContextPath() %>/RestaurantPage?id=<%= userrestinfo.getRestaurant_id() %>"><h1 class="crname"><%= userrestinfo.getRestaurant_name() %></h1></a>
+<h1 class="crname">
+  <a href="<%= request.getContextPath() %>/RestaurantPage?id=<%= userrestinfo.getRestaurant_id() %>"><%= userrestinfo.getRestaurant_name() %></a></h1>
             <hr class="divider">
   <div class="ctitle">
     <h3 class="cheader">Your items</h3>
@@ -56,6 +56,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                 </div>
               </div>
             </div>
+            <div class="space_8"></div>
             <a class="restlinkcart" >
               <div class="contli">
                 <div class="contli2">
@@ -67,6 +68,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
             </div>
           </a>
     		 </li>
+    		 <div class="height_10"> </div>
     	<%}
     }
     %>

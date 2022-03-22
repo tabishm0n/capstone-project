@@ -33,7 +33,7 @@ List<Dish> category = ds.getCategories(userrestinfo.getRestaurant_id());
   <div class="container2">
     <div class="second">
       <div class="seconds-1 second"><h1> <%= userrestinfo.getRestaurant_name() %></h1></div>
-      <div class="seconds-2 second"><h3>Rating</h3></div>
+      <div class="seconds-2 second"><h3><%=userrestinfo.getCity() %>, <%=userrestinfo.getStreet_address() %></h3></div>
     </div>
      </div>
     <div class="container3">
