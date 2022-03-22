@@ -46,8 +46,8 @@ public class RestDao {
 	public Rest getRestdetails(User user){
 		Rest restinfo =  null;
 		try {
-			String SELECT_REST_SQL = " SELECT * FROM restaurant WHERE user_id=?; ";
-			ps = this.con.prepareStatement( SELECT_REST_SQL);
+			String GET_REST_SQL = " SELECT * FROM restaurant WHERE user_id=?; ";
+			ps = this.con.prepareStatement( GET_REST_SQL);
 			ps.setInt(1, user.getId());
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -68,8 +68,8 @@ public class RestDao {
 	public Rest UserRestdetails(int id){
 		Rest restinfo =  null;
 		try {
-			String SELECT_REST_SQL = " SELECT * FROM restaurant WHERE restaurant_id=?; ";
-			ps = this.con.prepareStatement( SELECT_REST_SQL);
+			String FETCH_REST_SQL = " SELECT * FROM restaurant WHERE restaurant_id=?; ";
+			ps = this.con.prepareStatement( FETCH_REST_SQL);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -91,8 +91,8 @@ public class RestDao {
 		List<Rest> admin = new ArrayList<>();
 		
 		try {
-			String SELECT_ORDER_SQL = "SELECT * from restaurant where user_id=?;";
-			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
+			String ADMIN_REST_INFO = "SELECT * from restaurant where user_id=?;";
+			ps = this.con.prepareStatement(ADMIN_REST_INFO);
 			ps.setInt(1, uid);
 			rs = ps.executeQuery();
 			while(rs.next()) {

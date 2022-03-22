@@ -47,9 +47,9 @@ public class UserDao {
 	}
 	public int getUserID(String username, String password) throws ClassNotFoundException{
 		int id =0;
-		String READ_USERS_SQL ="Select id FROM user_table WHERE login=? AND password=?;";
+		String GET_ID_SQL ="Select id FROM user_table WHERE login=? AND password=?;";
 		try  {
-			ps = this.con.prepareStatement(READ_USERS_SQL);
+			ps = this.con.prepareStatement(GET_ID_SQL);
 			ps.setString(1, username);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
@@ -260,8 +260,8 @@ public User verifyType(User user) throws ClassNotFoundException{
 		List<User> list = new ArrayList<>();
 		
 		try {
-			String SELECT_ORDER_SQL = "SELECT * from user_table WHERE user_type=? ORDER BY id ASC;";
-			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
+			String ADMIN_USER_LIST = "SELECT * from user_table WHERE user_type=? ORDER BY id ASC;";
+			ps = this.con.prepareStatement(ADMIN_USER_LIST);
 			ps.setString(1, user_type);
 			rs = ps.executeQuery();
 			while(rs.next()) {

@@ -41,8 +41,8 @@ public class DishDao {
 	}public Dish getAllDishes2(int mid,int rid){
 		Dish dishes =  new Dish();
 		try {
-			String SELECT_DISH_SQL = " SELECT * FROM menu_item WHERE menuitem_id=? AND restaurant_id=? AND active=true ORDER BY item_name ; ";
-			ps = this.con.prepareStatement( SELECT_DISH_SQL);
+			String SELECT_DISH2_SQL = " SELECT * FROM menu_item WHERE menuitem_id=? AND restaurant_id=? AND active=true ORDER BY item_name ; ";
+			ps = this.con.prepareStatement( SELECT_DISH2_SQL);
 			ps.setInt(1,mid);
 			ps.setInt(2,rid);
 			rs = ps.executeQuery();
@@ -63,8 +63,8 @@ public class DishDao {
 	public List<Dish> getCategories(int rid){
 		List<Dish> dishes =  new ArrayList<Dish>();
 		try {
-			String SELECT_DISH_SQL = "SELECT DISTINCT ct.category_name,ct.category_id FROM menu_item mi INNER JOIN category ct ON ct.category_id=mi.category WHERE mi.restaurant_id=? AND active=true  ORDER BY ct.category_id;";
-			ps = this.con.prepareStatement( SELECT_DISH_SQL);
+			String SELECT_CATEGORY_SQL = "SELECT DISTINCT ct.category_name,ct.category_id FROM menu_item mi INNER JOIN category ct ON ct.category_id=mi.category WHERE mi.restaurant_id=? AND active=true  ORDER BY ct.category_id;";
+			ps = this.con.prepareStatement( SELECT_CATEGORY_SQL);
 			ps.setInt(1,rid);
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -236,8 +236,8 @@ public class DishDao {
 	public int updateMenuItem(int mid,int rid,Dish dishinfo){
 		int result = 0;
 		try {
-			String SELECT_DISH_SQL = " UPDATE menu_item SET item_name=? ,description=? ,price=? ,category=? WHERE restaurant_id=? AND menuitem_id=?;";
-			ps = this.con.prepareStatement( SELECT_DISH_SQL);
+			String UPDATE_DISH_SQL = " UPDATE menu_item SET item_name=? ,description=? ,price=? ,category=? WHERE restaurant_id=? AND menuitem_id=?;";
+			ps = this.con.prepareStatement( UPDATE_DISH_SQL);
 			ps.setString(1,dishinfo.getItem_name());
 			ps.setString(2,dishinfo.getDescription());
 			ps.setFloat(3,dishinfo.getPrice());
@@ -313,10 +313,10 @@ public class DishDao {
 	   }
 	public Dish checkItemExist2(String item_name,int rid) { 
 		  Dish dish = new Dish(); 
-		  String CHECK_ORDER_SQL ="SELECT * FROM menu_item WHERE item_name=? AND restaurant_id=?;"; 
+		  String CHECK_ORDER2_SQL ="SELECT * FROM menu_item WHERE item_name=? AND restaurant_id=?;"; 
 		
 		  try {
-			  ps = this.con.prepareStatement(CHECK_ORDER_SQL); 
+			  ps = this.con.prepareStatement(CHECK_ORDER2_SQL); 
 			  ps.setString(1, item_name);
 			  ps.setInt(2, rid);
 			  rs = ps.executeQuery(); 
@@ -341,8 +341,8 @@ public class DishDao {
 	   }
 	public void updateItem(Dish dishinfo){
 		try {
-			String ACCEPT_ORDER_SQL = "UPDATE menu_item SET active=true WHERE menuitem_id=? AND restaurant_id=?;";
-			ps = this.con.prepareStatement(ACCEPT_ORDER_SQL);
+			String REACTIVATE_ORDER_SQL = "UPDATE menu_item SET active=true WHERE menuitem_id=? AND restaurant_id=?;";
+			ps = this.con.prepareStatement(REACTIVATE_ORDER_SQL);
 			ps.setInt(1,dishinfo.getMenuitem_id());
 			ps.setInt(2,dishinfo.getRestaurant_id());
 			ps.execute();
