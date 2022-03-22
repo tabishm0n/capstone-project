@@ -87,4 +87,21 @@ public class RestDao {
 		}
 		return restinfo;
 	}
+	public List<Rest> adminRestInfo(int uid){
+		List<Rest> admin = new ArrayList<>();
+		
+		try {
+			String SELECT_ORDER_SQL = "SELECT * from restaurant where user_id=?;";
+			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
+			ps.setInt(1, uid);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Rest adminrest = new Rest();
+				adminrest.setRestaurant_name(rs.getString("restaurant_name"));
+				admin.add(adminrest);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}return admin;
+	}
 }

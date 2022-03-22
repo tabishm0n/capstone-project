@@ -100,7 +100,7 @@ if (user == null) {
             </div>
           </div>
            <div class="space_24"></div>
-      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/CancelOrder?id=<%= o1.getOrder_id()%>"><button data-baseweb="button" class="orderspagecancelbutton">Cancel Order</button></a></div>
+      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/CancelOrder?id=<%= o1.getOrder_id()%>"><button class="orderspagecancelbutton">Cancel Order</button></a></div>
     
         </div>
         <div class="height_16"></div>

@@ -23,7 +23,7 @@ String error=(String)request.getAttribute("err");
         <button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
     </form>
     <form method="post" action="<%= request.getContextPath() %>/jsp/Register.jsp" >
-    	<button class="btn btn-secondary btn-block btn-large">Register</button>
+    	<button class="btn btn-secondary btn-block btn-large">Not a User? Register now</button>
     </form>
     
 

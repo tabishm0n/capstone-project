@@ -1,16 +1,23 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:500&display=swap);
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+	font-family: "Montserrat", sans-serif;
   }
-  
+  body{
+  background: #202020;	}
   header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 30px 10%;
-    background-color: #24252a;
+    background-color: #313131;
   }
+  .logo img{height:90px;
+  width:120px;
+  background-color: #313131;}
   
   .logo {
     margin-right: auto;
@@ -23,29 +30,29 @@
   
   .nav__links a,
   .cta,
-  .overlay__content a {
-    font-family: "Montserrat", sans-serif;
+   a {
     font-weight: 500;
-    color: #edf0f1;
+    color: #fff;
     text-decoration: none;
   }
   
-  .nav__links li {
+  .nav__links li {background-color: #313131;
     padding: 0px 20px;
   }
   
-  .nav__links li a {
+  .nav__links li a {background-color: #313131;
     transition: all 0.3s ease 0s;
   }
-  
-  .nav__links li a:hover {
-    color: #0088a9;
+  .article a:hover{ transition: all 0.3s ease 0s;
+  }
+  .nav__links li a:hover,.article a:hover {
+    color: rgb(242, 146, 56);
   }
   
   .cta {
     margin-left: 20px;
     padding: 9px 25px;
-    background-color: rgba(0, 136, 169, 1);
+    background-color: rgba(242, 146, 56,1);
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -53,77 +60,57 @@
   }
   
   .cta:hover {
-    background-color: rgba(0, 136, 169, 0.8);
+    background-color: rgba(242, 146, 56,0.8);
   }
-  
-  /* Mobile Nav */
-  
+ 
   .menu {
     display: none;
   }
-  
-  .overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    background-color: #24252a;
-    overflow-x: hidden;
-    transition: all 0.5s ease 0s;
+  .article h1 {
+	background-image: linear-gradient(
+  90deg,
+  hsl(27deg 100% 50%) 0%,
+  hsl(29deg 100% 50%) 20%,
+  hsl(30deg 100% 50%) 33%,
+  hsl(32deg 100% 50%) 44%,
+  hsl(34deg 100% 50%) 54%,
+  hsl(35deg 100% 50%) 63%,
+  hsl(37deg 100% 50%) 70%,
+  hsl(39deg 100% 50%) 78%,
+  hsl(40deg 100% 50%) 84%,
+  hsl(41deg 100% 50%) 90%,
+  hsl(42deg 100% 50%) 95%,
+  hsl(43deg 100% 50%) 100%
+);
+  background-clip: text;
+	-webkit-background-clip: text;
+  color: transparent;
   }
   
-  .overlay--active {
-    width: 100%;
+ 
+  .article {
+	display: grid;
+	place-items: center;
+	padding: clamp(1.44rem, 1.12rem + 1.58vw, 2.25rem);
+	font-family: sans-serif;
+	
+	color: #f3f3f3;
   }
   
-  .overlay__content {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .article h1 {
+	font-size: clamp(2.49rem, 0.5rem + 9.96vw, 7.59rem);
+	line-height: 1.1;
+	font-family: "Inter", sans-serif;
+	font-weight: 900;
+	max-width: 16ch;
   }
   
-  .overlay a {
-    padding: 15px;
-    font-size: 36px;
-    display: block;
-    transition: all 0.3s ease 0s;
+  .article p {text-decoration: none;
+	font-size: 1rem;
+	margin-top: 2em;
+  }
+  .height_90{
+	height: 70px;
   }
   
-  .overlay a:hover,
-  .overlay a:focus {
-    color: #0088a9;
-  }
-  .overlay .close {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
-    color: #edf0f1;
-    cursor: pointer;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .overlay a {
-      font-size: 20px;
-    }
-    .overlay .close {
-      font-size: 40px;
-      top: 15px;
-      right: 35px;
-    }
-  }
-  
-  @media only screen and (max-width: 800px) {
-    .nav__links,
-    .cta {
-      display: none;
-    }
-    .menu {
-      display: initial;
-    }
-  }
   

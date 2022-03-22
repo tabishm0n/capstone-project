@@ -2,8 +2,12 @@ package com.capstoneproject.dao;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.capstoneproject.model.Dish;
+import com.capstoneproject.model.Orderitems;
 import com.capstoneproject.model.Rest;
 import com.capstoneproject.model.User;
 
@@ -21,11 +25,9 @@ public class UserDao {
 	public int registerUser(User user) throws ClassNotFoundException{
 		String INSERT_USERS_SQL = "INSERT INTO user_table " + "(login,password,city,"
 				+ "street_address,first_name,last_name,email,phone,user_type,payment,"
-				+"registeration_date) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+				+"registeration_date) VALUES (?,?,?,?,?,?,?,?,?,?,NOW());";
 		int result = 0 ;
 		try  {
-			Date date = new Date();
-			java.sql.Date sqldate = new java.sql.Date(date.getTime());
 			ps = this.con.prepareStatement(INSERT_USERS_SQL);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
@@ -37,7 +39,6 @@ public class UserDao {
 			ps.setString(8, user.getPhone());
 			ps.setString(9, user.getUser_type());
 			ps.setString(10, user.getPayment());
-			ps.setDate(11, sqldate);
 			result = ps.executeUpdate();
 		}catch (SQLException e) {
 			printSQLException(e);
@@ -125,7 +126,7 @@ public class UserDao {
 		}
 		return user;
 	}
-	public User verifyType(User user) throws ClassNotFoundException{
+public User verifyType(User user) throws ClassNotFoundException{
 		
 		User userinfo = null;
 		String READ_TYPE_SQL ="Select * FROM user_table WHERE login=? AND password=?";
@@ -152,6 +153,7 @@ public class UserDao {
 		}
 		return userinfo;
 	}
+
 	public int updateProfile( User user,int uid) throws ClassNotFoundException{
 		int result = 0;
 		try {
@@ -208,5 +210,139 @@ public class UserDao {
 		}
 		return delivererinfo;
 	}
+	public User getUserInfo(int uid) {
+		User user_info = null;
+		String READ_USER_SQL = "Select * FROM user_table WHERE id=?;";
+		try {
+			ps = this.con.prepareStatement(READ_USER_SQL);
+			ps.setInt(1, uid);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				user_info = new User();
+				user_info.setId(rs.getInt("id"));
+				user_info.setLogin(rs.getString("login"));
+				user_info.setPassword(rs.getString("password"));
+				user_info.setCity(rs.getString("city"));
+				user_info.setStreet_address(rs.getString("street_address"));
+				user_info.setFirst_name(rs.getString("first_name"));
+				user_info.setLast_name(rs.getString("last_name"));
+				user_info.setEmail(rs.getString("email"));
+				user_info.setPhone(rs.getString("phone"));
+				user_info.setUser_type(rs.getString("user_type"));
+				user_info.setPayment(rs.getString("payment"));
+				user_info.setRegisteration_date(rs.getTimestamp("registeration_date"));
+			}
+			
+		}catch (SQLException e) {
+			printSQLException(e);
+		}
+		return user_info;
+	}
+	
+	public List<User> getUsertypes(){
+		List<User> users =  new ArrayList<User>();
+		try {
+			String SELECT_TYPES_SQL = "SELECT DISTINCT user_type from user_table WHERE user_type!='Admin' ORDER BY user_type;";
+			ps = this.con.prepareStatement( SELECT_TYPES_SQL);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				User row = new User();
+				row.setUser_type(rs.getString("user_type"));
+				users.add(row);
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return users;
+	}
+	public List<User> adminList(String user_type){
+		List<User> list = new ArrayList<>();
+		
+		try {
+			String SELECT_ORDER_SQL = "SELECT * from user_table WHERE user_type=? ORDER BY id ASC;";
+			ps = this.con.prepareStatement(SELECT_ORDER_SQL);
+			ps.setString(1, user_type);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setLogin(rs.getString("login"));
+				user.setPassword(rs.getString("password"));
+				user.setCity(rs.getString("city"));
+				user.setStreet_address(rs.getString("street_address"));
+				user.setFirst_name(rs.getString("first_name"));
+				user.setLast_name(rs.getString("last_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPhone(rs.getString("phone"));
+				user.setUser_type(user_type);
+				user.setPayment(rs.getString("payment"));
+				user.setRegisteration_date(rs.getTimestamp("registeration_date"));
+				list.add(user);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}return list;
+	}
+
+
+public int deleteCustomer(int uid){
+	int result = 0;
+	try {
+		String DELETE_CUSTOMER_SQL = "DELETE FROM orders where user_id=?; DELETE FROM user_table WHERE id=?;";
+		ps = this.con.prepareStatement(DELETE_CUSTOMER_SQL);
+		ps.setInt(1,uid);
+		ps.setInt(2,uid);
+		result = ps.executeUpdate();
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	return result;
+}
+public int deleteCustomerOrder(int oid){
+	int result = 0;
+	try {
+		String DELETE_CUSTOMER_SQL = " DELETE FROM orderitems where order_id=?;DELETE FROM deliverer_info WHERE order_id=?;";
+		ps = this.con.prepareStatement(DELETE_CUSTOMER_SQL);
+		ps.setInt(1,oid);
+		ps.setInt(2,oid);
+		result = ps.executeUpdate();
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	return result;
+}
+public int deleteRestaurantOwner(int uid,int rid){
+	int result = 0;
+	try {
+		String DELETE_RESTAURANT_SQL = " DELETE FROM restaurant where user_id=?;DELETE FROM menu_item WHERE restaurant_id=?;DELETE FROM user_table WHERE id=?;";
+		ps = this.con.prepareStatement(DELETE_RESTAURANT_SQL);
+		ps.setInt(1,uid);
+		ps.setInt(2,rid);
+		ps.setInt(3,uid);
+		result = ps.executeUpdate();
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	return result;
+}
+public int deleteDeliverer(int uid,int did){
+	int result = 0;
+	try {
+		String DELETE_DELIVERER_SQL = "DELETE FROM deliverer_info WHERE deliverer_id=?;DELETE FROM deliverer WHERE user_id=?;DELETE FROM user_table WHERE id=?; ";
+		ps = this.con.prepareStatement(DELETE_DELIVERER_SQL);
+		ps.setInt(1,did);
+		ps.setInt(2,uid);
+		ps.setInt(3,uid);
+		result = ps.executeUpdate();
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	return result;
+}
 	
 }

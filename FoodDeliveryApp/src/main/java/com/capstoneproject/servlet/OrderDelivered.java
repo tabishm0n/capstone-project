@@ -36,10 +36,7 @@ public class OrderDelivered extends HttpServlet {
 				UserDao userDao = new UserDao(DbCon.getConnection());
 				User delivererinfo = userDao.getDelivererDetails(auth);
 				float walletAmount = delivererinfo.getWallet();
-				System.out.println("Current wallet amount : \n "+walletAmount+"\n");
-				System.out.println("Current earning : \n "+formatamount+"\n");
 				float newamount = walletAmount+Float.parseFloat(formatamount);
-				System.out.println("Total wallet amount : \n "+newamount);
 				orderDao.orderDelivered(Integer.parseInt(oid),Integer.parseInt(did),newamount);
 				request.getSession().setAttribute("currentwallet", newamount);
 				

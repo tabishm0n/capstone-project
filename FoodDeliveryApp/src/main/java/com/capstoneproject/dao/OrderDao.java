@@ -383,7 +383,7 @@ public class OrderDao {
 			  { 
 				  value =rs.getFloat("wallet");
 				  
-			  }System.out.print("current wallet amount in DAO \n"+value+"\n");
+			  }
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -435,44 +435,83 @@ public class OrderDao {
 		
 	}
 	public List<Orderitems> Istripexists(int did){
-			List<Orderitems> list = new ArrayList<>(); 
-			float res=0;
-			String SELECT_IF_EXISTS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,d.wallet, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=3 GROUP BY od.order_id,date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,d.wallet ORDER BY order_id DESC;";
-			try {
-				  ps = this.con.prepareStatement(SELECT_IF_EXISTS_SQL); 
-				  ps.setInt(1,did);
-				  rs = ps.executeQuery(); 
-				  while(rs.next()) 
-				  { 
-					  Orderitems order = new Orderitems();
-					  order.setOrder_id(rs.getInt("order_id"));
-					  order.setFirst_name(rs.getString("first_name"));
-					  order.setLast_name(rs.getString("last_name"));
-					  float sum = rs.getFloat("total");
-					  res = (float)((sum*0.06)+5);
-					  order.setPrice(res);
-					  order.setRestaurant_name(rs.getString("restaurant_name"));
-					  order.setQuantity(rs.getInt("items"));
-					  order.setUser_city(rs.getString("user_city"));
-					  order.setUser_address(rs.getString("user_address"));
-					  order.setRest_city(rs.getString("rest_city"));
-					  order.setRest_address(rs.getString("rest_address"));
-					  order.setOrder_date(rs.getTimestamp("date"));
-					  order.setUser_id(rs.getInt("customer_id"));
-					  order.setOrder_status(rs.getInt("order_status"));
-					  order.setRestaurant_id(rs.getInt("restaurant_id"));
-					  order.setDeliverer_id(rs.getInt("deliverer_id"));
-					  order.setWallet(rs.getFloat("wallet"));
-					  list.add(order); 
-				  }
+		List<Orderitems> list = new ArrayList<>(); 
+		float res=0;
+		String SELECT_IF_EXISTS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,d.wallet, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=3 GROUP BY od.order_id,date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,d.wallet ORDER BY order_id DESC;";
+		try {
+			  ps = this.con.prepareStatement(SELECT_IF_EXISTS_SQL); 
+			  ps.setInt(1,did);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  { 
+				  Orderitems order = new Orderitems();
+				  order.setOrder_id(rs.getInt("order_id"));
+				  order.setFirst_name(rs.getString("first_name"));
+				  order.setLast_name(rs.getString("last_name"));
+				  float sum = rs.getFloat("total");
+				  res = (float)((sum*0.06)+5);
+				  order.setPrice(res);
+				  order.setRestaurant_name(rs.getString("restaurant_name"));
+				  order.setQuantity(rs.getInt("items"));
+				  order.setUser_city(rs.getString("user_city"));
+				  order.setUser_address(rs.getString("user_address"));
+				  order.setRest_city(rs.getString("rest_city"));
+				  order.setRest_address(rs.getString("rest_address"));
+				  order.setOrder_date(rs.getTimestamp("date"));
+				  order.setUser_id(rs.getInt("customer_id"));
+				  order.setOrder_status(rs.getInt("order_status"));
+				  order.setRestaurant_id(rs.getInt("restaurant_id"));
+				  order.setDeliverer_id(rs.getInt("deliverer_id"));
+				  order.setWallet(rs.getFloat("wallet"));
+				  list.add(order); 
+			  }
+		  } 
+		  catch (SQLException e) 
+		  	{ 
+			  e.printStackTrace(); 
 			  } 
-			  catch (SQLException e) 
-			  	{ 
-				  e.printStackTrace(); 
-				  } 
-			  return list;
-		
-	}
+		  return list;
+	
+}
+	public List<Orderitems> delivererCompletedOrders(int did){
+		List<Orderitems> list = new ArrayList<>(); 
+		float res=0;
+		String PAST_ORDERS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,di.earnings, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=4 GROUP BY od.order_id,date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,di.earnings ORDER BY order_id DESC;";
+		try {
+			  ps = this.con.prepareStatement(PAST_ORDERS_SQL); 
+			  ps.setInt(1,did);
+			  rs = ps.executeQuery(); 
+			  while(rs.next()) 
+			  { 
+				  Orderitems order = new Orderitems();
+				  order.setOrder_id(rs.getInt("order_id"));
+				  order.setFirst_name(rs.getString("first_name"));
+				  order.setLast_name(rs.getString("last_name"));
+				  float sum = rs.getFloat("total");
+				  res = (float)((sum*0.06)+5);
+				  order.setPrice(res);
+				  order.setRestaurant_name(rs.getString("restaurant_name"));
+				  order.setQuantity(rs.getInt("items"));
+				  order.setUser_city(rs.getString("user_city"));
+				  order.setUser_address(rs.getString("user_address"));
+				  order.setRest_city(rs.getString("rest_city"));
+				  order.setRest_address(rs.getString("rest_address"));
+				  order.setOrder_date(rs.getTimestamp("date"));
+				  order.setUser_id(rs.getInt("customer_id"));
+				  order.setOrder_status(rs.getInt("order_status"));
+				  order.setRestaurant_id(rs.getInt("restaurant_id"));
+				  order.setDeliverer_id(rs.getInt("deliverer_id"));
+				  order.setEarnings(rs.getFloat("earnings"));
+				  list.add(order); 
+			  }
+		  } 
+		  catch (SQLException e) 
+		  	{ 
+			  e.printStackTrace(); 
+			  } 
+		  return list;
+	
+}
 	
 	public List<Orderitems> checkOrdersExist(int uid,int rid) { 
 		  List<Orderitems> list = new ArrayList<>(); 

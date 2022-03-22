@@ -28,6 +28,8 @@ List<Orderitems> completedorders = null;
 List<Orderitems> orders = null;
 List<Orderitems> orderitems = null;
 List<Cart> cartProduct = null;
+List<User> adminList = null;
+List<Rest> adminRestInfo = null;
 
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"); 
 
@@ -45,7 +47,7 @@ if (username == null) {
 		}
 	else if(usertype.equals("Delivery")){
 		deliverertripexists = orderDao.Istripexists(delivererinfo.getDeliverer_id());
-		delivererpastorders = orderDao.Istripexists(delivererinfo.getDeliverer_id());
+		delivererpastorders = orderDao.delivererCompletedOrders(delivererinfo.getDeliverer_id());
 		delivererorderslistpending = orderDao.DelivererOrdersListPrepared();
 		
 		}
@@ -111,6 +113,15 @@ if(cart_list != null){
 			%>
           
           <li><a href="<%=request.getContextPath()%>/jsp/RestaurantMenuPage.jsp"">Menu</a></li>
+         <%
+			}
+			%>
+			<%
+			if (usertype == "Delivery") {
+			  
+			%>
+          
+          <li><a href="<%=request.getContextPath()%>/jsp/DelivererPastOrders.jsp"">Past Orders</a></li>
          <%
 			}
 			%>

@@ -22,16 +22,16 @@ public class Orderitems {
 	private int order_status;
 	private int deliverer_id;
 	private float wallet;
+	private float earnings;
 public Orderitems() {
 		
 	}
 
 
-
 public Orderitems(String first_name, String last_name, int user_id, int order_id, float price, int menuitem_id,
 		String item_name, int orderitem_id, int quantity, Timestamp order_date, String restaurant_name,
 		int restaurant_id, String user_city, String user_address, String rest_city, String rest_address,
-		int order_status, int deliverer_id, float wallet) {
+		int order_status, int deliverer_id, float wallet, float earnings) {
 	super();
 	this.first_name = first_name;
 	this.last_name = last_name;
@@ -52,8 +52,8 @@ public Orderitems(String first_name, String last_name, int user_id, int order_id
 	this.order_status = order_status;
 	this.deliverer_id = deliverer_id;
 	this.wallet = wallet;
+	this.earnings = earnings;
 }
-
 
 
 @Override
@@ -63,9 +63,19 @@ public String toString() {
 			+ ", orderitem_id=" + orderitem_id + ", quantity=" + quantity + ", order_date=" + order_date
 			+ ", restaurant_name=" + restaurant_name + ", restaurant_id=" + restaurant_id + ", user_city=" + user_city
 			+ ", user_address=" + user_address + ", rest_city=" + rest_city + ", rest_address=" + rest_address
-			+ ", order_status=" + order_status + ", deliverer_id=" + deliverer_id + ", wallet=" + wallet + "]";
+			+ ", order_status=" + order_status + ", deliverer_id=" + deliverer_id + ", wallet=" + wallet + ", earnings="
+			+ earnings + "]";
 }
 
+
+public float getEarnings() {
+	return earnings;
+}
+
+
+public void setEarnings(float earnings) {
+	this.earnings = earnings;
+}
 
 
 public int getOrder_status() {

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%
+String reg_error=(String)request.getAttribute("reg_err");  
 
+%>
 <!DOCTYPE html>
 <html>
 
@@ -63,6 +66,9 @@
 	 <form method="post" action="<%= request.getContextPath() %>/jsp/Login.jsp" >
     	<button class="btn btn-secondary btn-block btn-large">Go Back</button>
     </form>
+    
+<%if(reg_error!=null)
+out.println("<font color=red size=4px>"+reg_error+"</font>");%>
  </div>
 <script type="text/javascript">
     function additionalInputBox(nameSelect){

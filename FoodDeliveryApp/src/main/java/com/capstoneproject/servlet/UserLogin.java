@@ -49,7 +49,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				String street_address= user.getStreet_address();
 				String email= user.getEmail();
 				String payment= user.getPayment(); 
-				request.getSession().setAttribute("usertype", usertype);
 				request.getSession().setAttribute("first_name", first_name);
 				request.getSession().setAttribute("last_name", last_name);
 				request.getSession().setAttribute("phone", phone);

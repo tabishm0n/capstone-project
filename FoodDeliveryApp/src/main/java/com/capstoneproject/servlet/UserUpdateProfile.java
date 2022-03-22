@@ -77,7 +77,7 @@ public class UserUpdateProfile extends HttpServlet {
 			if(usertype.equals("Restaurant")) {
 				usDao.updateRestProfile(rest,userID);
 				
-			}System.out.println("usertype");
+			}
 			
 			result=true;
 			if(result) {

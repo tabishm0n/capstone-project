@@ -22,7 +22,7 @@ List<Rest> rests = rs.getAllRests();
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Homepage</title>
+<title>User Profile Page</title>
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
@@ -100,8 +100,12 @@ List<Rest> rests = rs.getAllRests();
           </div>
     </form>
       <div class="height" ></div>
-        <a href="<%=request.getContextPath()%>/Logout"  class="logoutbutton" id="logoutid">Logout
-        </a>
+        <div class="profilebuttons">
+        <div><a href="<%=request.getContextPath()%>/Logout"  class="logoutbutton" id="logoutid">Logout
+        </a></div>
+        <div><a href="<%=request.getContextPath()%>/RemoveUser?uid=<%= auth.getId()%>"  class="profiledeletebutton" id="deleteid">Delete Account
+        </a></div>
+      </div>
         </div>
         <%
 if (usertype == "Restaurant") 
@@ -205,11 +209,13 @@ float currentwallet= (float)request.getSession().getAttribute("currentwallet");
     var x = document.getElementById("hidden");
     var x2 = document.getElementById("hidden2");
     var x3 = document.getElementById("logoutid");
+    var x4 = document.getElementById("deleteid");
     
-    if (x.style.display == "block" && x2.style.display == "block" && x3.style.display == "none" ) {
+    if (x.style.display == "block" && x2.style.display == "block" && x3.style.display == "none"&& x4.style.display == "none" ) {
       x.style.display = "none";
       x2.style.display = "none";
       x3.style.display = "block";
+      x4.style.display = "block";
       document.getElementById("inputtype1").readOnly = true;
       document.getElementById("inputtype2").readOnly = true;
       document.getElementById("inputtype3").readOnly = true;
@@ -218,6 +224,7 @@ float currentwallet= (float)request.getSession().getAttribute("currentwallet");
       x.style.display = "block";
       x2.style.display = "block";
       x3.style.display = "none";
+      x4.style.display = "none";
       document.getElementById("inputtype1").readOnly = false;
       document.getElementById("inputtype2").readOnly = false;
       document.getElementById("inputtype3").readOnly = false;
@@ -226,18 +233,21 @@ float currentwallet= (float)request.getSession().getAttribute("currentwallet");
   }function myFunction2() {
 	  console.log("javascript2 working");
 	  var x3 = document.getElementById("logoutid");
-	  var x4 = document.getElementById("hidden3");
+	  var x4 = document.getElementById("deleteid");
+	  var x5 = document.getElementById("hidden3");
 	  
-	  if (x4.style.display == "block" && x3.style.display == "none" ) {
-	    x4.style.display = "none";
+	  if (x5.style.display == "block" && x3.style.display == "none"&& x4.style.display == "none" ) {
+	    x5.style.display = "none";
 	    x3.style.display = "block";
+	    x4.style.display = "block";
 	    document.getElementById("inputtype5").readOnly = true;
 	    document.getElementById("inputtype6").readOnly = true;
 	    document.getElementById("inputtype7").readOnly = true;
 	    document.getElementById("inputtype8").readOnly = true;
 	  } else{
-	    x4.style.display = "block";
+	    x5.style.display = "block";
 	    x3.style.display = "none";
+	    x4.style.display = "none";
 	    document.getElementById("inputtype5").readOnly = false;
 	    document.getElementById("inputtype6").readOnly = false;
 	    document.getElementById("inputtype7").readOnly = false;

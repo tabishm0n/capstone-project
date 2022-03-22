@@ -56,7 +56,15 @@ public void init() {
 		us.setUser_type(user_type);
 		us.setPayment(payment);
 		String usertype = us.getUser_type();
-		try {if(usertype.equals("Customer")) {
+		
+		try {User userexists = usDao.verifyType(us);
+			if(userexists!=null) {
+				request.setAttribute("reg_err", "User Already Exists!");
+				request.getRequestDispatcher("./jsp/Register.jsp").forward(request, response);
+				
+		}else{
+			
+			if(usertype.equals("Customer")) {
 			usDao.registerUser(us);
 		}
 		else if(usertype.equals("Restaurant")) {
@@ -78,11 +86,13 @@ public void init() {
 				int uid = usDao.getUserID(login,password);
 				usDao.registerDeliveryUser(uid);
 			}
+			response.sendRedirect("./jsp/UserInfo.jsp");
 			}
+		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("./jsp/UserInfo.jsp");
+		
 		
 }
 }

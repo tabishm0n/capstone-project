@@ -1,6 +1,7 @@
 package com.capstoneproject.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class User {
 	private int id;
@@ -14,11 +15,18 @@ public class User {
 	private String phone;
 	private String user_type;
 	private String payment;
-	private Date registeration_date;
+	private Timestamp registeration_date;
 	private int deliverer_id;
 	private float wallet;
 	
 	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", city=" + city + ", street_address="
+				+ street_address + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
+				+ ", phone=" + phone + ", user_type=" + user_type + ", payment=" + payment + ", registeration_date="
+				+ registeration_date + ", deliverer_id=" + deliverer_id + ", wallet=" + wallet + "]";
+	}
 	public int getDeliverer_id() {
 		return deliverer_id;
 	}
@@ -97,10 +105,10 @@ public class User {
 	public void setPayment(String payment) {
 		this.payment = payment;
 	}
-	public Date getRegisteration_date() {
+	public Timestamp getRegisteration_date() {
 		return registeration_date;
 	}
-	public void setRegisteration_date(Date registeration_date) {
-		this.registeration_date = registeration_date;
+	public void setRegisteration_date(Timestamp timestamp) {
+		this.registeration_date = timestamp;
 	}
 }

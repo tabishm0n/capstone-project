@@ -7,9 +7,12 @@
 <%@page import="java.util.*"%>
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
-request.setAttribute("dcf", dcf);session.removeAttribute("itemexist"); 
+request.setAttribute("dcf", dcf);
+session.removeAttribute("itemexist"); 
 RestDao rs = new RestDao(DbCon.getConnection());
 List<Rest> rests = rs.getAllRests();
+UserDao us = new UserDao(DbCon.getConnection());
+List<User> usertypes = us.getUsertypes();
 %>
 <!DOCTYPE html>
 <html>
@@ -312,7 +315,7 @@ if (usertype == "Customer")
 
  <div class="orderscontainer">
            
-           <% int a=1;
+           <% 
            if(!deliverertripexists.isEmpty()){
         	   %>
               <div class="ordercontainertitle">Current Trip</div>
@@ -458,9 +461,113 @@ if (usertype == "Customer")
 			 %>
 			 </div>
 	<%
+}else if (usertype == "Admin") {%>
+<div class="ordercontainertitle">All Users</div>
+ <div class="admincontainer">
+           
+           <% 
+           if(!usertypes.isEmpty()){
+        	   %>
+              
+              <div class="height_16"></div>
+           <% 
+        	   for(User u:usertypes){
+        		   UserDao uDao  = new UserDao(DbCon.getConnection());
+        		   adminList = uDao.adminList(u.getUser_type());
+        	   %>
+        	   <div class="ordercontainertitle"><%= u.getUser_type() %></div>
+        	    <%
+                    for(User u1:adminList)
+                    {RestDao restDao  = new RestDao(DbCon.getConnection());
+                    adminRestInfo = restDao.adminRestInfo(u1.getId());
+			           %>
+           <div class="admincontainerflex">
+             <a class="adminprofileimg">
+               <div height="140" class="adminimagefigure">
+                 <div class="adminimage" style="width: 50px;height: 50px;">
+                    <img alt="" role="presentation" src="<%=request.getContextPath()%>/resources/profile.png" aria-hidden="true" >
+                     </div>
+              </div>
+            </a>
+            <div class="space_24"> 
+            </div>
+           
+            <div class="orderspagerestinfo1">
+              <div class="orderspagerestinfo22">
+                <div class="orderspagerestinfo3">
+                  <p  class="orderspagestorelinktitle"><%=u1.getFirst_name() %> <%=u1.getLast_name() %>  
+			                  <% 
+			           if(!adminRestInfo.isEmpty()){
+			        	   for(Rest rname:adminRestInfo){
+			        	   %>
+			        	  <span class="orderspagedivider">&nbsp;owns &nbsp;</span>
+							<%=rname.getRestaurant_name() %>
+							<%}
+			        	   }%>
+                      
+                  </p>
+                  </div>
+                  <div >
+                    <div class="orderspageidesc"><%=u1.getCity() %>, <%=u1.getStreet_address() %>
+                      <span class="orderspagedivider">&nbsp;- &nbsp;
+
+                      </span><%=u1.getEmail() %>
+                    </div>
+                  </div>	
+                 
+                  <div class="height_16"></div>
+                  <ul>
+                    <li>
+                      <div class="orderspageitemlist">
+                    <div class="orderspageitemlist2">
+                      <ul>
+                        <li>
+                          <div class="orderspageitem">
+                           <div class="orderspageitemname">
+                              <div class="orderspageitemname2">
+                                <div><span class="orderspagedivider">Phone Number -&nbsp;</span><%= u1.getPhone() %> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="orderspageitem">
+                            <div class="orderspageitemname">
+                              <div class="orderspageitemname2">
+                                <div><span class="orderspagedivider">Card Info -&nbsp;</span><%=u1.getPayment() %> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="orderspageitem">
+                           <div class="orderspageitemname">
+                              <div class="orderspageitemname2">
+                                <div><span class="orderspagedivider">Date Created -&nbsp;</span><%= date.format(u1.getRegisteration_date()) %><span> at </span> <%= time.format(u1.getRegisteration_date()) %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+               
+            </div>
+          </div>
+           <div class="space_24"></div>
+      <div class="orderspagecancel"><a href="<%=request.getContextPath()%>/RemoveUser?uid=<%= u1.getId()%>"><button class="orderspagecancelbutton">Remove User</button></a></div>
+     </div>
+        
+        <div class="height_16"></div>
+			 
+	<%}
+				}
+           }
 }
 	
 	%>
+	</div>
 </body>
 
 </html>

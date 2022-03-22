@@ -30,7 +30,6 @@ public class AddMenuItem extends HttpServlet {
 			String category = request.getParameter("category");
 			String description = request.getParameter("description");
 			float price = Float.parseFloat(request.getParameter("price"));
-			System.out.println(item_name+"\n"+category+"\n"+description+"\n"+price);
 			Dish dishinfo = new Dish();
 			dishinfo.setItem_name(item_name);
 			dishinfo.setCategory(Integer.parseInt(category));
