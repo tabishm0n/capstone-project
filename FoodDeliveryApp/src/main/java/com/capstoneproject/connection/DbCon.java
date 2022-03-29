@@ -3,7 +3,7 @@ package com.capstoneproject.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+//Establishing connection with Database
 public class DbCon {
 	private static Connection connection = null;
 	public static Connection getConnection() throws ClassNotFoundException, SQLException{
