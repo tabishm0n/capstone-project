@@ -17,7 +17,7 @@ import com.capstoneproject.dao.DishDao;
 import com.capstoneproject.model.Cart;
 import com.capstoneproject.model.Dish;
 import com.capstoneproject.model.Rest;
-
+//This Servlet is called when Restaurant Manager wants to add a menu item to his Menu
 @WebServlet("/AddMenuItem")
 public class AddMenuItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,21 +30,26 @@ public class AddMenuItem extends HttpServlet {
 			String category = request.getParameter("category");
 			String description = request.getParameter("description");
 			float price = Float.parseFloat(request.getParameter("price"));
+			//Retrieve parameters from previous page, here Restaurant details
 			Dish dishinfo = new Dish();
 			dishinfo.setItem_name(item_name);
 			dishinfo.setCategory(Integer.parseInt(category));
 			dishinfo.setDescription(description);
 			dishinfo.setPrice(price);
+			//Create object to pass into method
 			try {
 				DishDao dishDao = new DishDao(DbCon.getConnection());
 				List<Dish> dishexists = dishDao.checkItemExist(item_name, restinfo.getRestaurant_id());
+				//Create list if the dish already exists in the menu and is inactive, if true, run below loop
 				if(!dishexists.isEmpty()) {
 					Dish dishexists2 = dishDao.checkItemExist2(item_name, restinfo.getRestaurant_id());
+					//Create Dish object if loop is run
 					request.getSession().setAttribute("dishexists2",dishexists2);
+					//Set session attribute for the existing dish Dish object
 					response.sendRedirect("./jsp/MenuItemExists.jsp");
 					
 				}else {
-					
+					//If item doesn't exist add the new Menu Item
 				dishDao.addMenuItem(rid,dishinfo);
 				response.sendRedirect("./jsp/RestaurantMenuPage.jsp");
 				}

@@ -10,14 +10,15 @@
 
 </head>
 <body> 
-    <div class="person">
+    <a href="<%= request.getContextPath() %>/index.jsp"><button aria-label="Back" class="backbutton" ><div class="backbutton2"><svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="fill"><path d="M22 13.5H6.3l5.5 7.5H8.3l-6.5-9 6.5-9h3.5l-5.5 7.5H22v3z"></path></svg></div></button></a>
+  <div class="person">
     <div class="container">
       <div class="container-inner">
         <img
           class="img"
-          src="profile-tabish.png"
+          src="<%=request.getContextPath()%>/resources/profile-tauseef.png"
           />
-        
+       
       </div>
     </div>
     <div class="divider"></div>
@@ -43,7 +44,7 @@
       <div class="container-inner">
         <img
           class="img"
-         src="<%=request.getContextPath()%>/resources/profile-bharath.jpeg"
+         src="<%=request.getContextPath()%>/resources/profile-bharath.png"
          />
        
       </div>

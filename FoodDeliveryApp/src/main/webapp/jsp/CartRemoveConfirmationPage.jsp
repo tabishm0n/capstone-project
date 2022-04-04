@@ -22,7 +22,7 @@
         
 <div class="box2"><a class="button" href="<%=request.getContextPath()%>/RemoveCartitems?ans=1">Yes</a>
   <div class="space_24"></div> <div class="space_24"></div> <div class="space_24"></div><a class="button2" href="<%=request.getContextPath()%>/RemoveCartitems?ans=2">No</a>
-
+<!-- If button is pressed call servlet to remove cart items  -->
 </div>
 
 

@@ -12,12 +12,18 @@ request.setAttribute("dcf", dcf);%>
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
- <div class="orderscontainer">
-           
            <% 
-           if(!delivererpastorders.isEmpty()){
+           if(delivererpastorders.isEmpty())
+        //If nothing to show, show a message instead
+           {   %><div class="orderscontainerflex">
+           <div class="height_300"></div>
+           <p class="emptymessage">No Past Orders detected,</br> Start Delivering to track your earnings!</p>
+           </div><% }
+           else if(!delivererpastorders.isEmpty()){
         	   %>
+        	   <div class="orderscontainer">
               <div class="ordercontainertitle">Past Orders</div>
+              <!-- Display previous orders of deliverer -->
            <% 
         	   for(Orderitems d:delivererpastorders){
         		   OrderDao oDao  = new OrderDao(DbCon.getConnection());

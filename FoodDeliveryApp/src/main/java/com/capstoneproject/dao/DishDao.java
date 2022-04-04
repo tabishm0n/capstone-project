@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import com.capstoneproject.model.*;
-//SQL queries 
+//SQL queries for performing CRUD operation with database
 public class DishDao {
 	private Connection con;
 	private PreparedStatement ps;

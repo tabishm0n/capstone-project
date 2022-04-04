@@ -60,13 +60,15 @@ if (usertype == "Customer")
     </div>
     <%
 }else if (usertype == "Restaurant") {
-%>
-<div class="restauranthome">
- <div class="orderscontainer">
-           
-           <% 
-           if(!restaurantorderslistcreated.isEmpty())
-           {   %>
+			
+           if(restaurantorderslistcreated.isEmpty()&&restaurantorderslistdelivered.isEmpty()&&restaurantorderslistprepared.isEmpty())
+           {   %><div class="orderscontainerflex">
+           <div class="height_300"></div>
+           <p class="emptymessage">No Active Orders yet,</br> Wait for Customers to start ordering your delicious food!</p>
+           </div><% }
+           else if(!restaurantorderslistcreated.isEmpty())
+           {   %><div class="restauranthome">
+           <div class="orderscontainer">
            <div class="ordercontainertitle">Pending Orders</div>
            <% 
         	   for(Orderitems r:restaurantorderslistcreated){
@@ -139,12 +141,10 @@ if (usertype == "Customer")
            }
 			 %>
 			 </div>
-			 <div class="orderscontainer2">
-			    
-			  
 			 <% 
            if(!restaurantorderslistprepared.isEmpty())
            {   %>
+           <div class="orderscontainer2">
            <div class="ordercontainertitle">Active Orders</div>
            <%
         	   for(Orderitems r:restaurantorderslistprepared){
@@ -312,12 +312,8 @@ if (usertype == "Customer")
 			 
 	<%
 }else if (usertype == "Delivery") {%>
-
- <div class="orderscontainer">
-           
-           <% 
-           if(!deliverertripexists.isEmpty()){
-        	   %>
+           <%if(!deliverertripexists.isEmpty()){
+        	   %><div class="orderscontainer">
               <div class="ordercontainertitle">Current Trip</div>
            <% 
         	   for(Orderitems d:deliverertripexists){
@@ -384,8 +380,15 @@ if (usertype == "Customer")
            <div class="space_24"></div>
       <div class="orderspageaccept"><a href="<%=request.getContextPath()%>/OrderDelivered?oid=<%= d.getOrder_id()%>&did=<%= delivererinfo.getDeliverer_id()%>&amount=<%= d.getPrice() %>"><button class="orderspagedeliveredbutton">Order Delivered</button></a></div>
      </div>
+     
            <%}
            }
+           
+           if(delivererorderslistpending.isEmpty()&&deliverertripexists.isEmpty())
+           {   %><div class="orderscontainerflex">
+           <div class="height_300"></div>
+           <p class="emptymessage">No Orders yet,</br> Wait for Hungry customers to start ordering!</p>
+           </div><% }
            else if(!delivererorderslistpending.isEmpty())
            {   %>
            <div class="ordercontainertitle">Order Pickup</div>

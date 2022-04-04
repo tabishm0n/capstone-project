@@ -12,7 +12,7 @@ import com.capstoneproject.model.Dish;
 import com.capstoneproject.model.Orderitems;
 import com.capstoneproject.model.Orders;
 import com.capstoneproject.model.User;
-//SQL queries 
+//SQL queries for performing CRUD operation with database
 public class OrderDao {
 	private Connection con;
 	private PreparedStatement ps;

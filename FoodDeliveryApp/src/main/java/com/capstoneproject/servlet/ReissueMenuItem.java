@@ -15,7 +15,7 @@ import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.DishDao;
 import com.capstoneproject.model.Dish;
 
-
+//This Servlet is called when Restaurant Manager chooses to Re-Activate a Menu Item 
 @WebServlet("/ReissueMenuItem")
 public class ReissueMenuItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,12 +23,16 @@ public class ReissueMenuItem extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int ans = Integer.parseInt(request.getParameter("ans"));
-		if(ans==1) {
+
+		//Retrieve yes or no option from confirmation page
+		if(ans==1) {	//If answer is "Yes"
 			
 			Dish dishexists2 = (Dish) request.getSession().getAttribute("dishexists2");
+			//Retrieve session Dish object, created if Dish already exists in the menu
 			try {
 				DishDao dishDao = new DishDao(DbCon.getConnection());
 				dishDao.updateItem(dishexists2);
+				//Execute SQL query which sets active status of menu item to ACTIVE in database
 				response.sendRedirect("./jsp/RestaurantMenuPage.jsp");
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
@@ -37,8 +41,9 @@ public class ReissueMenuItem extends HttpServlet {
 			
 			
 			
-		}else if(ans==2){
+		}else if(ans==2){	//Else if answer is "No"
 			response.sendRedirect("./jsp/RestaurantMenuPage.jsp");
+			//If answer is NO, redirect to previous page
 			
 		}
 }

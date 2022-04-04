@@ -14,7 +14,7 @@ import com.capstoneproject.model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//SQL queries 
+//SQL queries for performing CRUD operation with database
 public class UserDao {
 	private Connection con;
 	private PreparedStatement ps;

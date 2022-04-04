@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.capstoneproject.model.*;
 
+//This Servlet is called when Customer wants to adjust the quantity of Menu Items in the Cart
 @WebServlet("/Quantity")
 public class UserQuantity extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,14 +21,20 @@ public class UserQuantity extends HttpServlet {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		try(PrintWriter out = response.getWriter();){
-			String action = request.getParameter("action");
-			int id  = Integer.parseInt(request.getParameter("id"));
-			ArrayList<Cart> cart_list = (ArrayList<Cart>)request.getSession().getAttribute("cart-list");
+			String action = request.getParameter("action"); 
+			//Get quantity amount from parameter passed from previous page
+			int id  = Integer.parseInt(request.getParameter("id")); 
+			//Get menu item ID
+			ArrayList<Cart> cart_list = (ArrayList<Cart>)request.getSession().getAttribute("cart-list"); 
+			//Get Session Cart List
 			if(action!=null&&id>=1) {
+				//If user changes menu item quantity in Cart
 				if(action.equals("rem")) {
+					//If user removes menu item from cart
 					if(cart_list!=null) {
 						for(Cart c:cart_list) {
 							if(c.getMenuitem_id()==id) {
+								//Remove menu item from cart where menu item id matches listing in the cart list
 								cart_list.remove(cart_list.indexOf(c));
 								break;
 						
@@ -36,6 +43,7 @@ public class UserQuantity extends HttpServlet {
 						}
 						response.sendRedirect("./jsp/Cart.jsp");
 					}	
+					//Else if user adjust quantity to a numeric value 
 				}else if(action.equals("chng1")) {
 					for(Cart c:cart_list) {
 						if(c.getMenuitem_id() == id) {

@@ -266,6 +266,9 @@ input[type="text" i] {
 .height{
   height: 30px;
 }
+.height_300{
+  height: 300px;
+}
 .height_16{
   height: 16px;
 }
@@ -703,6 +706,13 @@ line-height: 44px;
   align-self: center;
   flex-grow: 1;
 }
+
+.emptymessage{align-self:center;
+    line-height: 44px;
+    font-size: 36px;	
+    text-align: center;
+    color: #fff;
+}
 .badge{
   margin-left: .25rem;
   display:inline-block;
@@ -720,7 +730,11 @@ line-height: 44px;
   padding: 0 40px;
   box-sizing: border-box;
 }
-
+.orderscontainerflex{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 .orderscontainer2{
   margin: 0 auto;
 }
@@ -877,7 +891,11 @@ svg:not(:root) {
   text-indent: 0px;
   text-shadow: none;
   text-align: center;
-}.orderspagestatus{
+}.orderspagecancelbutton{
+	width: 80%;
+}
+
+.orderspagestatus{
 	display: flex;
 	justify-content: center;
 }
@@ -1264,6 +1282,7 @@ background-color: rgb(219, 119, 38);
   height: 24px;
   cursor: pointer;
 }
+
 .adminprofileimg{
   flex: 0 0 302px;
   height: 100%;

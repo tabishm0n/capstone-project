@@ -53,21 +53,7 @@ body {
 .container:hover .img {
   transform: translateY(0) scale(1.2);
 }
-.img1 {
-  left: 22px;
-  top: 164px;
-  width: 340px;
-}
-.img2 {
-  left: -46px;
-  top: 164px;
-  width: 340px;
-}
-.img3 {
-  left: -16px;
-  top: 164px;
-  width: 340px;
-}
+
 .divider {
   background-color: #ffa51d;
   height: 1px;
@@ -87,3 +73,31 @@ body {
   font-style: italic;
   margin-top: 4px;
 }
+.backbutton{
+	background-color: rgb(236, 122, 28);
+	width: 48px;
+	left: 520px;
+	top: 250px;
+	border-radius: 50%;
+	z-index: 11;
+	justify-content: center;
+	height: 48px;
+	cursor: pointer;
+	align-items: center;
+	position: absolute;
+	display: flex;
+	border-color: #f3900f;
+	transition-duration: 0.25s;
+  }
+  .backbutton:hover{
+	background-color: rgb(216, 111, 26);
+  }
+  .backbutton2{
+	line-height: 1;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	color: #fff;
+  }
+  .fill{
+  fill: currentcolor;}

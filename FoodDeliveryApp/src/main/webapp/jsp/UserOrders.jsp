@@ -20,10 +20,14 @@ if (user == null) {
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
-         <div class="orderscontainer">
+         <%if(orderslist.isEmpty()){ %><div class="orderscontainerflex">
+           <div class="height_300"></div>
+         <a class="emptymessage" href="<%= request.getContextPath() %>/jsp/UserHomepage.jsp">No Active Orders, Find food to eat!</a>
+  			</div><%}else{ %>
+  			<div class="orderscontainer">
            <div class="ordercontainertitle">Current Order</div>
            <% 
-           if(orderslist!=null)
+           if(!orderslist.isEmpty())
            {   for(Orderitems o1:orders){
         	   OrderDao oDao  = new OrderDao(DbCon.getConnection());
         	   orderitems = oDao.userOrderItems(o1.getOrder_id());
@@ -225,6 +229,7 @@ if (user == null) {
         <% 
         }
         }
+  			}
            %>
       </div> 
 </body>

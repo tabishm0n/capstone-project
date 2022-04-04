@@ -9,7 +9,7 @@ import java.util.List;
 import com.capstoneproject.model.Dish;
 import com.capstoneproject.model.Rest;
 import com.capstoneproject.model.User;
-//SQL queries 
+//SQL queries for performing CRUD operation with database
 public class RestDao {
 	private Connection con;
 	private PreparedStatement ps;

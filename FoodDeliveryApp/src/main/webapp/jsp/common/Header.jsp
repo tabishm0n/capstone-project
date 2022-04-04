@@ -5,7 +5,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%
+<%//This is header jsp, which is top bar on webpage. It is used almost everywhere hence we have initialized a lot of lists and attributes on this jsp page
 String usertype= (String)request.getSession().getAttribute("usertype");
 String username= (String)request.getSession().getAttribute("login");
 User auth = (User) request.getSession().getAttribute("auth");

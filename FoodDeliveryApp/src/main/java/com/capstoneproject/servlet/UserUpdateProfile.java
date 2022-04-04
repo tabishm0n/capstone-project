@@ -17,9 +17,7 @@ import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.*;
 import com.capstoneproject.model.*;
 
-/**
- * Servlet implementation class UserUpdateProfile
- */
+//This Servlet is called when User wants to update their info
 @WebServlet("/UpdateProfile")
 public class UserUpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,6 +49,7 @@ public class UserUpdateProfile extends HttpServlet {
 		String description = request.getParameter("description");
 		String rest_city = request.getParameter("rest_city");
 		String rest_address = request.getParameter("rest_address");
+		//Retrieve all the user details from the Profile Page
 		Rest rest = new Rest();
 		User user = new User();
 		user.setFirst_name(first_name);
@@ -63,6 +62,7 @@ public class UserUpdateProfile extends HttpServlet {
 		rest.setDescription(description);
 		rest.setCity(rest_city);
 		rest.setStreet_address(rest_address);
+		//Store in object for either user or restaurant details
 		try {
 			String login = auth.getLogin();
 			String password = auth.getPassword();
@@ -73,12 +73,12 @@ public class UserUpdateProfile extends HttpServlet {
 			us.setLogin(login);
 			us.setPassword(password);
 			usDao.updateProfile(user,userID);
+			//Execute SQL query to carry out CRUD operation to update user info in database
 			String usertype = user2.getUser_type();
 			if(usertype.equals("Restaurant")) {
 				usDao.updateRestProfile(rest,userID);
-				
+				//Execute SQL query to update restaurant details
 			}
-			
 			result=true;
 			if(result) {
 				if (verify != null) {
@@ -93,6 +93,7 @@ public class UserUpdateProfile extends HttpServlet {
 						request.getSession().setAttribute("rest_address", rest_address1 );
 						request.getSession().setAttribute("description", description1 );
 						request.getSession().setAttribute("restaurant_name", restaurant_name1);
+						//Reset restaurant session attributes with new information which the user updated their info with
 					}
 					String user_type = user1.getUser_type();
 					String first_name1 = user1.getFirst_name();
@@ -112,9 +113,10 @@ public class UserUpdateProfile extends HttpServlet {
 					request.getSession().setAttribute("auth", verify);
 					request.getSession().setAttribute("login", login);
 					request.getSession().setAttribute("user_type", user_type);
+					//Reset session attributes with new information which the user updated their info with
 					response.sendRedirect("./jsp/UserProfilePage.jsp");
-					 } 
-				
+					//Refresh User Profile Page
+					} 
 			}  
 		}
 		catch(Exception e) {

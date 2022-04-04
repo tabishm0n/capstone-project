@@ -16,7 +16,7 @@ import com.capstoneproject.dao.DishDao;
 import com.capstoneproject.model.Cart;
 import com.capstoneproject.model.Dish;
 
-
+//This Servlet is called when Restaurant Manager wants to Remove Menu Item
 @WebServlet("/DeleteMenuItem")
 public class DeleteMenuItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,9 +25,11 @@ public class DeleteMenuItem extends HttpServlet {
 		try(PrintWriter out = response.getWriter()){
 			int mid = Integer.parseInt(request.getParameter("mid"));
 			int rid = Integer.parseInt(request.getParameter("rid"));
+			//Retrieve parameters from previous page, here Restaurant ID and Menu Item ID
 			try {
 				DishDao dishDao = new DishDao(DbCon.getConnection());
 				dishDao.deleteMenuItem(mid,rid);
+				//Run SQL query through method which sets the active status of item to boolean false in database
 				response.sendRedirect("./jsp/RestaurantMenuPage.jsp");
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

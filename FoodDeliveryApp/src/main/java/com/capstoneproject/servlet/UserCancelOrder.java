@@ -13,6 +13,7 @@ import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.OrderDao;
 import com.capstoneproject.model.Orders;
 
+//This Servlet is called when Customer wants to cancel a placed order
 @WebServlet("/CancelOrder")
 public class UserCancelOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -21,9 +22,12 @@ public class UserCancelOrder extends HttpServlet {
 
 		try(PrintWriter out = response.getWriter()){
 			String id = request.getParameter("id");
+			//Retrieve parameter from previous page, in this case Order ID 
 			if(id!=null) {
 				OrderDao orderDao = new OrderDao(DbCon.getConnection());
 				orderDao.cancelOrder(Integer.parseInt(id));
+				//Execute SQL query to remove order details for placed order from all related tables in the database
+				
 			}
 			
 				response.sendRedirect("./jsp/UserOrders.jsp");

@@ -16,7 +16,7 @@ import com.capstoneproject.connection.DbCon;
 import com.capstoneproject.dao.*;
 import com.capstoneproject.model.*;
 
-
+//This Servlet is called when Restaurant Manager wants to edit menu item details
 @WebServlet("/EditMenuItem")
 public class EditMenuItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,14 +29,17 @@ public class EditMenuItem extends HttpServlet {
 			String category = request.getParameter("category");
 			String description = request.getParameter("description");
 			float price = Float.parseFloat(request.getParameter("price"));
+			//Retrieve parameters from previous page, here Restaurant details and Menu item ID
 			Dish dishinfo = new Dish();
 			dishinfo.setItem_name(item_name);
 			dishinfo.setCategory(Integer.parseInt(category));
 			dishinfo.setDescription(description);
 			dishinfo.setPrice(price);
+			//Create Dish object to be passed through method as parameter
 			try {
 				DishDao dishDao = new DishDao(DbCon.getConnection());
 				dishDao.updateMenuItem(mid,rid,dishinfo);
+				//Call method to run CRUD operation on database which updates the menu item details
 				response.sendRedirect("./jsp/RestaurantMenuPage.jsp");
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

@@ -6,9 +6,10 @@
     pageEncoding="ISO-8859-1"%>
      <% int mid = Integer.parseInt(request.getParameter("mid"));
      Rest restinfo2 = (Rest) request.getSession().getAttribute("restinfo");
+     //Retrieve restaurant details for user that is logged in
      DishDao ds = new DishDao(DbCon.getConnection());
      Dish dishes = ds.getAllDishes2(mid,restinfo2.getRestaurant_id());
-		
+     //Retrieve all menu items available from the restaurant
  %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,7 @@
 	<form class="register">
 	<h1>Delete <%=dishes.getItem_name() %> from Menu?</h1>
 	<a href="<%= request.getContextPath() %>/DeleteMenuItem?mid=<%=dishes.getMenuitem_id() %>&rid=<%=restinfo2.getRestaurant_id()%>" class="deleteformbutton">Yes</a>
-	
+	<!-- Confirmation to delete menu item from menu, if yes is pressed, call servlet to delete menu item -->
 	</form>
 						
 </body>

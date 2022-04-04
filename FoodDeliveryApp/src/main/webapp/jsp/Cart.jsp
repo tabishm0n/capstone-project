@@ -4,7 +4,7 @@
 <% DecimalFormat dcf = new DecimalFormat("#.##");
 request.setAttribute("dcf", dcf);
 Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
-
+//Set Restaurant Details User wants to view
 %>
 <!DOCTYPE html>
 <html>
@@ -14,23 +14,32 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
 <%@ include file="./common/Header.jsp"%>
 </head>
 <body>
-<div class="cartcontainer">
+
+<%if(cart_list==null){ %>
+<div class="orderscontainerflex">
+   <div class="height_300"></div>
+  <a class="emptymessage" href="<%= request.getContextPath() %>/jsp/UserHomepage.jsp">No items in Cart, Find food to eat!</a>
+  </div>
+  <%} else{ %><div class="cartcontainer">
 <div class="cartl">
 <h1 class="crname">
   <a href="<%= request.getContextPath() %>/RestaurantPage?id=<%= userrestinfo.getRestaurant_id() %>"><%= userrestinfo.getRestaurant_name() %></a></h1>
             <hr class="divider">
+  <!--Redirect to restaurant menu page, passing values for restaurant ID   -->
   <div class="ctitle">
     <h3 class="cheader">Your items</h3>
     </div>
   <div class="height_16"></div>
   <ul>
-    <% if(cart_list != null)
+    <%if(cart_list != null)
+    	//Display list cartList 
     	{
     	for (Cart c:cartProduct){%>
+    	<!-- Display all items using for loop -->
     		<li class="coitemli">
     		<div class="selectiondropdown">
             <div class="selectiondropdown2">
-            
+            <!-- Dropdown to make changes to item quantity -->
               <select class="select" name="ddquantity" onchange="location = this.value;">
              	<option value="<%=request.getContextPath()%>/Quantity?action=rem&id=<%= c.getMenuitem_id() %>" class="options">Remove</option>
                 <option class="defaultoption" disabled selected ><%= c.getQuantity() %></option>
@@ -45,7 +54,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                 <option value="<%=request.getContextPath()%>/Quantity?action=chng9&id=<%= c.getMenuitem_id() %>" class="options">9</option>
                 <option value="<%=request.getContextPath()%>/Quantity?action=chng10&id=<%= c.getMenuitem_id() %>" class="options">10</option>
                 </select>
-                
+                <!--All adjustments that can be made to quantity for menu item inside Cart  -->
                 <div class="arrowselector">
                   <div class="arrowselector2">
                     <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -58,6 +67,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
             </div>
             <div class="space_8"></div>
             <a class="restlinkcart" >
+            <!-- Menu Item Details -->
               <div class="contli">
                 <div class="contli2">
                   <div class="citem"><%= c.getItem_name() %></div>
@@ -80,11 +90,13 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
     <div class="cartorder">
       <div class="placeorder"><a href="<%=request.getContextPath()%>/Checkout?rid=<%= userrestinfo.getRestaurant_id()%>">
         <button class="orderbutton">Place order</button>
+        <!-- When button is pressed called servlet to place order with current cart list -->
       </a></div>
       <div class="height_16">
       </div>
       <hr class="divider">
           <ul>
+          <!-- Display price details for each category according to cart items -->
             <li class="poli">
               <div class="poli-items">
                 <div class="poli-items-text">Subtotal</div>
@@ -131,6 +143,7 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
             <hr class="divider">
             <hr class="divider">
                 <div class="tip">
+                <!-- Add tip functionality (Future Addition) -->
                   <div class="tip2">
                     <div class="tiptitle">
                       <h2 class="tiptext">Add a tip</h2>
@@ -150,9 +163,10 @@ Rest userrestinfo = (Rest)request.getSession().getAttribute("userrestinfo");
                         <hr class="divider">
                         <div class="pototal">
                           <div>Total</div>$ ${(total>0)?dcf.format(total):0}</div>
-                          					 
+                          <!-- Display Total Price -->
                         </div>
                       </div>
+                      <%} %>
 </div>
 
 </body>
