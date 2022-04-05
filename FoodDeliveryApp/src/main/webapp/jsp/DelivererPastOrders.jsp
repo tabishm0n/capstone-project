@@ -33,7 +33,7 @@ request.setAttribute("dcf", dcf);%>
              <a class="orderspagestorelink">
                <div height="140" class="orderimagefigure">
                  <div class="ordersrestimage" style="height: 140px;">
-                    <img alt="" role="presentation" src="https://d1ralsognjng37.cloudfront.net/629b3c46-9959-4c89-be6f-0beac1b01a47.jpeg" aria-hidden="true" >
+                    <img alt="" role="presentation" src="<%=request.getContextPath()%>/resources/food1.png" aria-hidden="true" >
                      </div>
               </div>
             </a>
