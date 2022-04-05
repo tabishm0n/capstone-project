@@ -76,8 +76,8 @@ body {
 .backbutton{
 	background-color: rgb(236, 122, 28);
 	width: 48px;
-	left: 520px;
-	top: 250px;
+	left: 28%;
+	top: 28%;
 	border-radius: 50%;
 	z-index: 11;
 	justify-content: center;

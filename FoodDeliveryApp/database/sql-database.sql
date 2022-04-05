@@ -937,7 +937,7 @@ ALTER TABLE ONLY public.orders
 -- Name: DATABASE capstoneproject; Type: ACL; Schema: -; Owner: postgres
 --
 
-GRANT ALL ON DATABASE capstoneproject TO tabishmon;
+GRANT ALL ON DATABASE capstoneproject TO postgres;
 
 
 -- Completed on 2022-04-04 17:02:56
