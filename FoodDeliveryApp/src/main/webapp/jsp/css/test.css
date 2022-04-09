@@ -1023,14 +1023,17 @@ svg:not(:root) {
   display: none;
 }#hidden3{
   display: none;
+}#hidden4{
+  display: none;
 }#hidden5{
   display: none;
 }#hidden6{
   display: none;
 }#hidden7{
   display: none;
-}#hidden4{
-  display: none;
+}#hidden8{
+  margin-left: 25%;
+  margin-top: 10%;
 }
 .profileinput2,.profileinput1,.profileinput3,.profileinput4{
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 6px;

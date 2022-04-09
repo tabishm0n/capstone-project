@@ -22,7 +22,7 @@ public class RestDao {
 	public List<Rest> getAllRests(){
 		List<Rest> rests =  new ArrayList<Rest>();
 		try {
-			String SELECT_REST_SQL = " SELECT * FROM restaurant ORDER BY restaurant_id ASC; ";
+			String SELECT_REST_SQL = " SELECT * from restaurant where exists (SELECT * FROM menu_item WHERE menu_item.restaurant_id = restaurant.restaurant_id) ORDER BY restaurant.restaurant_id ASC; ";
 			ps = this.con.prepareStatement( SELECT_REST_SQL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
