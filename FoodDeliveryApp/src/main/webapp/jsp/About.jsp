@@ -23,7 +23,7 @@
     </div>
     <div class="divider"></div>
     <div class="name">Tauseef</div>
-    <div class="title">Project Design</div>
+    <div class="title">Software Design</div>
   </div>
   <div class="person">
     <div class="container">
@@ -51,7 +51,7 @@
     </div>
     <div class="divider"></div>
     <div class="name">Bharath</div>
-    <div class="title">UI Designer</div>
+    <div class="title">Project Backend</div>
   </div>
 </body>
 
