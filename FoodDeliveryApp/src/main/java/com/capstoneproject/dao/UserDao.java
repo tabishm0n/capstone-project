@@ -317,10 +317,10 @@ public int deleteCustomerOrder(int oid){
 public int deleteRestaurantOwner(int uid,int rid){
 	int result = 0;
 	try {
-		String DELETE_RESTAURANT_SQL = " DELETE FROM restaurant where user_id=?;DELETE FROM menu_item WHERE restaurant_id=?;DELETE FROM user_table WHERE id=?;";
+		String DELETE_RESTAURANT_SQL = " DELETE FROM menu_item WHERE restaurant_id=?;DELETE FROM restaurant where user_id=?;DELETE FROM user_table WHERE id=?;";
 		ps = this.con.prepareStatement(DELETE_RESTAURANT_SQL);
-		ps.setInt(1,uid);
-		ps.setInt(2,rid);
+		ps.setInt(1,rid);
+		ps.setInt(2,uid);
 		ps.setInt(3,uid);
 		result = ps.executeUpdate();
 		

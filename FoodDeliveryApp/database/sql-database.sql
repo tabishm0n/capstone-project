@@ -646,8 +646,6 @@ INSERT INTO public.user_table VALUES (7, 'naseeh', '123', 'naseeh', 'Manchuria',
 INSERT INTO public.user_table VALUES (8, 'tauseef', '123', 'Tasueef', 'Khammam', 'Tauseef', 'Nihal', 'tauseef@gmail.com', '576597568', 'Delivery', '68760876087', '2022-03-13 00:00:00');
 INSERT INTO public.user_table VALUES (9, 'asad', '123', 'Nalgonda', 'Chabutra', 'Asaduddin', 'Owaisi', 'asad123@gmail.com', '4895734987', 'Delivery', '3464574574', '2022-03-13 00:00:00');
 INSERT INTO public.user_table VALUES (10, 'jerry', '123', 'Toronto', 'Whale St', 'Jerry', 'Junior', 'jerry123@gmail.com', '234234499', 'Delivery', '23454634', '2022-03-13 00:00:00');
-INSERT INTO public.user_table VALUES (14, 'david', '123', 'Mississauga', 'Peel St', 'David', 'Ligma', 'david123@gmail.com', '8943758334', 'Restaurant', '9384759345', '2022-03-14 00:00:00');
-INSERT INTO public.user_table VALUES (15, 'carla', '123', 'Toronto', 'Downtown', 'carla', 'sweet', 'carla@gmail.com', '4568737890', 'Restaurant', '9457645679', '2022-03-14 00:00:00');
 INSERT INTO public.user_table VALUES (4, 'lee', '123', 'Toronto', 'Chinatown', 'Lee', 'Chaolan', 'lee123@gmail.com', '2345643987', 'Restaurant', '239847984', '2022-03-01 19:54:38.037444');
 INSERT INTO public.user_table VALUES (2, 'owais', '123', 'Toronto', 'George St', 'Owais', 'Brother', 'owais123@gmail.com', '0982340982', 'Customer', '0980982348', '2022-02-22 00:00:00');
 
