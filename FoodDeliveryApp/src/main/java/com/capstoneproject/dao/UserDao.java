@@ -25,7 +25,7 @@ public class UserDao {
 	public int registerUser(User user) throws ClassNotFoundException{
 		String INSERT_USERS_SQL = "INSERT INTO user_table " + "(login,password,city,"
 				+ "street_address,first_name,last_name,email,phone,user_type,payment,"
-				+"registeration_date) VALUES (?,?,?,?,?,?,?,?,?,?,NOW());";
+				+"registeration_date) VALUES (?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP);";
 		int result = 0 ;
 		try  {
 			ps = this.con.prepareStatement(INSERT_USERS_SQL);

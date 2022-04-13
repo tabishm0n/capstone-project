@@ -24,7 +24,7 @@ public class OrderDao {
 		boolean result = false;
 		
 		try {
-			String ORDER_INSERT_SQL = "INSERT INTO orders (user_id,order_status,restaurant_id,orders_order_date) VALUES (?,1,?,NOW()) ; ";
+			String ORDER_INSERT_SQL = "INSERT INTO orders (user_id,order_status,restaurant_id,orders_order_date) VALUES (?,1,?,CURRENT_TIMESTAMP) ; ";
 			ps = this.con.prepareStatement(ORDER_INSERT_SQL);
 			ps.setInt(1, uid);
 			ps.setInt(2, rid);
@@ -78,7 +78,7 @@ public class OrderDao {
 	 
 	public int orderId(int id) {
 		int res=0;
-		String ORDER_ID_SQL = "SELECT order_id FROM orders WHERE user_id=? ORDER BY order_id DESC LIMIT 1;";
+		String ORDER_ID_SQL = "SELECT TOP 1 order_id FROM orders WHERE user_id=? ORDER BY order_id DESC;";
 		try {
 			ps = this.con.prepareStatement(ORDER_ID_SQL);
 			ps.setInt(1, id);
@@ -115,7 +115,7 @@ public class OrderDao {
 		boolean result = false;
 		try {
 			String ORDER_INSERT_SQL = " INSERT INTO orderitems (order_id,menuitem_id,quantity,order_date)"
-					+ " (SELECT order_id,?,?,NOW() FROM orders WHERE order_id=?);";
+					+ " (SELECT order_id,?,?,CURRENT_TIMESTAMP FROM orders WHERE order_id=?);";
 			ps = this.con.prepareStatement(ORDER_INSERT_SQL);
 			ps.setInt(1, model.getMenuitem_id());
 			ps.setInt(2,model.getQuantity());
@@ -132,7 +132,7 @@ public class OrderDao {
 		List<Orderitems> list = new ArrayList<>();
 		float res=0;
 		try {
-			String NEW_ORDER_SQL = " SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date,oi.order_id,od.user_id,od.order_status,od.restaurant_id,rs.restaurant_name from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN restaurant rs ON od.restaurant_id=rs.restaurant_id WHERE (od.user_id=? AND od.order_status=1) OR (od.user_id=? AND od.order_status=2) OR (od.user_id=? AND od.order_status=3) GROUP BY oi.order_id,date,od.restaurant_id,rs.restaurant_name,od.order_status,od.user_id ORDER BY oi.order_id DESC;";
+			String NEW_ORDER_SQL = " SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date,oi.order_id,od.user_id,od.order_status,od.restaurant_id,rs.restaurant_name from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN restaurant rs ON od.restaurant_id=rs.restaurant_id WHERE (od.user_id=? AND od.order_status=1) OR (od.user_id=? AND od.order_status=2) OR (od.user_id=? AND od.order_status=3) GROUP BY oi.order_id,oi.order_date,od.restaurant_id,rs.restaurant_name,od.order_status,od.user_id ORDER BY oi.order_id DESC;";
 			ps = this.con.prepareStatement(NEW_ORDER_SQL);
 			ps.setInt(1, id);
 			ps.setInt(2, id);
@@ -161,7 +161,7 @@ public class OrderDao {
 		List<Orderitems> list = new ArrayList<>();
 		float res=0;
 		try {
-			String COMPLETED_ORDER_SQL = "SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date,oi.order_id,od.order_status,od.restaurant_id,rs.restaurant_name from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN restaurant rs ON od.restaurant_id=rs.restaurant_id WHERE od.user_id=? AND od.order_status=4 GROUP BY oi.order_id,date,od.restaurant_id,rs.restaurant_name,od.order_status ORDER BY oi.order_id DESC;";
+			String COMPLETED_ORDER_SQL = "SELECT SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date,oi.order_id,od.order_status,od.restaurant_id,rs.restaurant_name from orderitems oi INNER JOIN menu_item mi on mi.menuitem_id=oi.menuitem_id INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN restaurant rs ON od.restaurant_id=rs.restaurant_id WHERE od.user_id=? AND od.order_status=4 GROUP BY oi.order_id,oi.order_date,od.restaurant_id,rs.restaurant_name,od.order_status ORDER BY oi.order_id DESC;";
 			ps = this.con.prepareStatement(COMPLETED_ORDER_SQL);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -188,7 +188,7 @@ public class OrderDao {
 	public List<Orderitems> RestaurantOrdersListCreated(int rid) { 
 		  List<Orderitems> list = new ArrayList<>(); 
 		  float res=0;
-		  String REST_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=1 GROUP BY od.order_id,date,us.first_name,us.last_name  ORDER BY order_id DESC; "; 
+		  String REST_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=1 GROUP BY od.order_id,oi.order_date,us.first_name,us.last_name  ORDER BY order_id DESC; "; 
 		
 		  try {
 			  ps = this.con.prepareStatement(REST_ORDER_SQL); 
@@ -217,7 +217,7 @@ public class OrderDao {
 	   }
 	public List<Orderitems> RestaurantOrdersListPrepared(int rid) { 
 		  List<Orderitems> list = new ArrayList<>(); 
-		  String REST_PREPARED_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE (mi.restaurant_id=? AND od.order_status=2) OR (mi.restaurant_id=? AND od.order_status=3) GROUP BY od.order_id,date,us.first_name,us.last_name  ORDER BY order_id DESC;"; 
+		  String REST_PREPARED_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE (mi.restaurant_id=? AND od.order_status=2) OR (mi.restaurant_id=? AND od.order_status=3) GROUP BY od.order_id,oi.order_date,us.first_name,us.last_name  ORDER BY order_id DESC;"; 
 		  float res=0;
 		  try {
 			  ps = this.con.prepareStatement(REST_PREPARED_ORDER_SQL); 
@@ -248,7 +248,7 @@ public class OrderDao {
 	
 	public List<Orderitems> RestaurantOrdersListDelivered(int rid) { 
 		  List<Orderitems> list = new ArrayList<>(); 
-		  String REST_DELIVERED_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=4 GROUP BY od.order_id,date,us.first_name,us.last_name  ORDER BY order_id DESC;  "; 
+		  String REST_DELIVERED_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total,COUNT(quantity)AS items,oi.order_date as date FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id WHERE mi.restaurant_id=? AND od.order_status=4 GROUP BY od.order_id,oi.order_date,us.first_name,us.last_name  ORDER BY order_id DESC;  "; 
 		  float res=0;
 		  try {
 			  ps = this.con.prepareStatement(REST_DELIVERED_ORDER_SQL); 
@@ -304,7 +304,7 @@ public class OrderDao {
 	   }
 	public List<Orderitems> DelivererOrdersListPrepared() { 
 		  List<Orderitems> list = new ArrayList<>(); 
-		  String DELIVERER_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items, oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id WHERE od.order_status=2 GROUP BY od.order_id,date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address ORDER BY order_id DESC;"; 
+		  String DELIVERER_ORDER_SQL ="SELECT od.order_id,us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items, oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id WHERE od.order_status=2 GROUP BY od.order_id,oi.order_date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address ORDER BY order_id DESC;"; 
 		  float res=0;
 		  try {
 			  ps = this.con.prepareStatement(DELIVERER_ORDER_SQL); 
@@ -438,7 +438,7 @@ public class OrderDao {
 	public List<Orderitems> Istripexists(int did){
 		List<Orderitems> list = new ArrayList<>(); 
 		float res=0;
-		String SELECT_IF_EXISTS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,d.wallet, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=3 GROUP BY od.order_id,date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,d.wallet ORDER BY order_id DESC;";
+		String SELECT_IF_EXISTS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,d.wallet, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date ,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=3 GROUP BY od.user_id,od.order_status,od.order_id,oi.order_date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,d.wallet ORDER BY order_id DESC;";
 		try {
 			  ps = this.con.prepareStatement(SELECT_IF_EXISTS_SQL); 
 			  ps.setInt(1,did);
@@ -477,7 +477,7 @@ public class OrderDao {
 	public List<Orderitems> delivererCompletedOrders(int did){
 		List<Orderitems> list = new ArrayList<>(); 
 		float res=0;
-		String PAST_ORDERS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,di.earnings, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=4 GROUP BY od.order_id,date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,di.earnings ORDER BY order_id DESC;";
+		String PAST_ORDERS_SQL = "SELECT od.order_id,od.user_id as customer_id,od.order_status,rs.restaurant_id,d.deliverer_id,di.earnings, us.first_name,us.last_name,SUM(oi.quantity*mi.price) AS total , COUNT(quantity)AS items,oi.order_date as date,rs.restaurant_name,us.city as user_city,us.street_address as user_address,rs.city as rest_city,rs.street_address as rest_address FROM orderitems oi INNER JOIN orders od ON od.order_id=oi.order_id INNER JOIN user_table us ON us.id=od.user_id INNER JOIN menu_item mi ON mi.menuitem_id=oi.menuitem_id INNER JOIN restaurant rs ON rs.restaurant_id = mi.restaurant_id INNER JOIN deliverer_info di ON di.order_id = od.order_id INNER JOIN deliverer d ON d.deliverer_id = di.deliverer_id WHERE d.deliverer_id=?  AND od.order_status=4 GROUP BY od.user_id,od.order_status,od.order_id,oi.order_date,us.first_name,us.last_name,rs.restaurant_name,us.city,us.street_address,rs.city,rs.street_address,rs.restaurant_id,d.deliverer_id,di.earnings ORDER BY order_id DESC;";
 		try {
 			  ps = this.con.prepareStatement(PAST_ORDERS_SQL); 
 			  ps.setInt(1,did);

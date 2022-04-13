@@ -18,7 +18,7 @@ public class DishDao {
 	public List<Dish> getAllDishes(int cid,int rid){
 		List<Dish> dishes =  new ArrayList<Dish>();
 		try {
-			String SELECT_DISH_SQL = " SELECT * FROM menu_item WHERE category=? AND restaurant_id=? AND active=true ORDER BY item_name ; ";
+			String SELECT_DISH_SQL = " SELECT * FROM menu_item WHERE category=? AND restaurant_id=? AND active=1 ORDER BY item_name ; ";
 			ps = this.con.prepareStatement( SELECT_DISH_SQL);
 			ps.setInt(1,cid);
 			ps.setInt(2,rid);
@@ -41,7 +41,7 @@ public class DishDao {
 	}public Dish getAllDishes2(int mid,int rid){
 		Dish dishes =  new Dish();
 		try {
-			String SELECT_DISH2_SQL = " SELECT * FROM menu_item WHERE menuitem_id=? AND restaurant_id=? AND active=true ORDER BY item_name ; ";
+			String SELECT_DISH2_SQL = " SELECT * FROM menu_item WHERE menuitem_id=? AND restaurant_id=? AND active=1 ORDER BY item_name ; ";
 			ps = this.con.prepareStatement( SELECT_DISH2_SQL);
 			ps.setInt(1,mid);
 			ps.setInt(2,rid);
@@ -63,7 +63,7 @@ public class DishDao {
 	public List<Dish> getCategories(int rid){
 		List<Dish> dishes =  new ArrayList<Dish>();
 		try {
-			String SELECT_CATEGORY_SQL = "SELECT DISTINCT ct.category_name,ct.category_id FROM menu_item mi INNER JOIN category ct ON ct.category_id=mi.category WHERE mi.restaurant_id=? AND active=true  ORDER BY ct.category_id;";
+			String SELECT_CATEGORY_SQL = "SELECT DISTINCT ct.category_name,ct.category_id FROM menu_item mi INNER JOIN category ct ON ct.category_id=mi.category WHERE mi.restaurant_id=? AND active=1  ORDER BY ct.category_id;";
 			ps = this.con.prepareStatement( SELECT_CATEGORY_SQL);
 			ps.setInt(1,rid);
 			rs = ps.executeQuery();
@@ -254,7 +254,7 @@ public class DishDao {
 	public int deleteMenuItem(int mid,int rid){
 		int result = 0;
 		try {
-			String DELETE_DISH_SQL = " UPDATE menu_item SET active=false WHERE menuitem_id = ? AND restaurant_id = ?;";
+			String DELETE_DISH_SQL = " UPDATE menu_item SET active=0 WHERE menuitem_id = ? AND restaurant_id = ?;";
 			ps = this.con.prepareStatement(DELETE_DISH_SQL);
 			ps.setInt(1,mid);
 			ps.setInt(2,rid);
@@ -341,7 +341,7 @@ public class DishDao {
 	   }
 	public void updateItem(Dish dishinfo){
 		try {
-			String REACTIVATE_ORDER_SQL = "UPDATE menu_item SET active=true WHERE menuitem_id=? AND restaurant_id=?;";
+			String REACTIVATE_ORDER_SQL = "UPDATE menu_item SET active=1 WHERE menuitem_id=? AND restaurant_id=?;";
 			ps = this.con.prepareStatement(REACTIVATE_ORDER_SQL);
 			ps.setInt(1,dishinfo.getMenuitem_id());
 			ps.setInt(2,dishinfo.getRestaurant_id());

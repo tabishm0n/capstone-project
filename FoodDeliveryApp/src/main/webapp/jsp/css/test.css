@@ -1239,6 +1239,7 @@ background-color: rgb(219, 119, 38);
 	 background-color: rgb(70, 70, 70);
 }
 .register input,.register select,.formbutton,.deleteformbutton { 
+	text-align: center;
       width: 100%; 
       margin-bottom: 10px; 
       border: none;
